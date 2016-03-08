@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/custom_textview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/title_bar_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/timer"
+        />
+
+    <RelativeLayout
+        android:id="@+id/clcokset_rl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/choose_plan_ll1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/custom_normal_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pool_length" />
+
+                    <Spinner
+                        android:id="@+id/pool_length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp" />
+
+                    <TextView
+                        style="@style/custom_normal_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:text="@string/time_interval"/>
+
+                    <AutoCompleteTextView
+                        android:id="@+id/act_interval"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:ems="5"
+                        android:hint="@string/time_interval"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textColor="@color/color_text"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/choose_stroke"
+                        android:textColor="@color/aliceblue" />
+
+                    <Spinner
+                        android:id="@+id/stroke"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="10dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/custom_normal_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/swim_total_length"/>
+                    <AutoCompleteTextView
+                        android:id="@+id/tv_distance"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:ems="5"
+                        android:hint="@string/swim_total_length"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textColor="@color/color_text"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="米"
+                        android:textColor="@color/aliceblue"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        style="@style/stop_watch_radio_btn"
+                        android:id="@+id/rb_stop_watch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/interval"/>
+                </LinearLayout>
+
+
+            <com.scnu.swimmingtrainsystem.view.ClearEdittext
+                android:id="@+id/et_remarks"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/bg_edittext_selector"
+                android:hint="@string/input_extra"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_choosed_athlete_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/choose_plan_ll1"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:text="@string/choosed_athlete"
+            android:textColor="@color/black"
+            />
+
+
+        <ListView
+            android:id="@+id/list_choosed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_choosed_athlete_title"
+            android:cacheColorHint="#fff" >
+        </ListView>
+
+
+    </RelativeLayout>
+
+        <Button
+            style="@style/custom_btn"
+            android:id="@+id/bt_choose_athlete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="chooseAthlete"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/choose_athlete" />
+
+        <Button
+            style="@style/custom_btn"
+            android:id="@+id/btn_start_timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="startTiming"
+            android:text="@string/start_timer" />
+
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/athlete_headbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/title_bar_bg" >
+
+        <TextView
+            style="@style/custom_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/manage_athlete"
+             />
+
+        <ImageButton
+            android:id="@+id/athlete_back"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:onClick="back"
+            android:src="@drawable/btn_back" />
+
+        <ImageButton
+            android:id="@+id/btn_sync_athlete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_sync" />
+    </RelativeLayout>
+
+
+
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/lv"
+        android:layout_below="@id/athlete_headbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" />
+
+
+    <ImageButton
+        android:id="@+id/btn_add_athlete"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ic_add"
+        />
+
+</RelativeLayout>

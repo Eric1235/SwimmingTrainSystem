@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        style="@style/custom_textview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/title_bar_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/mine"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/title_bar_bg">
+        <ImageView
+            android:id="@+id/img_user"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_user"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/title_bar_bg">
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tv_user_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:layout_below="@id/tv_user_name"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/wealth_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dark_blue"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/user_athlete_num_layout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="32dp"
+                    android:src="@drawable/ic_athlete"/>
+                <TextView
+                    android:id="@+id/tv_athlete_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginLeft="32dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/white"/>
+        <RelativeLayout
+            android:id="@+id/user_plans_layout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            >
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="32dp"
+                    android:src="@drawable/ic_plan"/>
+                <TextView
+                    android:id="@+id/tv_user_plans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginLeft="32dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include
+        layout="@layout/separator_line_big"/>
+
+    <LinearLayout
+        android:id="@+id/question_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_setting_selector"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_bangzhu" />
+
+        <TextView
+            style="@style/custom_normal_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1.0"
+            android:text="@string/question_help" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/togo" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/separator_line"/>
+
+    <LinearLayout
+        android:id="@+id/about_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_setting_selector"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_about" />
+
+        <TextView
+            style="@style/custom_normal_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1.0"
+            android:text="@string/about_us" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/togo" />
+    </LinearLayout>
+
+
+    <include
+        layout="@layout/separator_line"/>
+
+    <LinearLayout
+        android:id="@+id/setting_modify_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_setting_selector"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:clickable="true"
+            android:src="@drawable/ic_modify" />
+
+        <TextView
+            style="@style/custom_normal_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1.0"
+            android:text="@string/modify_pwd" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/togo" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/separator_line"/>
+
+    <LinearLayout
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_setting_selector"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_exit" />
+
+        <TextView
+            style="@style/custom_normal_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1.0"
+            android:text="@string/logout" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/togo" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/separator_line"/>
+
+
+
+</LinearLayout>

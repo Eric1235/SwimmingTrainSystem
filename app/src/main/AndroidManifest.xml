@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.scnu.swimmingtrainsystem"
+    android:versionCode="2"
+    android:versionName="2.0">
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:name="com.scnu.swimmingtrainsystem.activity.MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppBaseTheme" >
+        <activity
+            android:name=".activity.WlecomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".activity.HomeActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.RegistAcyivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.TimerSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
+        </activity>
+        <activity
+            android:name=".activity.OtherFunctionActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.AthleteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name=".activity.TimerActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.QueryScoreActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.QueryActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.MatchScoreActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.ShowScoreActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.ModifyPassActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.QuestionHelpActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.EachTimeScoreActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
+        </activity>
+        <activity
+            android:name=".activity.SearchboxActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.RetrievePasswordActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.MatchSprintScoreActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name=".activity.AboutUsActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity android:name=".activity.ExcuteQueryActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".activity.ShowExplicitScoreActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+    </application>
+
+
+</manifest>

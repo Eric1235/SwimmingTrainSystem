@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        style="@style/custom_textview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/title_bar_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/fragment_index"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/swim"
+        />
+    <include
+        layout="@layout/separator_line_big"/>
+
+    <LinearLayout
+        android:id="@+id/manage_athlete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_setting_selector"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_manage_athlete" />
+
+        <TextView
+            style="@style/custom_normal_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1.0"
+            android:text="@string/manage_athlete" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/togo" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/separator_line"/>
+
+    <LinearLayout
+        android:id="@+id/query_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_setting_selector"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_chaxun" />
+
+        <TextView
+            style="@style/custom_normal_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1.0"
+            android:text="@string/queryscore"  />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/togo" />
+    </LinearLayout>
+
+
+    <include
+        layout="@layout/separator_line"/>
+
+    <LinearLayout
+        android:id="@+id/other_function"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_setting_selector"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:clickable="true"
+            android:src="@drawable/ic_function" />
+
+        <TextView
+            style="@style/custom_normal_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1.0"
+            android:text="@string/other_function" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/togo" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/separator_line"/>
+
+
+
+
+</LinearLayout>

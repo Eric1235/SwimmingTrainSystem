@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            style="@style/custom_btn"
+            android:id="@+id/btn_start_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="8dp"
+            android:textColorHint="@color/white"
+            android:hint="@string/start_time"/>
+
+        <Button
+            style="@style/custom_btn"
+            android:id="@+id/btn_end_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:textColorHint="@color/white"
+            android:hint="@string/end_time"/>
+    </LinearLayout>
+    
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/custom_normal_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pool_length"
+                        android:textColor="@color/aliceblue" />
+
+                    <Spinner
+                        android:id="@+id/pool_length"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp" />
+                </LinearLayout>
+                
+                 <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        style="@style/custom_normal_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stroke"
+                        android:textColor="@color/aliceblue" />
+
+                    <Spinner
+                        android:id="@+id/stroke"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp" />
+                </LinearLayout>
+
+             
+            </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/custom_normal_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/aliceblue"
+                android:text="@string/athlete"/>
+            <Spinner
+                android:id="@+id/sp_athlete_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/custom_normal_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/aliceblue"
+                android:text="@string/swim_total_length"/>
+            <Spinner
+                android:id="@+id/sp_swim_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+        <RadioButton
+            style="@style/stop_watch_radio_btn"
+            android:id="@+id/rb_stop_watch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/stop_watch"/>
+        </LinearLayout>
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+        <Button
+            style="@style/custom_btn"
+            android:id="@+id/btn_local_query"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginRight="8dp"
+            android:layout_height="wrap_content"
+            android:text="@string/local_query" />
+        <Button
+            style="@style/custom_btn"
+            android:id="@+id/btn_network_query"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="wrap_content"
+            android:text="@string/network_query" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_query_score"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/athlete_headbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/title_bar_bg" >
+
+        <TextView
+            style="@style/custom_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/show_score"
+            />
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:src="@drawable/btn_back" />
+
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/show_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_train"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:singleLine="true"
+        android:text="时间---计划详细"
+        android:textColor="@color/aliceblue"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <ExpandableListView
+        android:id="@+id/query_score_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@drawable/base_list_divider_drawable"
+        android:groupIndicator="@null" >
+    </ExpandableListView>
+
+</LinearLayout>

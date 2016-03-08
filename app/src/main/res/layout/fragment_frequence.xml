@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
+
+    <include
+        android:id="@+id/frequence_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_timer" />
+
+    <include
+        layout="@layout/separator_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/frequence_area"
+        ></include>
+
+    <TextView
+        android:id="@+id/tv_threetime_result_title"
+        style="@style/custom_normal_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frequence_area"
+        android:layout_marginTop="30dp"
+        android:padding="10dp"
+        android:text="@string/three_time_result"
+         />
+
+    <AutoCompleteTextView
+        android:id="@+id/tv_athlete_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/frequence_area"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:ems="5"
+        android:hint="@string/input_athlete"
+        android:singleLine="true"
+        android:textColor="@color/color_text"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/tv_frequen_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_threetime_result_title"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="0.00次/分钟"
+        android:textColor="@color/blue"
+        android:textSize="18sp" />
+
+
+    <LinearLayout
+        android:id="@+id/dash_ll_bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp" >
+
+        <Button
+            style="@style/custom_btn"
+            android:id="@+id/bt_frequen_reset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/reset"
+            />
+
+        <Button
+            style="@style/custom_btn"
+            android:id="@+id/bt_submit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="8dp"
+            android:text="@string/submit"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

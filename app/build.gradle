@@ -1,0 +1,34 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.scnu.swimmingtrainsystem"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile files('libs/gson-1.7.1.jar')
+    compile 'com.android.support:support-v4:23.2.0'
+    compile files('libs/listanim.jar')
+    compile files('libs/litepal-1.1.1.jar')
+    compile files('libs/mpchartlib.jar')
+    compile files('libs/nineoldandroids-2.4.0.jar')
+    compile files('libs/swipemenulistview.jar')
+    compile files('libs/volley.jar')
+    compile project(':draglistview_library')
+}

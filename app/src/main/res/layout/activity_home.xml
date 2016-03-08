@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <com.scnu.swimmingtrainsystem.view.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@drawable/tab_bg" >
+    	<com.scnu.swimmingtrainsystem.view.ChangeColorIconWithText
+     	   	android:id="@+id/fragment_index"
+     	   	android:layout_height="match_parent"
+     	   	android:layout_weight="1"
+     	   	android:layout_width="0dp"
+     	   	android:padding="5dp"
+     	   	app:icon="@drawable/ic_home"
+            app:text="@string/fragment_index"
+            app:text_size="12sp"
+            app:color="@color/home_tag_color"/>
+
+        <com.scnu.swimmingtrainsystem.view.ChangeColorIconWithText
+     	   	android:id="@+id/fragment_timer"
+     	   	android:layout_height="match_parent"
+     	   	android:layout_weight="1"
+     	   	android:layout_width="0dp"
+     	   	android:padding="5dp"
+     	   	app:icon="@drawable/ic_timer"
+            app:text="@string/fragment_timer"
+            app:text_size="12sp"
+            app:color="@color/home_tag_color"/>
+
+        <com.scnu.swimmingtrainsystem.view.ChangeColorIconWithText
+     	   	android:id="@+id/fragment_more"
+     	   	android:layout_height="match_parent"
+     	   	android:layout_weight="1"
+     	   	android:layout_width="0dp"
+     	   	android:padding="5dp"
+     	   	app:icon="@drawable/ic_mine"
+            app:text="@string/fragment_more"
+            app:text_size="12sp"
+            app:color="@color/home_tag_color"/>
+	</LinearLayout>
+
+</LinearLayout>
