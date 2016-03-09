@@ -11,10 +11,10 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
@@ -119,6 +119,7 @@ public class TimerActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_timer);
 		Intent i = getIntent();
 		isReset = i.getBooleanExtra(Constants.WATCHISRESET,true);
@@ -136,6 +137,7 @@ public class TimerActivity extends Activity implements OnClickListener {
 
 	/**
 	 * 接收广播，结束计时
+	 * 在不间歇的时候去注册
 	 */
 	private void RegistBrocast(){
 		receiver = new BroadcastReceiver() {
@@ -150,7 +152,6 @@ public class TimerActivity extends Activity implements OnClickListener {
 
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(FINISHTIMER);
-
 		/**
 		 * 动态注册广播
 		 */
@@ -344,6 +345,7 @@ public class TimerActivity extends Activity implements OnClickListener {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				app.getMap().put(Constants.CURRENT_SWIM_TIME, 0);
+				dialog.dismiss();
 				finish();
 			}
 		});
@@ -481,7 +483,6 @@ public class TimerActivity extends Activity implements OnClickListener {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		Log.d("lixinkun", "TimerActivity OnStop Called");
 
 	}
 
@@ -494,7 +495,6 @@ public class TimerActivity extends Activity implements OnClickListener {
 
 		setTitle();
 		resetData();
-		Log.d("lixinkun", "TimerActivity OnResume Called");
 	}
 
 	/**
@@ -514,7 +514,6 @@ public class TimerActivity extends Activity implements OnClickListener {
 		super.onPause();
 		clickCount = 1;
 		scoreList.setAdapter(null);
-		Log.d("lixinkun", "TimerActivity OnPause Called");
 	}
 
 	@Override

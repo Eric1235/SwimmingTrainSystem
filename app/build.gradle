@@ -24,11 +24,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/gson-1.7.1.jar')
     compile 'com.android.support:support-v4:23.2.0'
+    compile 'org.litepal.android:core:1.3.1'
+    compile 'com.baoyz.swipemenulistview:library:1.3.0'
     compile files('libs/listanim.jar')
-    compile files('libs/litepal-1.1.1.jar')
-    compile files('libs/mpchartlib.jar')
     compile files('libs/nineoldandroids-2.4.0.jar')
-    compile files('libs/swipemenulistview.jar')
     compile files('libs/volley.jar')
     compile project(':draglistview_library')
 }

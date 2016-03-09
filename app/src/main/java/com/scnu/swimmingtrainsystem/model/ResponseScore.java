@@ -1,5 +1,6 @@
 package com.scnu.swimmingtrainsystem.model;
 
+
 public class ResponseScore {
 	int athlete_id;
 	int plan_id;

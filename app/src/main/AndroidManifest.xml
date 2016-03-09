@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.scnu.swimmingtrainsystem"
     android:versionCode="2"
-    android:versionName="2.0">
+    android:versionName="2.0.1">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -44,11 +44,6 @@
         <activity
             android:name=".activity.RegistAcyivity"
             android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".activity.TimerSettingActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
         </activity>
         <activity
             android:name=".activity.OtherFunctionActivity"

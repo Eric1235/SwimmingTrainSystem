@@ -9,6 +9,9 @@ import com.scnu.swimmingtrainsystem.activity.MyApplication;
 
 import java.util.Map;
 
+/**
+ *
+ */
 public class VolleyUtil {
 	
 	/**
