@@ -53,9 +53,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener,On
 		app = (MyApplication)getApplication();
 		app.addActivity(this);
 		initViews();
-		
-		mViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
-		mViewPager.setOnPageChangeListener(this);
+
 	}
 	
 	
@@ -74,8 +72,10 @@ public class HomeActivity extends FragmentActivity implements OnClickListener,On
 		index.setOnClickListener(this);
 		chart.setOnClickListener(this);
 		more.setOnClickListener(this);
-		
 		index.setIconAlpha(1.0f);
+
+		mViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+		mViewPager.setOnPageChangeListener(this);
 	}
 	
 	@Override

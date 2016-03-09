@@ -58,7 +58,6 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
     private Plan plan;
 
     private Map<String,Object> getQueryDataMap;
-//    private List<ExplicitScore> dataList;
     private DBManager dbManager;
 
 

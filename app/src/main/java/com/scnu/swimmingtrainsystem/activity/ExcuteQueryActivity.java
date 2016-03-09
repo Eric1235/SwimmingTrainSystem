@@ -122,6 +122,11 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
         return reset;
     }
 
+    /**
+     * 通过stroke数字转换到stroke字符
+     * @param stroke
+     * @return
+     */
     private String getStrokeString(int stroke){
         String[] strokes = getResources().getStringArray(R.array.strokestrarray);
         return strokes[stroke-1];
@@ -181,8 +186,8 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
 
             @Override
             public void onError(String response) {
-
                 loadingDialog.dismiss();
+                CommonUtils.showToast(ExcuteQueryActivity.this, mToast, getString(R.string.unkonwn_error));
             }
         };
         VolleyUtil.httpJson(Constants.GET_SCORE_DATE_LIST, Request.Method.POST, map, listener, app);

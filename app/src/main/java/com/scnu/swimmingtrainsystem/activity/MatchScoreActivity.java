@@ -262,7 +262,7 @@ public class MatchScoreActivity extends Activity implements
 
 	/**
 	 * 匹配完毕，可以进入下一趟计时或者进入本轮总计
-	 * 
+	 * 进一步设计，应该要把排序好的运动员存储到全局
 	 * @param v
 	 */
 	public void matchDone(View v) {
@@ -277,7 +277,13 @@ public class MatchScoreActivity extends Activity implements
 		// 暂时保存到SharePreferences
 		String scoresString = JsonTools.creatJsonString(scores);
 		String athleteJson = JsonTools.creatJsonString(dragDatas);
-		String athleteidJson = JsonTools.creatJsonString(CommonUtils.getAthleteIdsByAthletes(dragAdapter.getAthletes()));
+		/**
+		 * 获得排序过后的运动员列表
+		 */
+		List<Athlete> athletes = dragAdapter.getAthletes();
+		List<Integer> athleteIds = CommonUtils.getAthleteIdsByAthletes(athletes);
+		app.getMap().put(Constants.ATHLETEIDJSON,athleteIds);
+		String athleteidJson = JsonTools.creatJsonString(athleteIds);
 		createDialog(this, nowCurrent, crrentDistance, scoresString,
 				athleteJson,athleteidJson);
 	}

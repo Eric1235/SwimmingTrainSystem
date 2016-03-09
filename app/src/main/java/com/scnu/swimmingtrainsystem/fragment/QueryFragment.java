@@ -214,12 +214,14 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         if(requestCode == StartTimeRequestCode){
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mEntity.setStartTime(date);
-            btnStartTime.setText(mEntity.getStartTime().toLocaleString());
+            String startTimeString = CommonUtils.formatDate(date);
+            btnStartTime.setText(startTimeString);
         }
         if(requestCode == EndTimeRequestCode){
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mEntity.setEndTime(date);
-            btnEndTime.setText(mEntity.getEndTime().toLocaleString());
+            String endTimeString = CommonUtils.formatDate(date);
+            btnEndTime.setText(endTimeString);
         }
     }
 }

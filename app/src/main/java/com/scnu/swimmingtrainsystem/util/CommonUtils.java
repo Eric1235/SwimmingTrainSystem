@@ -154,12 +154,7 @@ public class CommonUtils {
 	 */
 	public static SmallPlan convertPlan(Plan plan,boolean isReset){
 		SmallPlan sp = new SmallPlan();
-		if(isReset){
-			//有间歇的时候，需要把distance进行处理
-			 sp.setDistance(plan.getInterval());
-		}else{
-			sp.setDistance(plan.getDistance());
-		}
+		sp.setDistance(plan.getInterval());
 		sp.setPool(plan.getPool());
 		sp.setExtra(plan.getExtra());
 		sp.setTime(plan.getTime());
