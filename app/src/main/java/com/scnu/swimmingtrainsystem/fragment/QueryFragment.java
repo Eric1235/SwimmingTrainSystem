@@ -107,7 +107,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         List<String> distance = new ArrayList<String>();
 
 
-        String[] strokes = getResources().getStringArray(R.array.strokestrarray);
+        String[] strokes = getResources().getStringArray(R.array.query_stroke_array);
         String[] poolLengths = getResources().getStringArray(R.array.pool_length);
         String[] distances = getResources().getStringArray(R.array.query_swim_length);
 
@@ -149,7 +149,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         mEntity.setUid(mUserId);
         mEntity.setDistance(distanceSpinner.getSelectedItem().toString());
         mEntity.setPoolLength(poolLengthSpinner.getSelectedItem().toString());
-        mEntity.setStroke(strokeSpinner.getSelectedItemPosition()+1);
+        mEntity.setStroke(strokeSpinner.getSelectedItemPosition());
         a = (Athlete)mAthleteNames.getSelectedItem();
         mEntity.setAthleteId(a.getAid());
     }
@@ -159,12 +159,20 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         switch (v.getId()){
             case R.id.btn_start_time:
-                datePickerFragment = DatePickerFragment.newInstance(mEntity.getStartTime());
+                Date startTime = mEntity.getStartTime();
+                if(startTime == null){
+                    startTime = new Date();
+                }
+                datePickerFragment = DatePickerFragment.newInstance(startTime);
                 datePickerFragment.setTargetFragment(QueryFragment.this,StartTimeRequestCode);
                 datePickerFragment.show(fm,DATE);
                 break;
             case R.id.btn_end_time:
-                datePickerFragment = DatePickerFragment.newInstance(mEntity.getEndTime());
+                Date endTime = mEntity.getEndTime();
+                if(endTime == null){
+                    endTime = new Date();
+                }
+                datePickerFragment = DatePickerFragment.newInstance(endTime);
                 datePickerFragment.setTargetFragment(QueryFragment.this,EndTimeRequestCode);
                 datePickerFragment.show(fm,DATE);
                 break;

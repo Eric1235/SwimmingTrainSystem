@@ -214,6 +214,9 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
         if(aid != 0){
             datamap.put("athlete_id",aid);
         }
+        if(stroke != 0){
+            datamap.put("stroke",stroke);
+        }
         startTime = CommonUtils.formatDate(entity.getStartTime());
         endTime = CommonUtils.formatDate(entity.getEndTime());
         datamap.put("distance",distance);
@@ -222,7 +225,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
         datamap.put("start_time",startTime);
         datamap.put("end_time",endTime);
         datamap.put("pool_length",poolLength);
-        datamap.put("stroke",stroke);
+
         datamap.put("reset",mEntity.isReset());
         String data = JsonTools.creatJsonString(datamap);
         Map<String,String> map = new HashMap<String, String>();

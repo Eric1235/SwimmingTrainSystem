@@ -268,7 +268,6 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 					.get(i)).check();
 			int number = (Integer) myApplication.getMap().get(
 					Constants.COMPLETE_NUMBER);
-//			System.out.println("number--->" + number);
 			int resCode = (Integer) result.get("resCode");
 			int position = (Integer) result.get("position");
 			List<Integer> aidsubList = (List<Integer>)result.get("athleteids");
@@ -299,7 +298,7 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 						loadingDialog.setCanceledOnTouchOutside(false);
 					}
 					loadingDialog.show();
-					addScoreRequest(aidList);
+					addScoreRequest();
 				} else {
 					CommonUtils.showToast(this,mToast,getString(R.string.network_error));
 				}
@@ -351,10 +350,10 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 	 * @param
 	 *
 	 */
-	private void addScoreRequest(List<Integer> athleteidList) {
+	private void addScoreRequest() {
 
 
-		Map<String,String> map = getDataMap(athleteidList);
+		Map<String,String> map = getDataMap();
 
 		VolleyUtil.ResponseListener listener = new VolleyUtil.ResponseListener() {
 			@Override
@@ -408,19 +407,15 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 
 	/**
 	 * 获取上传成绩的数据集
-	 * @param athleteidList
+	 * @param
 	 * @return
 	 */
-	private Map<String,String> getDataMap(List<Integer> athleteidList){
+	private Map<String,String> getDataMap(){
 
 		SmallPlan sp = CommonUtils.convertPlan(plan,isReset);
 
 		List<SmallScore> smallScores = new ArrayList<SmallScore>();
 		List<Score> scoresResult = mDbManager.getScoreByDate(date);
-		/**
-		 * 获取成绩和运动员id
-		 */
-		List<Integer> aidList = athleteidList;
 		/**
 		 * 组装要上传的成绩
 		 */

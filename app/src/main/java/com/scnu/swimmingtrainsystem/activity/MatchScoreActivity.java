@@ -104,30 +104,14 @@ public class MatchScoreActivity extends Activity implements
 		setContentView(R.layout.activity_matchscore);
 		Intent i = getIntent();
 		isReset = i.getBooleanExtra(Constants.WATCHISRESET,true);
-		init();
+		initData();
+		initView();
 
 	}
 
 	@SuppressWarnings("unchecked")
-	private void init() {
+	private void initView() {
 		// TODO Auto-generated method stub
-		app = (MyApplication) getApplication();
-		app.addActivity(this);
-		mDbManager = DBManager.getInstance();
-		isConnected = (Boolean) app.getMap().get(Constants.IS_CONNECT_SERVER);
-
-		athleteStrokeMap = (Map<String,String>)app.getMap().get("stroke");
-
-		/**
-		 * 接收传过来的成绩，数组
-		 */
-		Intent result = getIntent();
-		scores = result.getStringArrayListExtra("SCORES");
-		originScores.addAll(scores);
-
-		userId = SpUtil.getUID(MatchScoreActivity.this);
-		Long planId = (Long) app.getMap().get(Constants.PLAN_ID);
-		plan = DataSupport.find(Plan.class, planId);
 
 		mLayout = (LinearLayout) findViewById(R.id.ll_pop);
 		mLayout2 = (RelativeLayout) findViewById(R.id.match_score_headbar);
@@ -169,10 +153,6 @@ public class MatchScoreActivity extends Activity implements
 			btStatistics.setText(getString(R.string.adjust_finish_goto_statistics));
 		}
 
-		/**
-		 * 获取选择的运动员id
-		 */
-		dragAthleteIDs = (List<Integer>) app.getMap().get(Constants.DRAG_NAME_LIST_IDS);
 //		dragDatas = (List<String>) app.getMap().get(Constants.DRAG_NAME_LIST);
 		/**
 		 * 通过数据库查询得到运动员
@@ -200,6 +180,31 @@ public class MatchScoreActivity extends Activity implements
 		scoreListView.setAdapter(adapter);
 		nameListView.setAdapter(dragAdapter);
 		scoreListView.setOnItemLongClickListener(this);
+	}
+
+	private void initData(){
+
+		/**
+		 * 接收传过来的成绩，数组
+		 */
+		Intent result = getIntent();
+		scores = result.getStringArrayListExtra("SCORES");
+		originScores.addAll(scores);
+
+		app = (MyApplication) getApplication();
+		app.addActivity(this);
+		mDbManager = DBManager.getInstance();
+		athleteStrokeMap = (Map<String,String>)app.getMap().get("stroke");
+
+		userId = SpUtil.getUID(MatchScoreActivity.this);
+		Long planId = (Long) app.getMap().get(Constants.PLAN_ID);
+		plan = DataSupport.find(Plan.class, planId);
+
+		/**
+		 * 获取选择的运动员id
+		 */
+		dragAthleteIDs = (List<Integer>) app.getMap().get(Constants.DRAG_NAME_LIST_IDS);
+
 	}
 
 	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
@@ -282,7 +287,7 @@ public class MatchScoreActivity extends Activity implements
 		 */
 		List<Athlete> athletes = dragAdapter.getAthletes();
 		List<Integer> athleteIds = CommonUtils.getAthleteIdsByAthletes(athletes);
-		app.getMap().put(Constants.ATHLETEIDJSON,athleteIds);
+		app.getMap().put(Constants.DRAG_NAME_LIST_IDS,athleteIds);
 		String athleteidJson = JsonTools.creatJsonString(athleteIds);
 		createDialog(this, nowCurrent, crrentDistance, scoresString,
 				athleteJson,athleteidJson);

@@ -18,8 +18,6 @@ public class QueryScoreEntity implements Serializable {
     private String distance;
 
     public QueryScoreEntity() {
-        this.startTime = new Date();
-        this.endTime = new Date();
     }
 
     public Date getStartTime() {

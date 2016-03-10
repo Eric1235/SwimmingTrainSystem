@@ -14,6 +14,15 @@
         <item >自由泳</item>
         <item >混合泳</item>
     </string-array>
+    <!-- 0是代表所有泳姿哦 -->
+    <string-array name="query_stroke_array">
+        <item >所有</item>
+        <item >蛙泳</item>
+        <item >仰泳</item>
+        <item >蝶泳</item>
+        <item >自由泳</item>
+        <item >混合泳</item>
+    </string-array>
     
     <string-array name="swim_length">
         <item >25</item>
@@ -31,12 +40,14 @@
     </string-array>
 
     <string-array name="query_swim_length">
+        <item>25</item>
         <item>50</item>
         <item>100</item>
         <item>200</item>
         <item>400</item>
+        <item>800</item>
         <item>1000</item>
-        <item>2000</item>
+        <item>1500</item>
         <item></item>
     </string-array>
     
