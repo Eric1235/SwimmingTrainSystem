@@ -145,46 +145,56 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
                         int maxTime = 0;
                         ExplicitScore[] tmpScores = JsonTools.getObject(
                                 obj.getString("dataList").toString(), ExplicitScore[].class);
+                        List<Score> mScores = new ArrayList<>();
+                        Score s = null;
                         for(ExplicitScore responseScore:tmpScores){
                             int curTime = responseScore.getTimes();
                             maxTime = curTime > maxTime ? curTime : maxTime;
-                            CommonUtils.convertScore(responseScore);
+                            /**
+                             * 在这里对成绩进行转化
+                             */
+                            mScores.add(CommonUtils.convertScore(responseScore));
                         }
                         /**
                          * 获得上传时间
                          */
                         String resDate = tmpScores[0].getUp_time();
                         //获得aid列表
-                        List<Integer> athIds = dbManager
-                                .getAthleteIdInScoreByDate(resDate);
-                        //存储总成绩的对象
-                        List<ScoreSum> sumList = dbManager
-                                .getAthleteIdInScoreByDate(resDate,
-                                        athIds,isReset);
-                        List<List<Score>> listss = new ArrayList<List<Score>>();
-                        // 根据时间查询成绩
-                        for (int t = 1; t <= maxTime; t++) {
-                            List<Score> sco = dbManager
-                                    .getScoreByDateAndTimes(resDate, t);
-                            listss.add(sco);
-                        }
+//                        List<Integer> athIds = dbManager
+//                                .getAthleteIdInScoreByDate(resDate);
+                        //获得每个运动员的总成绩，包括运动员姓名和运动员总成绩
+//                        List<ScoreSum> sumList = dbManager
+//                                .getAthleteIdInScoreByDate(resDate,
+//                                        athIds,isReset);
+
+                        List<ScoreSum> sumList = CommonUtils.getAllScoreSum(mScores,isReset);
+                        List<List<Score>> listss = CommonUtils.getScoresListByTimes(mScores,maxTime);
+//                        // 根据时间查询成绩
+//                        for (int t = 1; t <= maxTime; t++) {
+//                            List<Score> sco = dbManager
+//                                    .getScoreByDateAndTimes(resDate, t);
+//                            listss.add(sco);
+//                        }
+
 
                         tvDetails.setVisibility(View.VISIBLE);
                         tvDetails.setText(  "  目标总距离:"
                                 + distance + "米");
-                        List<ScoreSum> avgScores = new ArrayList<ScoreSum>();
-                        for (ScoreSum ss : sumList) {
-                            ScoreSum scoreSum = new ScoreSum();
-                            //统计得到平均成绩
-                            int msec = CommonUtils
-                                    .timeString2TimeInt(ss.getScore());
-                            int avgsec = msec / maxTime;
-                            String avgScore = CommonUtils
-                                    .timeInt2TimeString(avgsec);
-                            scoreSum.setScore(avgScore);
-                            scoreSum.setAthleteName(ss.getAthleteName());
-                            avgScores.add(scoreSum);
-                        }
+                        //获得平均成绩
+                        List<ScoreSum> avgScores = CommonUtils.getAvgScore(maxTime,sumList);
+//                        for (ScoreSum ss : sumList) {
+//                            ScoreSum scoreSum = new ScoreSum();
+//                            //统计得到平均成绩
+//                            int msec = CommonUtils
+//                                    .timeString2TimeInt(ss.getScore());
+//                            int avgsec = msec / maxTime;
+//                            String avgScore = CommonUtils
+//                                    .timeInt2TimeString(avgsec);
+//                            scoreSum.setScore(avgScore);
+//                            scoreSum.setAthleteName(ss.getAthleteName());
+//                            avgScores.add(scoreSum);
+//                        }
+
                         NameScoreListAdapter scoreListAdapter = new NameScoreListAdapter(
                                 ShowExplicitScoreActivity.this, listss,
                                 sumList, avgScores, maxTime + 2);

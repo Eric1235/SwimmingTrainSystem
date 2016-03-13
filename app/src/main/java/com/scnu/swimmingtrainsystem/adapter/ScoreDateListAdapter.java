@@ -32,7 +32,7 @@ public class ScoreDateListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public ScoreDateItem getItem(int position) {
         return mItems.get(position);
     }
 
@@ -45,6 +45,7 @@ public class ScoreDateListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holer = null;
+        ScoreDateItem item = getItem(position);
         if(convertView == null){
             holer = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.xlist_item, null);
@@ -55,10 +56,15 @@ public class ScoreDateListAdapter extends BaseAdapter {
             holer = (ViewHolder)convertView.getTag();
         }
 
-        String dateString = mItems.get(position).getPdate();
+        String dateString = item.getPdate();
         Date date = new Date(dateString);
         dateString = CommonUtils.formatDate(date);
         holer.tvDate.setText(dateString);
+        if(!item.isChecked()){
+            holer.tvDate.setTextColor(mContext.getResources().getColor(R.color.black));
+        }else{
+            holer.tvDate.setTextColor(mContext.getResources().getColor(R.color.light_gray));
+        }
         return convertView;
     }
 

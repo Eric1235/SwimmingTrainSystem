@@ -558,7 +558,8 @@ public class MatchScoreActivity extends Activity implements
 		/**
 		 * 获取到训练计划
 		 */
-		SmallPlan sp = CommonUtils.convertPlan(plan,isReset);
+		plan.setPdate(date);
+		SmallPlan sp = CommonUtils.convertPlan(plan);
 		List<SmallScore> smallScores = new ArrayList<SmallScore>();
 		List<Score> scoresResult = mDbManager.getScoreByDate(date);
 		for (Score s : scoresResult) {

@@ -11,6 +11,7 @@ public class ScoreSum {
 
 	private String score;
 	private String athleteName;
+	private int athlete_id;
 
 	public String getScore() {
 		return score;
@@ -28,9 +29,20 @@ public class ScoreSum {
 		this.athleteName = athleteName;
 	}
 
-	@Override
-	public String toString() {
-		return "Temp [score=" + score + ", athleteName=" + athleteName + "]";
+	public int getAthlete_id() {
+		return athlete_id;
 	}
 
+	public void setAthlete_id(int athlete_id) {
+		this.athlete_id = athlete_id;
+	}
+
+	@Override
+	public String toString() {
+		return "ScoreSum{" +
+				"score='" + score + '\'' +
+				", athleteName='" + athleteName + '\'' +
+				", athlete_id=" + athlete_id +
+				'}';
+	}
 }

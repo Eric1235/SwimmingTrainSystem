@@ -11,14 +11,19 @@ import com.scnu.swimmingtrainsystem.model.Athlete;
 import com.scnu.swimmingtrainsystem.model.ExplicitScore;
 import com.scnu.swimmingtrainsystem.model.Plan;
 import com.scnu.swimmingtrainsystem.model.Score;
+import com.scnu.swimmingtrainsystem.model.ScoreSum;
 import com.scnu.swimmingtrainsystem.model.SmallPlan;
 import com.scnu.swimmingtrainsystem.model.SmallScore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -152,17 +157,22 @@ public class CommonUtils {
 	 * @param plan
 	 * @return
 	 */
-	public static SmallPlan convertPlan(Plan plan,boolean isReset){
+	public static SmallPlan convertPlan(Plan plan){
 		SmallPlan sp = new SmallPlan();
 		sp.setDistance(plan.getInterval());
 		sp.setPool(plan.getPool());
 		sp.setExtra(plan.getExtra());
 		sp.setTime(plan.getTime());
+		sp.setPdate(plan.getPdate());
 		sp.setReset(plan.isReset());
 		return sp;
 	}
 
-	public static void convertScore(ExplicitScore responseScore){
+	/**
+	 * 转化成绩为score,存储数据到数据库，感觉到要优化
+	 * @param responseScore
+	 */
+	public static Score convertScore(ExplicitScore responseScore){
 		Score score = new Score();
 		score.setDate(responseScore.getUp_time());
 		score.setAthlete_id(responseScore.getAthlete_id());
@@ -171,7 +181,123 @@ public class CommonUtils {
 		score.setPlan_id(responseScore.getPlan_id());
 		score.setTimes(responseScore.getTimes());
 		score.setType(1);
-		score.save();
+//		score.save();
+		return score;
+	}
+
+	/**
+	 * 获得平均成绩
+	 * @param mSwimTime
+	 * @param tempScores
+	 * @return
+	 */
+	public static List<ScoreSum> getAvgScore(int mSwimTime,List<ScoreSum> tempScores){
+		List<ScoreSum> avgScores = new ArrayList<>();
+		for (ScoreSum ss : tempScores) {
+			ScoreSum scoreSum = new ScoreSum();
+			int msec = timeString2TimeInt(ss.getScore());
+			int avgsec = msec / (mSwimTime - 2);
+			String avgScore = CommonUtils.timeInt2TimeString(avgsec);
+			scoreSum.setScore(avgScore);
+			scoreSum.setAthleteName(ss.getAthleteName());
+			avgScores.add(scoreSum);
+		}
+		return avgScores;
+	}
+
+	/**
+	 * 成绩进行整理，获得每个运动员的总成绩
+	 * @param mScores
+	 * @param
+	 * @param isReset
+	 * @return
+	 */
+	public static List<ScoreSum> getAllScoreSum(List<Score> mScores,boolean isReset){
+		List<ScoreSum> temps = new ArrayList<ScoreSum>();
+		Set<Integer> aidSet = getAthleteIdInScores(mScores);
+		Iterator<Integer> athleteItor = aidSet.iterator();
+		//使用适配器遍历运动员
+		if(athleteItor.hasNext()) {
+			int athlete_id = athleteItor.next();
+			List<Score> scores = getScoresByAid(athlete_id, mScores);
+			ScoreSum p = new ScoreSum();
+			p.setAthleteName("我觉得不需要");
+			p.setAthlete_id(athlete_id);
+			/**
+			 * 本次成绩是间歇的
+			 */
+			if (isReset) {
+				List<String> sum = new ArrayList<String>();
+				for (Score s : scores) {
+					sum.add(s.getScore());
+				}
+				/**
+				 * 对成绩进行累加
+				 */
+				p.setScore(scoreSum(sum));
+			}
+			/**
+			 * 本次成绩不是间歇的，直接获取最后一个成绩就是总成绩，不需要累加
+			 */
+			else {
+				p.setScore(scores.get(scores.size() - 1).getScore());
+			}
+
+			temps.add(p);
+		}
+		/**
+		 * 对成绩进行排序
+		 */
+		Collections.sort(temps, new ScoreComparable());
+		return  temps;
+	}
+
+	/**
+	 * 从列表中得到aid的scores
+	 * @param aid
+	 * @param mScores
+	 * @return
+	 */
+	public static List<Score> getScoresByAid(int aid,List<Score> mScores){
+		List<Score> scores = new ArrayList<>();
+		for(Score s : mScores){
+			if(s.getAthlete_id() == aid){
+				scores.add(s);
+			}
+		}
+		return  scores;
+	}
+
+	/**
+	 * 从成绩列表中获取运动员列表
+	 * @param mScores
+	 * @return
+	 */
+	public static Set<Integer> getAthleteIdInScores(List<Score> mScores){
+		Set<Integer> aidSet = new HashSet<>();
+		for(Score s : mScores){
+			aidSet.add(s.getAthlete_id());
+		}
+		return aidSet;
+	}
+
+	public static List<List<Score>> getScoresListByTimes(List<Score> mScores,int maxTime){
+		List<List<Score>> listss = new ArrayList<List<Score>>();
+		for(int i = 0 ; i < maxTime ; i ++ ){
+			List<Score> mSubScores = getScoresByTimes(mScores,i);
+			listss.add(mSubScores);
+		}
+		return listss;
+	}
+
+	public static List<Score> getScoresByTimes(List<Score> mScores,int i){
+		List<Score> mSubScores = new ArrayList<>();
+		for(Score s : mScores){
+			if(s.getTimes() == i){
+				mSubScores.add(s);
+			}
+		}
+		return mScores;
 	}
 
 	public static boolean isAthleteInLocal(List<Athlete> athleteList,int Aid){

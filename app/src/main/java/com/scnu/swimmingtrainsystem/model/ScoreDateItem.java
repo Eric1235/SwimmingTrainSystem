@@ -9,6 +9,11 @@ public class ScoreDateItem {
     private int distance;
     private int plan_id;
     private String pdate;
+    private boolean isChecked;
+
+    public ScoreDateItem() {
+        this.isChecked = false;
+    }
 
     public String getTimes() {
         return times;
@@ -46,9 +51,18 @@ public class ScoreDateItem {
     public String toString() {
         return "ScoreDateItem{" +
                 "times='" + times + '\'' +
-                ", distance='" + distance + '\'' +
-                ", plan_id='" + plan_id + '\'' +
+                ", distance=" + distance +
+                ", plan_id=" + plan_id +
                 ", pdate='" + pdate + '\'' +
+                ", isChecked=" + isChecked +
                 '}';
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
     }
 }

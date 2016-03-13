@@ -310,17 +310,21 @@ public class ShowScoreActivity extends Activity {
 			/**
 			 * 在这里进行统计，得出总成绩
 			 */
-				//没有间歇的成绩统计
-				for (ScoreSum ss : this.mTemps) {
-					ScoreSum scoreSum = new ScoreSum();
-					int msec = CommonUtils.timeString2TimeInt(ss.getScore());
-					int avgsec = msec / (mSwimTime - 2);
-					String avgScore = CommonUtils.timeInt2TimeString(avgsec);
-					scoreSum.setScore(avgScore);
-					scoreSum.setAthleteName(ss.getAthleteName());
-					avgScores.add(scoreSum);
-				}
+//				//没有间歇的成绩统计
+//				for (ScoreSum ss : this.mTemps) {
+//					ScoreSum scoreSum = new ScoreSum();
+//					int msec = CommonUtils.timeString2TimeInt(ss.getScore());
+//					int avgsec = msec / (mSwimTime - 2);
+//					String avgScore = CommonUtils.timeInt2TimeString(avgsec);
+//					scoreSum.setScore(avgScore);
+//					scoreSum.setAthleteName(ss.getAthleteName());
+//					avgScores.add(scoreSum);
+//				}
 
+			/**
+			 * 获得平均成绩
+			 */
+			avgScores = CommonUtils.getAvgScore(mSwimTime,mTemps);
 
 		}
 

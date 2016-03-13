@@ -32,6 +32,7 @@ public class Plan extends DataSupport {
 	 */
 	private int distance;
 
+	private String pdate;
 
 	/**
 	 * 该计划的备注，方便查阅并区分成绩
@@ -39,6 +40,22 @@ public class Plan extends DataSupport {
 	private String extra;
 
 	private int uid;
+
+	@Override
+	public String toString() {
+		return "Plan{" +
+				"id=" + id +
+				", pid=" + pid +
+				", reset=" + reset +
+				", interval=" + interval +
+				", time=" + time +
+				", pool='" + pool + '\'' +
+				", distance=" + distance +
+				", pdate='" + pdate + '\'' +
+				", extra='" + extra + '\'' +
+				", uid=" + uid +
+				'}';
+	}
 
 	public long getId() {
 		return id;
@@ -96,6 +113,14 @@ public class Plan extends DataSupport {
 		this.distance = distance;
 	}
 
+	public String getPdate() {
+		return pdate;
+	}
+
+	public void setPdate(String pdate) {
+		this.pdate = pdate;
+	}
+
 	public String getExtra() {
 		return extra;
 	}
@@ -110,20 +135,5 @@ public class Plan extends DataSupport {
 
 	public void setUid(int uid) {
 		this.uid = uid;
-	}
-
-	@Override
-	public String toString() {
-		return "Plan{" +
-				"id=" + id +
-				", pid=" + pid +
-				", reset=" + reset +
-				", interval=" + interval +
-				", time=" + time +
-				", pool='" + pool + '\'' +
-				", distance=" + distance +
-				", extra='" + extra + '\'' +
-				", uid=" + uid +
-				'}';
 	}
 }

@@ -181,7 +181,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
                 /**
                  * 提前判断网络是否有连接
                  */
-                if(NetworkUtil.isConnected(getActivity()) && beforeSubmit()){
+                if(NetworkUtil.isConnected(getActivity()) ){
                     Intent i = new Intent(getActivity(), ExcuteQueryActivity.class);
                     i.putExtra(QUERY_ENTITY,mEntity);
                     startActivity(i);

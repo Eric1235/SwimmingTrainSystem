@@ -10,12 +10,12 @@ import com.scnu.swimmingtrainsystem.model.Score;
 import com.scnu.swimmingtrainsystem.model.ScoreSum;
 import com.scnu.swimmingtrainsystem.model.User;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
+import com.scnu.swimmingtrainsystem.util.ScoreComparable;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -522,6 +522,10 @@ public class DBManager {
 		return dates.size();
 	}
 
+	/**
+	 * 根据日期去删除成绩，我觉得也不要了咯
+	 * @param date
+	 */
 	public void deleteScores(String date) {
 		List<Score> scores = DataSupport.select("id").where("date=?", date)
 				.find(Score.class);
@@ -530,24 +534,5 @@ public class DBManager {
 		}
 	}
 
-	/**
-	 * 成绩比较
-	 * 
-	 * @author LittleByte
-	 * 
-	 */
-	class ScoreComparable implements Comparator<ScoreSum> {
 
-		@Override
-		public int compare(ScoreSum lhs, ScoreSum rhs) {
-			// TODO Auto-generated method stub
-			ScoreSum temp1 = lhs;
-			ScoreSum temp2 = rhs;
-			int num = temp1.getScore().compareTo(temp2.getScore());
-			if (num == 0)
-				return temp1.getAthleteName().compareTo(temp2.getAthleteName());
-			return num;
-		}
-
-	}
 }

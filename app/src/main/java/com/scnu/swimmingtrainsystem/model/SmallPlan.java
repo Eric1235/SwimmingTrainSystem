@@ -4,6 +4,7 @@ public class SmallPlan {
 	private int distance;
 	private String pool;
 	private String extra;
+	private String pdate;
 	private boolean reset;
 	private int time;//游泳圈数
 
@@ -25,6 +26,14 @@ public class SmallPlan {
 
 	public String getPool() {
 		return pool;
+	}
+
+	public String getPdate() {
+		return pdate;
+	}
+
+	public void setPdate(String pdate) {
+		this.pdate = pdate;
 	}
 
 	public void setPool(String pool) {
@@ -53,6 +62,7 @@ public class SmallPlan {
 				"distance=" + distance +
 				", pool='" + pool + '\'' +
 				", extra='" + extra + '\'' +
+				", pdate='" + pdate + '\'' +
 				", reset=" + reset +
 				", time=" + time +
 				'}';

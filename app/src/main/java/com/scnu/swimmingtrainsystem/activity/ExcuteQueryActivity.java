@@ -166,6 +166,11 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
                                 stroke = mEntity.getStroke();
                                 plan_id = dateList.get(position).getPlan_id();
                                 athlete_id.add(mEntity.getAthleteId());
+                                /**
+                                 * 设置点击成绩后变色
+                                 */
+                                mAdapter.getItem(position).setIsChecked(true);
+                                mAdapter.notifyDataSetChanged();
                                 HashMap<String,Object> map = initDataMap(plan_id,stroke,athlete_id,entity.isReset());
                                 AppController.gotoShowExplicitScoreActivity(ExcuteQueryActivity.this, map);
                             }
@@ -217,13 +222,20 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
         if(stroke != 0){
             datamap.put("stroke",stroke);
         }
-        startTime = CommonUtils.formatDate(entity.getStartTime());
-        endTime = CommonUtils.formatDate(entity.getEndTime());
+        if(mEntity.getStartTime() != null){
+            startTime = CommonUtils.formatDate(entity.getStartTime());
+            datamap.put("start_time",startTime);
+        }
+
+        if(mEntity.getEndTime() != null){
+            endTime = CommonUtils.formatDate(entity.getEndTime());
+            datamap.put("end_time",endTime);
+        }
+
+
         datamap.put("distance",distance);
         datamap.put("uid",uid);
 
-        datamap.put("start_time",startTime);
-        datamap.put("end_time",endTime);
         datamap.put("pool_length",poolLength);
 
         datamap.put("reset",mEntity.isReset());

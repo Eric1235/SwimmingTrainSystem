@@ -17,7 +17,7 @@ public class VolleyUtil {
 	/**
 	 * 设置请求超时时间（在Application中设置）
 	 */
-	public static final int TIMEOUT = 8 * 1000;
+	public static final int TIMEOUT = 5 * 1000;
 	
 	/**
 	 * 监听请求回调接口
