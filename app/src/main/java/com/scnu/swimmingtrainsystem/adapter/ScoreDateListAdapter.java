@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.scnu.swimmingtrainsystem.R;
-import com.scnu.swimmingtrainsystem.model.ScoreDateItem;
+import com.scnu.swimmingtrainsystem.entity.ScoreDateItem;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 
 import java.util.Date;

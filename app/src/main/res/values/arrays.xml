@@ -8,6 +8,7 @@
         <item >5</item>
     </integer-array>
     <string-array name="strokestrarray">
+        <item>所有</item>
         <item >蛙泳</item>
         <item >仰泳</item>
         <item >蝶泳</item>

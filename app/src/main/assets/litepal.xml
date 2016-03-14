@@ -9,19 +9,19 @@
 
     <list>
 
-        <mapping class="com.scnu.swimmingtrainsystem.model.User" >
+        <mapping class="com.scnu.swimmingtrainsystem.model2db.User" >
         </mapping>
 
-        <mapping class="com.scnu.swimmingtrainsystem.model.Plan" >
+        <mapping class="com.scnu.swimmingtrainsystem.model2db.Plan" >
         </mapping>
 
-        <mapping class="com.scnu.swimmingtrainsystem.model.Athlete" >
+        <mapping class="com.scnu.swimmingtrainsystem.model2db.Athlete" >
         </mapping>
 
-        <mapping class="com.scnu.swimmingtrainsystem.model.Score" >
+        <mapping class="com.scnu.swimmingtrainsystem.model2db.Score" >
         </mapping>
 
-        <mapping class="com.scnu.swimmingtrainsystem.model.OtherScore" >
+        <mapping class="com.scnu.swimmingtrainsystem.model2db.OtherScore" >
 
         </mapping>
     </list>

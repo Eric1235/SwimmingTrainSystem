@@ -9,8 +9,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.scnu.swimmingtrainsystem.R;
-import com.scnu.swimmingtrainsystem.model.AdapterHolder;
-import com.scnu.swimmingtrainsystem.model.Athlete;
+import com.scnu.swimmingtrainsystem.entity.AdapterHolder;
+import com.scnu.swimmingtrainsystem.model2db.Athlete;
 
 import java.util.List;
 

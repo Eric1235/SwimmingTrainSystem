@@ -1,4 +1,4 @@
-package com.scnu.swimmingtrainsystem.model;
+package com.scnu.swimmingtrainsystem.entity;
 
 /**
  * 记录返回的时间列表

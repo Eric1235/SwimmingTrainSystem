@@ -1,4 +1,4 @@
-package com.scnu.swimmingtrainsystem.model;
+package com.scnu.swimmingtrainsystem.entity;
 
 public class SmallPlan {
 	private int distance;

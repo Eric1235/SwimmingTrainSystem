@@ -1,4 +1,4 @@
-package com.scnu.swimmingtrainsystem.model;
+package com.scnu.swimmingtrainsystem.entity;
 
 /**
  * 这是存储运动员成绩总和的临时对象

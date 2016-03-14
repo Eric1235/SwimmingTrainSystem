@@ -18,8 +18,8 @@ import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.adapter.ScoreDateListAdapter;
 import com.scnu.swimmingtrainsystem.fragment.QueryFragment;
 import com.scnu.swimmingtrainsystem.http.JsonTools;
-import com.scnu.swimmingtrainsystem.model.QueryScoreEntity;
-import com.scnu.swimmingtrainsystem.model.ScoreDateItem;
+import com.scnu.swimmingtrainsystem.entity.QueryScoreEntity;
+import com.scnu.swimmingtrainsystem.entity.ScoreDateItem;
 import com.scnu.swimmingtrainsystem.util.AppController;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.Constants;
@@ -129,7 +129,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
      */
     private String getStrokeString(int stroke){
         String[] strokes = getResources().getStringArray(R.array.strokestrarray);
-        return strokes[stroke-1];
+        return strokes[stroke];
     }
 
     private void addQueryScoreRequest(final QueryScoreEntity entity){
@@ -231,7 +231,6 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
             endTime = CommonUtils.formatDate(entity.getEndTime());
             datamap.put("end_time",endTime);
         }
-
 
         datamap.put("distance",distance);
         datamap.put("uid",uid);

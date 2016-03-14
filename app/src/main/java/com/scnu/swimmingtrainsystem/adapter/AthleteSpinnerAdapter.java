@@ -7,18 +7,18 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.scnu.swimmingtrainsystem.R;
-import com.scnu.swimmingtrainsystem.model.Athlete;
+import com.scnu.swimmingtrainsystem.model2db.Athlete;
 
 import java.util.List;
 
 /**
  * Created by lixinkun on 16/1/25.
  */
-public class SpinnerAdapter extends BaseAdapter {
+public class AthleteSpinnerAdapter extends BaseAdapter {
     private Context context;
     private List<Athlete> athletes;
 
-    public SpinnerAdapter(Context context,List<Athlete> list) {
+    public AthleteSpinnerAdapter(Context context, List<Athlete> list) {
         this.context = context;
         this.athletes = list;
     }

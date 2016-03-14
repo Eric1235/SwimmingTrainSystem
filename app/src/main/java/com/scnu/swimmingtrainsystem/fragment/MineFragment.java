@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.activity.MyApplication;
 import com.scnu.swimmingtrainsystem.db.DBManager;
-import com.scnu.swimmingtrainsystem.model.User;
+import com.scnu.swimmingtrainsystem.model2db.User;
 import com.scnu.swimmingtrainsystem.util.AppController;
 import com.scnu.swimmingtrainsystem.util.Constants;
 import com.scnu.swimmingtrainsystem.util.SpUtil;

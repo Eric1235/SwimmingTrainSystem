@@ -17,12 +17,12 @@ import android.widget.Toast;
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.activity.ExcuteQueryActivity;
 import com.scnu.swimmingtrainsystem.db.DBManager;
-import com.scnu.swimmingtrainsystem.model.Athlete;
-import com.scnu.swimmingtrainsystem.model.QueryScoreEntity;
+import com.scnu.swimmingtrainsystem.model2db.Athlete;
+import com.scnu.swimmingtrainsystem.entity.QueryScoreEntity;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.NetworkUtil;
 import com.scnu.swimmingtrainsystem.util.SpUtil;
-import com.scnu.swimmingtrainsystem.adapter.SpinnerAdapter;
+import com.scnu.swimmingtrainsystem.adapter.AthleteSpinnerAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,7 +56,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
     private Toast mToast;
     private List<Athlete> mAthletes;
 
-    private SpinnerAdapter athleteAdapter;
+    private AthleteSpinnerAdapter athleteAdapter;
 
 
     private DatePickerFragment datePickerFragment;
@@ -127,7 +127,7 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         poolLengthSpinner.setAdapter(poolLengthadapter);
         distanceSpinner.setAdapter(distanceAdapter);
 
-        athleteAdapter = new SpinnerAdapter(getActivity(),mAthletes);
+        athleteAdapter = new AthleteSpinnerAdapter(getActivity(),mAthletes);
         mAthleteNames.setAdapter(athleteAdapter);
 
         btnStartTime.setOnClickListener(this);

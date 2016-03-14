@@ -25,7 +25,7 @@ import com.scnu.swimmingtrainsystem.activity.MyApplication;
 import com.scnu.swimmingtrainsystem.adapter.DragAdapter;
 import com.scnu.swimmingtrainsystem.adapter.ScoreListAdapter;
 import com.scnu.swimmingtrainsystem.db.DBManager;
-import com.scnu.swimmingtrainsystem.model.Athlete;
+import com.scnu.swimmingtrainsystem.model2db.Athlete;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.Constants;
 

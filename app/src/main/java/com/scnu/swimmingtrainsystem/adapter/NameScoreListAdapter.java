@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.db.DBManager;
-import com.scnu.swimmingtrainsystem.model.Score;
-import com.scnu.swimmingtrainsystem.model.ScoreSum;
+import com.scnu.swimmingtrainsystem.model2db.Score;
+import com.scnu.swimmingtrainsystem.entity.ScoreSum;
 
 import java.util.ArrayList;
 import java.util.List;

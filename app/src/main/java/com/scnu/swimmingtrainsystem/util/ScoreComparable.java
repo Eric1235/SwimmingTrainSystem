@@ -4,7 +4,7 @@ package com.scnu.swimmingtrainsystem.util;/**
  * Email EricLi1235@gmail.com.
  */
 
-import com.scnu.swimmingtrainsystem.model.ScoreSum;
+import com.scnu.swimmingtrainsystem.entity.ScoreSum;
 
 import java.util.Comparator;
 

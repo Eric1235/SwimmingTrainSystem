@@ -29,7 +29,7 @@ import com.android.volley.toolbox.Volley;
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.db.DBManager;
 import com.scnu.swimmingtrainsystem.http.JsonTools;
-import com.scnu.swimmingtrainsystem.model.User;
+import com.scnu.swimmingtrainsystem.model2db.User;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.Constants;
 import com.scnu.swimmingtrainsystem.util.SpUtil;

@@ -1,4 +1,4 @@
-package com.scnu.swimmingtrainsystem.model;
+package com.scnu.swimmingtrainsystem.entity;
 
 /**
  * 查询回来的成绩，用于展示

@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.db.DBManager;
-import com.scnu.swimmingtrainsystem.model.Plan;
-import com.scnu.swimmingtrainsystem.model.Score;
-import com.scnu.swimmingtrainsystem.model.ScoreSum;
+import com.scnu.swimmingtrainsystem.model2db.Plan;
+import com.scnu.swimmingtrainsystem.model2db.Score;
+import com.scnu.swimmingtrainsystem.entity.ScoreSum;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.Constants;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;

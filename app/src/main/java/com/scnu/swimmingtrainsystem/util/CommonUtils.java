@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.scnu.swimmingtrainsystem.R;
-import com.scnu.swimmingtrainsystem.model.Athlete;
-import com.scnu.swimmingtrainsystem.model.ExplicitScore;
-import com.scnu.swimmingtrainsystem.model.Plan;
-import com.scnu.swimmingtrainsystem.model.Score;
-import com.scnu.swimmingtrainsystem.model.ScoreSum;
-import com.scnu.swimmingtrainsystem.model.SmallPlan;
-import com.scnu.swimmingtrainsystem.model.SmallScore;
+import com.scnu.swimmingtrainsystem.model2db.Athlete;
+import com.scnu.swimmingtrainsystem.entity.ExplicitScore;
+import com.scnu.swimmingtrainsystem.model2db.Plan;
+import com.scnu.swimmingtrainsystem.model2db.Score;
+import com.scnu.swimmingtrainsystem.entity.ScoreSum;
+import com.scnu.swimmingtrainsystem.entity.SmallPlan;
+import com.scnu.swimmingtrainsystem.entity.SmallScore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

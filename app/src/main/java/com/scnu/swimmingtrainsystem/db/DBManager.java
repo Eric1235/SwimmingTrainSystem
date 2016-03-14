@@ -3,12 +3,12 @@ package com.scnu.swimmingtrainsystem.db;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.scnu.swimmingtrainsystem.model.Athlete;
-import com.scnu.swimmingtrainsystem.model.OtherScore;
-import com.scnu.swimmingtrainsystem.model.Plan;
-import com.scnu.swimmingtrainsystem.model.Score;
-import com.scnu.swimmingtrainsystem.model.ScoreSum;
-import com.scnu.swimmingtrainsystem.model.User;
+import com.scnu.swimmingtrainsystem.model2db.Athlete;
+import com.scnu.swimmingtrainsystem.model2db.OtherScore;
+import com.scnu.swimmingtrainsystem.model2db.Plan;
+import com.scnu.swimmingtrainsystem.model2db.Score;
+import com.scnu.swimmingtrainsystem.entity.ScoreSum;
+import com.scnu.swimmingtrainsystem.model2db.User;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.ScoreComparable;
 
