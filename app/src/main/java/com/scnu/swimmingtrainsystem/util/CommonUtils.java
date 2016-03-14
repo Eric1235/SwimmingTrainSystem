@@ -19,11 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -214,11 +211,11 @@ public class CommonUtils {
 	 */
 	public static List<ScoreSum> getAllScoreSum(List<Score> mScores,boolean isReset){
 		List<ScoreSum> temps = new ArrayList<ScoreSum>();
-		Set<Integer> aidSet = getAthleteIdInScores(mScores);
-		Iterator<Integer> athleteItor = aidSet.iterator();
+		List<Integer> aidList = getAthleteIdInScores(mScores);
 		//使用适配器遍历运动员
-		if(athleteItor.hasNext()) {
-			int athlete_id = athleteItor.next();
+		for(Integer athlete_id : aidList) {
+//		if(aidItor.hasNext()){
+//			int athlete_id = aidItor.next();
 			List<Score> scores = getScoresByAid(athlete_id, mScores);
 			ScoreSum p = new ScoreSum();
 			p.setAthleteName("我觉得不需要");
@@ -260,6 +257,7 @@ public class CommonUtils {
 	 */
 	public static List<Score> getScoresByAid(int aid,List<Score> mScores){
 		List<Score> scores = new ArrayList<>();
+		//对成绩进行遍历
 		for(Score s : mScores){
 			if(s.getAthlete_id() == aid){
 				scores.add(s);
@@ -269,21 +267,32 @@ public class CommonUtils {
 	}
 
 	/**
-	 * 从成绩列表中获取运动员列表
+	 * 从成绩列表中获取运动员列表，是要全部遍历么？
+	 *
 	 * @param mScores
 	 * @return
 	 */
-	public static Set<Integer> getAthleteIdInScores(List<Score> mScores){
-		Set<Integer> aidSet = new HashSet<>();
+	public static List<Integer> getAthleteIdInScores(List<Score> mScores){
+		List<Integer> aidList = new ArrayList<>();
+//		Set<Integer> aidSet = new HashSet<>();
 		for(Score s : mScores){
-			aidSet.add(s.getAthlete_id());
+			aidList.add(s.getAthlete_id());
+//			aidSet.add(s.getAthlete_id());
 		}
-		return aidSet;
+		return aidList;
+//		return aidSet;
 	}
 
+	/**
+	 * 把成绩按照times进行分类，得到每次time的列表
+	 * @param mScores
+	 * @param maxTime
+	 * @return
+	 */
 	public static List<List<Score>> getScoresListByTimes(List<Score> mScores,int maxTime){
-		List<List<Score>> listss = new ArrayList<List<Score>>();
-		for(int i = 0 ; i < maxTime ; i ++ ){
+		List<List<Score>> listss = new ArrayList<>();
+		//遍历整个数组,从1到n
+		for(int i = 1 ; i <= maxTime ; i ++ ){
 			List<Score> mSubScores = getScoresByTimes(mScores,i);
 			listss.add(mSubScores);
 		}
@@ -297,7 +306,7 @@ public class CommonUtils {
 				mSubScores.add(s);
 			}
 		}
-		return mScores;
+		return mSubScores;
 	}
 
 	public static boolean isAthleteInLocal(List<Athlete> athleteList,int Aid){

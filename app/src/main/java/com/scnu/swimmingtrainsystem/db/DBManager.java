@@ -439,7 +439,7 @@ public class DBManager {
 					sum.add(s.getScore());
 				}
 				/**
-				 * 对成绩进行累加
+				 * 对成绩进行累加,得到总成绩
 				 */
 				p.setScore(CommonUtils.scoreSum(sum));
 			}

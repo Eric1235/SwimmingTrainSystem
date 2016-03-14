@@ -1,15 +1,12 @@
 package com.scnu.swimmingtrainsystem.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -19,7 +16,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.scnu.swimmingtrainsystem.R;
-import com.scnu.swimmingtrainsystem.adapter.ExplicitScoreAdapter;
+import com.scnu.swimmingtrainsystem.adapter.NameScoreListAdapter;
 import com.scnu.swimmingtrainsystem.db.DBManager;
 import com.scnu.swimmingtrainsystem.http.JsonTools;
 import com.scnu.swimmingtrainsystem.model.ExplicitScore;
@@ -64,7 +61,6 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
     private LinearLayout containLayout;
     private MyApplication app;
     private TextView tvDetails;
-    private ExplicitScoreAdapter mAdapter;
     private ExpandableListView scoreListView;
     private ImageButton btnBack;
 
@@ -95,7 +91,7 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
     }
 
     /**
-     * 控件
+     * 初始化控件
      */
     private void initView(){
 
@@ -121,6 +117,7 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
 
     }
 
+
     private void setDetailTextView(int maxTime, final Plan plan){
         tvDetails.setVisibility(View.VISIBLE);
         tvDetails.setText(plan.getPool() + "  共" + maxTime + "趟  " + "  目标总距离："
@@ -141,6 +138,16 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
                 try{
                     obj = new JSONObject(response);
                     int resCode = (Integer)obj.get("resCode");
+                    /**
+                     * 展示的成绩先进行统计
+                     * 第一步，得到最大游泳次数
+                     * 第二步，把返回的数据组装成为score对象
+                     * 第三步，获得运动员列表，这是主要用于运动员的成绩筛选，得到每个运动员的一次游泳的全部成绩
+                     * 第四步，对某个运动员的成绩进行统计，得到总运动时间，不过这个是根据停表或者不停表来进一步划分，
+                     * 不停表的话，最后一次成绩就是总成绩，不需要统计
+                     * 第五步，根据time去梳理出每一趟的成绩，用于展示
+                     * 第六步，将所有得到的参数传进去，展示得到的成绩
+                     */
                     if(resCode == 1){
                         int maxTime = 0;
                         ExplicitScore[] tmpScores = JsonTools.getObject(
@@ -158,7 +165,7 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
                         /**
                          * 获得上传时间
                          */
-                        String resDate = tmpScores[0].getUp_time();
+//                        String resDate = tmpScores[0].getUp_time();
                         //获得aid列表
 //                        List<Integer> athIds = dbManager
 //                                .getAthleteIdInScoreByDate(resDate);
@@ -180,7 +187,8 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
                         tvDetails.setVisibility(View.VISIBLE);
                         tvDetails.setText(  "  目标总距离:"
                                 + distance + "米");
-                        //获得平均成绩
+
+                        //获得平均成绩，通过统计的总成绩获得
                         List<ScoreSum> avgScores = CommonUtils.getAvgScore(maxTime,sumList);
 //                        for (ScoreSum ss : sumList) {
 //                            ScoreSum scoreSum = new ScoreSum();
@@ -195,12 +203,16 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
 //                            avgScores.add(scoreSum);
 //                        }
 
+                        /**
+                         * maxTime加上2就是为了显示
+                         */
                         NameScoreListAdapter scoreListAdapter = new NameScoreListAdapter(
                                 ShowExplicitScoreActivity.this, listss,
-                                sumList, avgScores, maxTime + 2);
+                                sumList, avgScores, maxTime + 2,dbManager);
                         scoreListView
                                 .setAdapter(scoreListAdapter);
-                        dbManager.deleteScores(resDate);
+//                        dbManager.deleteScores(resDate);
+                        //最后的两行就是总成绩和平均成绩
                         for (int i = 0; i < (maxTime + 2); i++) {
                             scoreListView.expandGroup(i);
                         }
@@ -231,7 +243,6 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
         if(athlete_id.get(0) != 0){
             map.put("athlete_id",athlete_id);
         }
-
         map.put("plan_id",plan_id);
         map.put("stroke",stroke);
         Map<String,String > dataMap = new HashMap<String, String>();
@@ -254,159 +265,159 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
         popupWindow.showAsDropDown(tvDetails, containLayout.getWidth() - 50, 0);
     }
 
-    class NameScoreListAdapter extends BaseExpandableListAdapter {
-        private Context mContext;
-        private List<List<Score>> mLists = new ArrayList<List<Score>>();
-        private List<ScoreSum> mTemps = new ArrayList<ScoreSum>();
-        private List<ScoreSum> mAvgScores = new ArrayList<ScoreSum>();
-        private int mSwimTime = 0;
-
-        public NameScoreListAdapter(Context mContext, List<List<Score>> mLists,
-                                    List<ScoreSum> mTemps, List<ScoreSum> avgScores, int mSwimTime) {
-            this.mContext = mContext;
-            this.mLists = mLists;
-            this.mTemps = mTemps;
-            this.mAvgScores = avgScores;
-            this.mSwimTime = mSwimTime;
-        }
-
-        @Override
-        public Object getChild(int groupPosition, int childPosition) {
-            // TODO Auto-generated method stub
-            return mLists.get(groupPosition).get(childPosition);
-        }
-
-        @Override
-        public long getChildId(int groupPosition, int childPosition) {
-            return 0;
-        }
-
-        @Override
-        public View getChildView(int groupPosition, int childPosition,
-                                 boolean isLastChild, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-            ChildHolder childHolder = null;
-            if (convertView == null) {
-                childHolder = new ChildHolder();
-                convertView = View.inflate(mContext,
-                        R.layout.show_score_list_item_sub, null);
-                childHolder.rank = (TextView) convertView
-                        .findViewById(R.id.show_rank);
-                childHolder.score = (TextView) convertView
-                        .findViewById(R.id.show_score);
-                childHolder.name = (TextView) convertView
-                        .findViewById(R.id.show_name);
-                convertView.setTag(childHolder);
-            } else {
-                childHolder = (ChildHolder) convertView.getTag();
-            }
-
-            if (groupPosition < mSwimTime - 2) {
-                childHolder.rank.setText("第" + (childPosition + 1) + "名");
-                childHolder.score.setText(mLists.get(groupPosition)
-                        .get(childPosition).getScore());
-                /**
-                 * 要转换为名字啦
-                 */
-                int athlete_id = mLists.get(groupPosition).get(childPosition).getAthlete_id();
-                childHolder.name.setText(dbManager.getAthleteByAid(athlete_id).getName());
-            } else if (groupPosition == (mSwimTime - 2)) {
-                childHolder.rank.setText("第" + (childPosition + 1) + "名");
-                childHolder.score.setText(mTemps.get(childPosition).getScore());
-                childHolder.name.setText(mTemps.get(childPosition)
-                        .getAthleteName());
-            } else {
-                childHolder.rank.setText("第" + (childPosition + 1) + "名");
-                childHolder.score.setText(mAvgScores.get(childPosition)
-                        .getScore());
-                childHolder.name.setText(mAvgScores.get(childPosition)
-                        .getAthleteName());
-            }
-
-            return convertView;
-        }
-
-        @Override
-        public int getChildrenCount(int groupPosition) {
-            // TODO Auto-generated method stub
-            if (mLists.size() == 0) {
-                return 0;
-            }
-            return mLists.get(0).size();
-        }
-
-        @Override
-        public Object getGroup(int groupPosition) {
-            // TODO Auto-generated method stub
-            return groupPosition;
-        }
-
-        @Override
-        public int getGroupCount() {
-            // TODO Auto-generated method stub
-            return mSwimTime;
-        }
-
-        @Override
-        public long getGroupId(int groupPosition) {
-            // TODO Auto-generated method stub
-            return 0;
-        }
-
-        @Override
-        public View getGroupView(int groupPosition, boolean isExpanded,
-                                 View convertView, ViewGroup parent) {
-            GroupHolder groupHolder = null;
-            if (convertView == null) {
-                groupHolder = new GroupHolder();
-                convertView = View.inflate(mContext,
-                        R.layout.query_score_list_item_head, null);
-                groupHolder.timeTextView = (TextView) convertView
-                        .findViewById(R.id.test_date);
-                groupHolder.curDistance = (TextView) convertView
-                        .findViewById(R.id.test_plan);
-                convertView.setTag(groupHolder);
-            } else {
-                groupHolder = (GroupHolder) convertView.getTag();
-            }
-
-            if (groupPosition < getGroupCount() - 2) {
-                groupHolder.timeTextView.setText("第" + (groupPosition + 1)
-                        + "趟");
-                groupHolder.curDistance.setText("当前距离 "
-                        + mLists.get(groupPosition).get(0).getDistance() + "米");
-            } else if (groupPosition == (getGroupCount() - 2)) {
-                groupHolder.timeTextView.setText("本轮总计");
-            } else {
-                groupHolder.timeTextView.setText("平均成绩");
-            }
-            return convertView;
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public boolean isChildSelectable(int groupPosition, int childPosition) {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        final class GroupHolder {
-            private TextView timeTextView;
-            private TextView curDistance;
-        }
-
-        final class ChildHolder {
-            private TextView rank;
-            private TextView score;
-            private TextView name;
-        }
-
-    }
+//    class NameScoreListAdapter extends BaseExpandableListAdapter {
+//        private Context mContext;
+//        private List<List<Score>> mLists = new ArrayList<List<Score>>();
+//        private List<ScoreSum> mTemps = new ArrayList<ScoreSum>();
+//        private List<ScoreSum> mAvgScores = new ArrayList<ScoreSum>();
+//        private int mSwimTime = 0;
+//
+//        public NameScoreListAdapter(Context mContext, List<List<Score>> mLists,
+//                                    List<ScoreSum> mTemps, List<ScoreSum> avgScores, int mSwimTime) {
+//            this.mContext = mContext;
+//            this.mLists = mLists;
+//            this.mTemps = mTemps;
+//            this.mAvgScores = avgScores;
+//            this.mSwimTime = mSwimTime;
+//        }
+//
+//        @Override
+//        public Object getChild(int groupPosition, int childPosition) {
+//            // TODO Auto-generated method stub
+//            return mLists.get(groupPosition).get(childPosition);
+//        }
+//
+//        @Override
+//        public long getChildId(int groupPosition, int childPosition) {
+//            return 0;
+//        }
+//
+//        @Override
+//        public View getChildView(int groupPosition, int childPosition,
+//                                 boolean isLastChild, View convertView, ViewGroup parent) {
+//            // TODO Auto-generated method stub
+//            ChildHolder childHolder = null;
+//            if (convertView == null) {
+//                childHolder = new ChildHolder();
+//                convertView = View.inflate(mContext,
+//                        R.layout.show_score_list_item_sub, null);
+//                childHolder.rank = (TextView) convertView
+//                        .findViewById(R.id.show_rank);
+//                childHolder.score = (TextView) convertView
+//                        .findViewById(R.id.show_score);
+//                childHolder.name = (TextView) convertView
+//                        .findViewById(R.id.show_name);
+//                convertView.setTag(childHolder);
+//            } else {
+//                childHolder = (ChildHolder) convertView.getTag();
+//            }
+//
+//            if (groupPosition < mSwimTime - 2) {
+//                childHolder.rank.setText("第" + (childPosition + 1) + "名");
+//                childHolder.score.setText(mLists.get(groupPosition)
+//                        .get(childPosition).getScore());
+//                /**
+//                 * 要转换为名字啦
+//                 */
+//                int athlete_id = mLists.get(groupPosition).get(childPosition).getAthlete_id();
+//                childHolder.name.setText(dbManager.getAthleteByAid(athlete_id).getName());
+//            } else if (groupPosition == (mSwimTime - 2)) {
+//                childHolder.rank.setText("第" + (childPosition + 1) + "名");
+//                childHolder.score.setText(mTemps.get(childPosition).getScore());
+//                childHolder.name.setText(mTemps.get(childPosition)
+//                        .getAthleteName());
+//            } else {
+//                childHolder.rank.setText("第" + (childPosition + 1) + "名");
+//                childHolder.score.setText(mAvgScores.get(childPosition)
+//                        .getScore());
+//                childHolder.name.setText(mAvgScores.get(childPosition)
+//                        .getAthleteName());
+//            }
+//
+//            return convertView;
+//        }
+//
+//        @Override
+//        public int getChildrenCount(int groupPosition) {
+//            // TODO Auto-generated method stub
+//            if (mLists.size() == 0) {
+//                return 0;
+//            }
+//            return mLists.get(0).size();
+//        }
+//
+//        @Override
+//        public Object getGroup(int groupPosition) {
+//            // TODO Auto-generated method stub
+//            return groupPosition;
+//        }
+//
+//        @Override
+//        public int getGroupCount() {
+//            // TODO Auto-generated method stub
+//            return mSwimTime;
+//        }
+//
+//        @Override
+//        public long getGroupId(int groupPosition) {
+//            // TODO Auto-generated method stub
+//            return 0;
+//        }
+//
+//        @Override
+//        public View getGroupView(int groupPosition, boolean isExpanded,
+//                                 View convertView, ViewGroup parent) {
+//            GroupHolder groupHolder = null;
+//            if (convertView == null) {
+//                groupHolder = new GroupHolder();
+//                convertView = View.inflate(mContext,
+//                        R.layout.query_score_list_item_head, null);
+//                groupHolder.timeTextView = (TextView) convertView
+//                        .findViewById(R.id.test_date);
+//                groupHolder.curDistance = (TextView) convertView
+//                        .findViewById(R.id.test_plan);
+//                convertView.setTag(groupHolder);
+//            } else {
+//                groupHolder = (GroupHolder) convertView.getTag();
+//            }
+//
+//            if (groupPosition < getGroupCount() - 2) {
+//                groupHolder.timeTextView.setText("第" + (groupPosition + 1)
+//                        + "趟");
+//                groupHolder.curDistance.setText("当前距离 "
+//                        + mLists.get(groupPosition).get(0).getDistance() + "米");
+//            } else if (groupPosition == (getGroupCount() - 2)) {
+//                groupHolder.timeTextView.setText("本轮总计");
+//            } else {
+//                groupHolder.timeTextView.setText("平均成绩");
+//            }
+//            return convertView;
+//        }
+//
+//        @Override
+//        public boolean hasStableIds() {
+//            // TODO Auto-generated method stub
+//            return false;
+//        }
+//
+//        @Override
+//        public boolean isChildSelectable(int groupPosition, int childPosition) {
+//            // TODO Auto-generated method stub
+//            return false;
+//        }
+//
+//        final class GroupHolder {
+//            private TextView timeTextView;
+//            private TextView curDistance;
+//        }
+//
+//        final class ChildHolder {
+//            private TextView rank;
+//            private TextView score;
+//            private TextView name;
+//        }
+//
+//    }
 
     private void exitActivity(){
         finish();
