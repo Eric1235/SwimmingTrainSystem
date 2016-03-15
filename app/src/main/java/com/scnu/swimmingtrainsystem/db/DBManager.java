@@ -9,7 +9,7 @@ import com.scnu.swimmingtrainsystem.model2db.OtherScore;
 import com.scnu.swimmingtrainsystem.model2db.Plan;
 import com.scnu.swimmingtrainsystem.model2db.Score;
 import com.scnu.swimmingtrainsystem.model2db.User;
-import com.scnu.swimmingtrainsystem.util.ScoreComparable;
+import com.scnu.swimmingtrainsystem.util.ScoreSumComparator;
 import com.scnu.swimmingtrainsystem.util.Statistics;
 
 import org.litepal.crud.DataSupport;
@@ -455,7 +455,7 @@ public class DBManager {
 		/**
 		 * 对成绩进行排序
 		 */
-		Collections.sort(temps, new ScoreComparable());
+		Collections.sort(temps, new ScoreSumComparator());
 		return temps;
 	}
 

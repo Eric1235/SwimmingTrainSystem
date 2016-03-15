@@ -324,7 +324,7 @@ public class ShowScoreActivity extends Activity {
 			/**
 			 * 获得平均成绩
 			 */
-			avgScores = Statistics.getAvgScore(mSwimTime, mTemps);
+			avgScores = Statistics.getAvgScoreInAdapter(mSwimTime, mTemps);
 
 		}
 

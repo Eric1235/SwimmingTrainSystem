@@ -11,7 +11,10 @@ import com.scnu.swimmingtrainsystem.model2db.Score;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * User: lixinkun
@@ -56,7 +59,12 @@ public class Statistics {
                 second, millisecond);
     }
 
-
+    /**
+     * 计算获得两个成绩之间的时间间隔
+     * @param s1
+     * @param s2
+     * @return
+     */
     public static String getScoreSubtraction(String s1, String s2) {
         int Subtraction = timeString2TimeInt(s1) - timeString2TimeInt(s2);
         return timeInt2TimeString(Subtraction);
@@ -71,6 +79,33 @@ public class Statistics {
      */
     public static List<ScoreSum> getAvgScore(int mSwimTime,List<ScoreSum> tempScores){
         List<ScoreSum> avgScores = new ArrayList<>();
+        /**
+         * 遍历总成绩，对总成绩进行计算，在不同的地方，maxtime的值并不是真实的，在adapter里面进行计算的平均成绩的maxtime是有+2的
+         */
+        for (ScoreSum ss : tempScores) {
+            ScoreSum scoreSum = new ScoreSum();
+            int msec = timeString2TimeInt(ss.getScore());
+            int avgsec = msec / (mSwimTime);
+            String avgScore = timeInt2TimeString(avgsec);
+            scoreSum.setScore(avgScore);
+            scoreSum.setAthleteName(ss.getAthleteName());
+            scoreSum.setAthlete_id(ss.getAthlete_id());
+            avgScores.add(scoreSum);
+        }
+        return avgScores;
+    }
+
+    /**
+     * 获得平均成绩
+     * @param mSwimTime
+     * @param tempScores
+     * @return
+     */
+    public static List<ScoreSum> getAvgScoreInAdapter(int mSwimTime,List<ScoreSum> tempScores){
+        List<ScoreSum> avgScores = new ArrayList<>();
+        /**
+         * 遍历总成绩，对总成绩进行计算，在不同的地方，maxtime的值并不是真实的，在adapter里面进行计算的平均成绩的maxtime是有+2的
+         */
         for (ScoreSum ss : tempScores) {
             ScoreSum scoreSum = new ScoreSum();
             int msec = timeString2TimeInt(ss.getScore());
@@ -92,14 +127,19 @@ public class Statistics {
      */
     public static List<ScoreSum> getAllScoreSum(List<Score> mScores,boolean isReset){
         List<ScoreSum> temps = new ArrayList<ScoreSum>();
-        List<Integer> aidList = getAthleteIdInScores(mScores);
+//        List<Integer> aidList = getAthleteIdInScores(mScores);
+        Set<Integer> aidSet = getAthleteIdInScores(mScores);
+        Iterator<Integer> aidItor = aidSet.iterator();
         //使用适配器遍历运动员
-        for(Integer athlete_id : aidList) {
-//		if(aidItor.hasNext()){
-//			int athlete_id = aidItor.next();
+//        for(Integer athlete_id : aidList) {
+        /**
+         * 对成绩进行遍历
+         */
+		while (aidItor.hasNext()){
+			int athlete_id = aidItor.next();
             List<Score> scores = getScoresByAid(athlete_id, mScores);
             ScoreSum p = new ScoreSum();
-            p.setAthleteName("我觉得不需要");
+            p.setAthleteName("NULL");
             p.setAthlete_id(athlete_id);
             /**
              * 本次成绩是间歇的
@@ -126,7 +166,7 @@ public class Statistics {
         /**
          * 对成绩进行排序，使用collection进行排序
          */
-        Collections.sort(temps, new ScoreComparable());
+        Collections.sort(temps, new ScoreSumComparator());
         return  temps;
     }
 
@@ -153,15 +193,15 @@ public class Statistics {
      * @param mScores
      * @return
      */
-    public static List<Integer> getAthleteIdInScores(List<Score> mScores){
-        List<Integer> aidList = new ArrayList<>();
-//		Set<Integer> aidSet = new HashSet<>();
+    public static Set<Integer> getAthleteIdInScores(List<Score> mScores){
+//        List<Integer> aidList = new ArrayList<>();
+		Set<Integer> aidSet = new HashSet<>();
         for(Score s : mScores){
-            aidList.add(s.getAthlete_id());
-//			aidSet.add(s.getAthlete_id());
+//            aidList.add(s.getAthlete_id());
+			aidSet.add(s.getAthlete_id());
         }
-        return aidList;
-//		return aidSet;
+//        return aidList;
+		return aidSet;
     }
 
     /**
@@ -187,6 +227,8 @@ public class Statistics {
                 mSubScores.add(s);
             }
         }
+
+        Collections.sort(mSubScores,new ScoreComparator());
         return mSubScores;
     }
 

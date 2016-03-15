@@ -14,7 +14,7 @@ import java.util.Comparator;
  * Time: 20:25
  * 成绩比较适配器
  */
-public class ScoreComparable implements Comparator<ScoreSum>{
+public class ScoreSumComparator implements Comparator<ScoreSum>{
 
         @Override
         public int compare(ScoreSum lhs, ScoreSum rhs) {
