@@ -14,11 +14,11 @@ import android.widget.TextView;
 
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.db.DBManager;
+import com.scnu.swimmingtrainsystem.entity.ScoreSum;
 import com.scnu.swimmingtrainsystem.model2db.Plan;
 import com.scnu.swimmingtrainsystem.model2db.Score;
-import com.scnu.swimmingtrainsystem.entity.ScoreSum;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.Constants;
+import com.scnu.swimmingtrainsystem.util.Statistics;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
 
 import org.litepal.crud.DataSupport;
@@ -324,7 +324,7 @@ public class ShowScoreActivity extends Activity {
 			/**
 			 * 获得平均成绩
 			 */
-			avgScores = CommonUtils.getAvgScore(mSwimTime,mTemps);
+			avgScores = Statistics.getAvgScore(mSwimTime, mTemps);
 
 		}
 

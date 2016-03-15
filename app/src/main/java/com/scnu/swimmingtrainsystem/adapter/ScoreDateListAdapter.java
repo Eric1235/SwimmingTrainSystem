@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.scnu.swimmingtrainsystem.R;
-import com.scnu.swimmingtrainsystem.entity.ScoreDateItem;
+import com.scnu.swimmingtrainsystem.entity.ScoreDateEntity;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 
 import java.util.Date;
@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class ScoreDateListAdapter extends BaseAdapter {
 
-    private List<ScoreDateItem> mItems;
+    private List<ScoreDateEntity> mItems;
     private Context mContext;
 
-    public ScoreDateListAdapter(List<ScoreDateItem> mItems, Context mContext) {
+    public ScoreDateListAdapter(List<ScoreDateEntity> mItems, Context mContext) {
         this.mItems = mItems;
         this.mContext = mContext;
     }
@@ -32,7 +32,7 @@ public class ScoreDateListAdapter extends BaseAdapter {
     }
 
     @Override
-    public ScoreDateItem getItem(int position) {
+    public ScoreDateEntity getItem(int position) {
         return mItems.get(position);
     }
 
@@ -45,7 +45,7 @@ public class ScoreDateListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holer = null;
-        ScoreDateItem item = getItem(position);
+        ScoreDateEntity item = getItem(position);
         if(convertView == null){
             holer = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.xlist_item, null);

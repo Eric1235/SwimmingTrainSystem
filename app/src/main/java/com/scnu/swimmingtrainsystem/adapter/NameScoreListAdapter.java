@@ -86,14 +86,15 @@ public class NameScoreListAdapter extends BaseExpandableListAdapter {
         } else if (groupPosition == (mSwimTime - 2)) {
             childHolder.rank.setText("第" + (childPosition + 1) + "名");
             childHolder.score.setText(mTemps.get(childPosition).getScore());
-            childHolder.name.setText(mTemps.get(childPosition)
-                    .getAthleteName());
+            int aid = mTemps.get(childPosition).getAthlete_id();
+            childHolder.name.setText(dbManager.getAthleteByAid(aid).getName());
         } else {
             childHolder.rank.setText("第" + (childPosition + 1) + "名");
             childHolder.score.setText(mAvgScores.get(childPosition)
                     .getScore());
-            childHolder.name.setText(mAvgScores.get(childPosition)
-                    .getAthleteName());
+            int aid = mAvgScores.get(childPosition)
+                    .getAthlete_id();
+            childHolder.name.setText(dbManager.getAthleteByAid(aid).getName());
         }
 
         return convertView;

@@ -27,6 +27,7 @@ import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.Constants;
 import com.scnu.swimmingtrainsystem.util.NetworkUtil;
 import com.scnu.swimmingtrainsystem.util.SpUtil;
+import com.scnu.swimmingtrainsystem.util.Statistics;
 import com.scnu.swimmingtrainsystem.util.VolleyUtil;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
 
@@ -174,8 +175,8 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
 //                                .getAthleteIdInScoreByDate(resDate,
 //                                        athIds,isReset);
 
-                        List<ScoreSum> sumList = CommonUtils.getAllScoreSum(mScores,isReset);
-                        List<List<Score>> listss = CommonUtils.getScoresListByTimes(mScores,maxTime);
+                        List<ScoreSum> sumList = Statistics.getAllScoreSum(mScores, isReset);
+                        List<List<Score>> listss = Statistics.getScoresListByTimes(mScores,maxTime);
 //                        // 根据时间查询成绩
 //                        for (int t = 1; t <= maxTime; t++) {
 //                            List<Score> sco = dbManager
@@ -189,7 +190,7 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
                                 + distance + "米");
 
                         //获得平均成绩，通过统计的总成绩获得
-                        List<ScoreSum> avgScores = CommonUtils.getAvgScore(maxTime,sumList);
+                        List<ScoreSum> avgScores = Statistics.getAvgScore(maxTime,sumList);
 //                        for (ScoreSum ss : sumList) {
 //                            ScoreSum scoreSum = new ScoreSum();
 //                            //统计得到平均成绩
@@ -244,7 +245,9 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
             map.put("athlete_id",athlete_id);
         }
         map.put("plan_id",plan_id);
-        map.put("stroke",stroke);
+        if(stroke != 0) {
+            map.put("stroke", stroke);
+        }
         Map<String,String > dataMap = new HashMap<String, String>();
         String data = JsonTools.creatJsonString(map);
         dataMap.put("data", data);

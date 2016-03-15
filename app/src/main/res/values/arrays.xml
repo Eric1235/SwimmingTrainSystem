@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer-array name="strokeintarray">
+    <integer-array name="stroke_array_int">
+        <item >0</item>
         <item >1</item>
         <item >2</item>
         <item >3</item>
         <item >4</item>
         <item >5</item>
     </integer-array>
-    <string-array name="strokestrarray">
+    <string-array name="stroke_array_string">
         <item>所有</item>
         <item >蛙泳</item>
         <item >仰泳</item>
@@ -15,15 +16,15 @@
         <item >自由泳</item>
         <item >混合泳</item>
     </string-array>
-    <!-- 0是代表所有泳姿哦 -->
-    <string-array name="query_stroke_array">
-        <item >所有</item>
+
+    <string-array name="strokestrarray">
         <item >蛙泳</item>
         <item >仰泳</item>
         <item >蝶泳</item>
         <item >自由泳</item>
         <item >混合泳</item>
     </string-array>
+
     
     <string-array name="swim_length">
         <item >25</item>
@@ -40,7 +41,8 @@
         <item >300</item>
     </string-array>
 
-    <string-array name="query_swim_length">
+    <string-array name="swim_distance_string">
+        <item>所有</item>
         <item>25</item>
         <item>50</item>
         <item>100</item>
@@ -49,8 +51,19 @@
         <item>800</item>
         <item>1000</item>
         <item>1500</item>
-        <item></item>
     </string-array>
+
+    <integer-array name="swim_distance_int">
+        <item>0</item>
+        <item>25</item>
+        <item>50</item>
+        <item>100</item>
+        <item>200</item>
+        <item>400</item>
+        <item>800</item>
+        <item>1000</item>
+        <item>1500</item>
+    </integer-array>
     
     <string-array name="swim_length_meter">
         <item >25米</item>
@@ -72,8 +85,20 @@
         <item>10米</item>
         <item>15米</item>
     </string-array>
-    
+
     <string-array name="pool_length">
+        <item >25</item>
+        <item >50</item>
+    </string-array>
+    
+    <integer-array name="pool_length_int">
+        <item >0</item>
+        <item >25</item>
+        <item >50</item>
+    </integer-array>
+    
+    <string-array name="pool_length_str">
+        <item >所有</item>
         <item >25</item>
         <item >50</item>
     </string-array>

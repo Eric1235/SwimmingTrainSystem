@@ -11,7 +11,13 @@ package com.scnu.swimmingtrainsystem.entity;/**
  * 用于展示的实体
  */
 public class SpinnerEntity {
+    /**
+     * 用于展示的字符串
+     */
     private String displayString;
+    /**
+     * 实际使用的数值，可以只用其中一个
+     */
     private int usedNo;
     private boolean isReset;
     private String usedString;

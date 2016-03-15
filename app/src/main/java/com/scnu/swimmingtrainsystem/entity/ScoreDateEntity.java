@@ -4,14 +4,14 @@ package com.scnu.swimmingtrainsystem.entity;
  * 记录返回的时间列表
  * Created by lixinkun on 16/3/2.
  */
-public class ScoreDateItem {
+public class ScoreDateEntity {
     private String times;
     private int distance;
     private int plan_id;
     private String pdate;
     private boolean isChecked;
 
-    public ScoreDateItem() {
+    public ScoreDateEntity() {
         this.isChecked = false;
     }
 
@@ -49,7 +49,7 @@ public class ScoreDateItem {
 
     @Override
     public String toString() {
-        return "ScoreDateItem{" +
+        return "ScoreDateEntity{" +
                 "times='" + times + '\'' +
                 ", distance=" + distance +
                 ", plan_id=" + plan_id +

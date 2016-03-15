@@ -10,12 +10,12 @@ import java.util.Date;
 public class QueryScoreEntity implements Serializable {
     private Date startTime;
     private Date endTime;
-    private String poolLength;
+    private int poolLength;
     private int stroke;
     private boolean isReset;
     private int athleteId;
     private int uid;
-    private String distance;
+    private int distance;
 
     public QueryScoreEntity() {
     }
@@ -24,36 +24,23 @@ public class QueryScoreEntity implements Serializable {
         return startTime;
     }
 
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public String getPoolLength() {
-        return poolLength;
-    }
-
-
-    public int getAthleteId() {
-        return athleteId;
-    }
-
-    public int getUid() {
-        return uid;
-    }
-
-    public String getDistance() {
-        return distance;
-    }
-
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
     }
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
-    public void setPoolLength(String poolLength) {
+    public int getPoolLength() {
+        return poolLength;
+    }
+
+    public void setPoolLength(int poolLength) {
         this.poolLength = poolLength;
     }
 
@@ -65,18 +52,6 @@ public class QueryScoreEntity implements Serializable {
         this.stroke = stroke;
     }
 
-    public void setAthleteId(int athleteId) {
-        this.athleteId = athleteId;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
-    public void setDistance(String distance) {
-        this.distance = distance;
-    }
-
     public boolean isReset() {
         return isReset;
     }
@@ -85,6 +60,29 @@ public class QueryScoreEntity implements Serializable {
         this.isReset = isReset;
     }
 
+    public int getAthleteId() {
+        return athleteId;
+    }
+
+    public void setAthleteId(int athleteId) {
+        this.athleteId = athleteId;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
 
     @Override
     public String toString() {

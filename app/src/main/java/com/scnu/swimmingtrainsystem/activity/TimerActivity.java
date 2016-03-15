@@ -29,6 +29,7 @@ import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.adapter.TimeLineListAdapter;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.Constants;
+import com.scnu.swimmingtrainsystem.util.Statistics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -306,7 +307,7 @@ public class TimerActivity extends Activity implements OnClickListener {
 		time.add(athletes - 1, tvTime.getText().toString());
 		if (athletes > 1) {
 			// 两个成绩之差
-			String substracion = CommonUtils.getScoreSubtraction(
+			String substracion = Statistics.getScoreSubtraction(
 					time.get(athletes - 1), time.get(athletes - 2));
 			timesub.add(substracion);
 		}

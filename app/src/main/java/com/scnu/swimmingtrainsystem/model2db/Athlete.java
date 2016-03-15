@@ -6,6 +6,7 @@ import org.litepal.crud.DataSupport;
  * 运动员实体类
  * 
  * @author LittleByte
+ * orm数据库映射类
  * 
  */
 

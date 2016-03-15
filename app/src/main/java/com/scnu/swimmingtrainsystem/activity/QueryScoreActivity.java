@@ -45,6 +45,7 @@ import com.scnu.swimmingtrainsystem.model2db.User;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.Constants;
 import com.scnu.swimmingtrainsystem.util.SpUtil;
+import com.scnu.swimmingtrainsystem.util.Statistics;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
 
 import org.json.JSONException;
@@ -227,9 +228,9 @@ public class QueryScoreActivity extends Activity {
 				List<ScoreSum> avgScores = new ArrayList<ScoreSum>();
 				for (ScoreSum ss : sumList) {
 					ScoreSum scoreSum = new ScoreSum();
-					int msec = CommonUtils.timeString2TimeInt(ss.getScore());
+					int msec = Statistics.timeString2TimeInt(ss.getScore());
 					int avgsec = msec / maxTime;
-					String avgScore = CommonUtils.timeInt2TimeString(avgsec);
+					String avgScore = Statistics.timeInt2TimeString(avgsec);
 					scoreSum.setScore(avgScore);
 					scoreSum.setAthleteName(ss.getAthleteName());
 					avgScores.add(scoreSum);
@@ -359,10 +360,10 @@ public class QueryScoreActivity extends Activity {
 								List<ScoreSum> avgScores = new ArrayList<ScoreSum>();
 								for (ScoreSum ss : sumList) {
 									ScoreSum scoreSum = new ScoreSum();
-									int msec = CommonUtils
+									int msec = Statistics
 											.timeString2TimeInt(ss.getScore());
 									int avgsec = msec / maxTime;
-									String avgScore = CommonUtils
+									String avgScore = Statistics
 											.timeInt2TimeString(avgsec);
 									scoreSum.setScore(avgScore);
 									scoreSum.setAthleteName(ss.getAthleteName());

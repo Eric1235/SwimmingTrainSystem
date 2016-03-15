@@ -7,15 +7,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPargerAdpt extends FragmentPagerAdapter {
+public class ViewPargerAdpter extends FragmentPagerAdapter {
 	private List<Fragment> fragments;
 
-	public ViewPargerAdpt(FragmentManager fm) {
+	public ViewPargerAdpter(FragmentManager fm) {
 		super(fm);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ViewPargerAdpt(FragmentManager fm, ArrayList<Fragment> fragments) {
+	public ViewPargerAdpter(FragmentManager fm, ArrayList<Fragment> fragments) {
 		super(fm);
 		this.fragments = fragments;
 	}

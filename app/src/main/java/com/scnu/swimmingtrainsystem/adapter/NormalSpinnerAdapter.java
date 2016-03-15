@@ -4,9 +4,16 @@ package com.scnu.swimmingtrainsystem.adapter;/**
  * Email EricLi1235@gmail.com.
  */
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.scnu.swimmingtrainsystem.R;
+import com.scnu.swimmingtrainsystem.entity.SpinnerEntity;
+
+import java.util.List;
 
 /**
  * User: lixinkun
@@ -16,23 +23,46 @@ import android.widget.BaseAdapter;
  */
 public class NormalSpinnerAdapter extends BaseAdapter{
 
-    @Override
-    public int getCount() {
-        return 0;
+    private List<SpinnerEntity> mLists;
+    private Context mContext;
+
+    public NormalSpinnerAdapter(List<SpinnerEntity> mLists, Context mContext) {
+        this.mLists = mLists;
+        this.mContext = mContext;
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public int getCount() {
+        return mLists.size();
+    }
+
+    @Override
+    public SpinnerEntity getItem(int i) {
+        return mLists.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+    public View getView(int i, View convertView, ViewGroup viewGroup) {
+        SpinnerEntity s = getItem(i);
+        ViewHolder holder = null;
+        if(convertView == null) {
+            holder = new ViewHolder();
+            convertView = View.inflate(mContext, R.layout.item_spinner, null);
+            holder.tvName = (TextView)convertView;
+            convertView.setTag(holder);
+        }else{
+            holder = (ViewHolder) convertView.getTag();
+        }
+        holder.tvName.setText(s.getDisplayString());
+        return  convertView;
+    }
+
+    class ViewHolder {
+        private TextView tvName;
     }
 }

@@ -24,6 +24,7 @@ import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.activity.MatchSprintScoreActivity;
 import com.scnu.swimmingtrainsystem.adapter.TimeLineListAdapter;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
+import com.scnu.swimmingtrainsystem.util.Statistics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -149,7 +150,7 @@ public class SprintFragment extends Fragment implements OnClickListener {
 		time.add(tvTime.getText().toString());
 		if (time.size() > 1) {
 			// 两个成绩之差
-			String substracion = CommonUtils.getScoreSubtraction(
+			String substracion = Statistics.getScoreSubtraction(
 					time.get(time.size() - 1), time.get(time.size() - 2));
 			timesub.add(substracion);
 		}

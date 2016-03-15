@@ -3,7 +3,6 @@ package com.scnu.swimmingtrainsystem.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -16,10 +15,10 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.adapter.ScoreDateListAdapter;
+import com.scnu.swimmingtrainsystem.entity.QueryScoreEntity;
+import com.scnu.swimmingtrainsystem.entity.ScoreDateEntity;
 import com.scnu.swimmingtrainsystem.fragment.QueryFragment;
 import com.scnu.swimmingtrainsystem.http.JsonTools;
-import com.scnu.swimmingtrainsystem.entity.QueryScoreEntity;
-import com.scnu.swimmingtrainsystem.entity.ScoreDateItem;
 import com.scnu.swimmingtrainsystem.util.AppController;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.Constants;
@@ -43,7 +42,7 @@ import java.util.Map;
 public class ExcuteQueryActivity extends Activity implements View.OnClickListener{
 
     private boolean isConnected;
-    private List<ScoreDateItem> dateList;
+    private List<ScoreDateEntity> dateList;
 
     private ScoreDateListAdapter mAdapter;
 
@@ -97,7 +96,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
         tvSwimLength = (TextView) findViewById(R.id.tv_swim_length);
 
         tvStroke.setText(getStrokeString(mEntity.getStroke()));
-        tvSwimLength.setText(mEntity.getDistance());
+        tvSwimLength.setText(mEntity.getDistance()+"");
         tvIsReset.setText(getResetString(mEntity.isReset()));
 
     }
@@ -128,7 +127,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
      * @return
      */
     private String getStrokeString(int stroke){
-        String[] strokes = getResources().getStringArray(R.array.strokestrarray);
+        String[] strokes = getResources().getStringArray(R.array.stroke_array_string);
         return strokes[stroke];
     }
 
@@ -146,9 +145,9 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
                     int resCode = (Integer)obj.get("resCode");
                     if(resCode == 1){
                         JSONArray dateArray = obj.getJSONArray("dataList");
-                        dateList = new ArrayList<ScoreDateItem>();
+                        dateList = new ArrayList<ScoreDateEntity>();
                         for(int i = 0 ; i < dateArray.length();i++){
-                            ScoreDateItem item = new ScoreDateItem();
+                            ScoreDateEntity item = new ScoreDateEntity();
                             item.setDistance(dateArray.getJSONObject(i).getInt("distance"));
                             item.setPdate(dateArray.getJSONObject(i).getString("pdate"));
                             item.setPlan_id(dateArray.getJSONObject(i).getInt("plan_id"));
@@ -200,28 +199,28 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
 
     private Map<String,String> getDataMap(QueryScoreEntity entity){
         Map<String,Object> datamap = new HashMap<String, Object>();
-        String distance,startTime,endTime,poolLength;
-        int stroke,aid,uid;
+        String startTime,endTime;
+        int stroke,aid,uid,poolLength,distance;
 
-        if(TextUtils.isEmpty(entity.getDistance())){
-            distance = null;
-        }else{
-            distance = entity.getDistance().trim();
-        }
-        if(TextUtils.isEmpty(entity.getPoolLength())){
-            poolLength = null;
-        }else{
-            poolLength = entity.getPoolLength().trim();
-        }
         stroke = entity.getStroke();
         uid = entity.getUid();
         aid = entity.getAthleteId();
+        distance = entity.getDistance();
+        poolLength = entity.getPoolLength();
         if(aid != 0){
             datamap.put("athlete_id",aid);
         }
-        if(stroke != 0){
+//        if(stroke != 0){
             datamap.put("stroke",stroke);
+//        }
+        if(distance != 0){
+            datamap.put("distance",distance);
         }
+
+        if(poolLength != 0){
+            datamap.put("pool_length",poolLength);
+        }
+
         if(mEntity.getStartTime() != null){
             startTime = CommonUtils.formatDate(entity.getStartTime());
             datamap.put("start_time",startTime);
@@ -232,11 +231,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
             datamap.put("end_time",endTime);
         }
 
-        datamap.put("distance",distance);
         datamap.put("uid",uid);
-
-        datamap.put("pool_length",poolLength);
-
         datamap.put("reset",mEntity.isReset());
         String data = JsonTools.creatJsonString(datamap);
         Map<String,String> map = new HashMap<String, String>();

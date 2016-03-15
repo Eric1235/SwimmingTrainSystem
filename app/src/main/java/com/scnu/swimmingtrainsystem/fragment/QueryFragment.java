@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -16,16 +15,16 @@ import android.widget.Toast;
 
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.activity.ExcuteQueryActivity;
+import com.scnu.swimmingtrainsystem.adapter.NormalSpinnerAdapter;
 import com.scnu.swimmingtrainsystem.db.DBManager;
-import com.scnu.swimmingtrainsystem.model2db.Athlete;
 import com.scnu.swimmingtrainsystem.entity.QueryScoreEntity;
+import com.scnu.swimmingtrainsystem.entity.SpinnerEntity;
+import com.scnu.swimmingtrainsystem.model2db.Athlete;
 import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.NetworkUtil;
 import com.scnu.swimmingtrainsystem.util.SpUtil;
-import com.scnu.swimmingtrainsystem.adapter.AthleteSpinnerAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -51,12 +50,22 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
     private Athlete a,tmpAthlete;
 
     private QueryScoreEntity mEntity;
+    private Toast mToast;
+//    private List<Athlete> mAthletes;
+
+    private List<SpinnerEntity> mAthletes;
+    private List<SpinnerEntity> mStrokes;
+    private List<SpinnerEntity> mDistances;
+    private List<SpinnerEntity> mPoolLengths;
 
     private DBManager mDBManager;
-    private Toast mToast;
-    private List<Athlete> mAthletes;
 
-    private AthleteSpinnerAdapter athleteAdapter;
+
+//    private AthleteSpinnerAdapter athleteAdapter;
+    private NormalSpinnerAdapter athleteSpinnerAdapter;
+    private NormalSpinnerAdapter poolLengthSpinnerAdapter;
+    private NormalSpinnerAdapter distanceSpinnerAdapter;
+    private NormalSpinnerAdapter strokeSpinnerAdapter;
 
 
     private DatePickerFragment datePickerFragment;
@@ -88,6 +97,11 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         mAthleteNames = (Spinner) v.findViewById(R.id.sp_athlete_name);
         btnQuery = (Button) v.findViewById(R.id.btn_network_query);
 
+        btnStartTime.setOnClickListener(this);
+        btnEndTime.setOnClickListener(this);
+        rbReset.setOnClickListener(this);
+        btnQuery.setOnClickListener(this);
+
         initData();
         return v;
     }
@@ -97,61 +111,90 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         mUserId = SpUtil.getUID(getActivity());
         mDBManager = DBManager.getInstance();
         initAllOption();
-        mAthletes =  mDBManager.getAthletes(mUserId);
-        mAthletes.add(0,tmpAthlete);
 
-
-
-        List<String> poolLength = new ArrayList<String>();
-        List<String> stroke = new ArrayList<String>();
-        List<String> distance = new ArrayList<String>();
-
-
-        String[] strokes = getResources().getStringArray(R.array.query_stroke_array);
-        String[] poolLengths = getResources().getStringArray(R.array.pool_length);
-        String[] distances = getResources().getStringArray(R.array.query_swim_length);
-
-        Collections.addAll(poolLength, poolLengths);
-        Collections.addAll(stroke, strokes);
-        Collections.addAll(distance, distances);
-
-        ArrayAdapter<String> strokeAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, stroke);
-        ArrayAdapter<String> poolLengthadapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, poolLength);
-
-        ArrayAdapter<String> distanceAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item,distance);
-
-        strokeSpinner.setAdapter(strokeAdapter);
-        poolLengthSpinner.setAdapter(poolLengthadapter);
-        distanceSpinner.setAdapter(distanceAdapter);
-
-        athleteAdapter = new AthleteSpinnerAdapter(getActivity(),mAthletes);
-        mAthleteNames.setAdapter(athleteAdapter);
-
-        btnStartTime.setOnClickListener(this);
-        btnEndTime.setOnClickListener(this);
-        rbReset.setOnClickListener(this);
-        btnQuery.setOnClickListener(this);
-
+        strokeSpinner.setAdapter(strokeSpinnerAdapter);
+        poolLengthSpinner.setAdapter(poolLengthSpinnerAdapter);
+        distanceSpinner.setAdapter(distanceSpinnerAdapter);
+        mAthleteNames.setAdapter(athleteSpinnerAdapter);
     }
 
     private void initAllOption(){
-        tmpAthlete = new Athlete();
-        tmpAthlete.setAid(0);
-        tmpAthlete.setName(getString(R.string.all_athlete));
-        tmpAthlete.setId(0);
-        tmpAthlete.setNumber("0");
+        List<Athlete> athletes = mDBManager.getAthletes(mUserId);
+        int[] strokes = getResources().getIntArray(R.array.stroke_array_int);
+        String[] strokeStrings = getResources().getStringArray(R.array.stroke_array_string);
+
+        int[] poolLengths = getResources().getIntArray(R.array.pool_length_int);
+        String[] poolLengthStrings = getResources().getStringArray(R.array.pool_length_str);
+        int[] distances = getResources().getIntArray(R.array.swim_distance_int);
+        String[] distanceStrings = getResources().getStringArray(R.array.swim_distance_string);
+
+
+
+        mAthletes = convertAthleteEntity(athletes);
+        mStrokes = convertSpinnerEntity(strokeStrings,strokes);
+        mDistances = convertSpinnerEntity(distanceStrings,distances);
+        mPoolLengths = convertSpinnerEntity(poolLengthStrings,poolLengths);
+
+        athleteSpinnerAdapter = new NormalSpinnerAdapter(mAthletes,getActivity());
+        strokeSpinnerAdapter = new NormalSpinnerAdapter(mStrokes,getActivity());
+        distanceSpinnerAdapter = new NormalSpinnerAdapter(mDistances,getActivity());
+        poolLengthSpinnerAdapter = new NormalSpinnerAdapter(mPoolLengths,getActivity());
+
     }
 
+    /**
+     * 将运动员列表转换为显示列表，只要名字和aid就够了
+     * @param athletes
+     * @return
+     */
+    private List<SpinnerEntity> convertAthleteEntity(List<Athlete> athletes){
+        List<SpinnerEntity> mAthleteEntities = new ArrayList<>();
+        SpinnerEntity tmpAthlete = new SpinnerEntity();
+        tmpAthlete.setDisplayString("所有");
+        tmpAthlete.setUsedNo(0);
+        mAthleteEntities.add(tmpAthlete);
+        for(Athlete a : athletes){
+            tmpAthlete = new SpinnerEntity();
+            tmpAthlete.setDisplayString(a.getName());
+            tmpAthlete.setUsedNo(a.getAid());
+            mAthleteEntities.add(tmpAthlete);
+        }
+        return mAthleteEntities;
+    }
+
+    /**
+     * 将泳姿选择转换成为展示所需的数据
+     * @param
+     * @return
+     */
+    private List<SpinnerEntity> convertSpinnerEntity(String[] disPlayStrings, int[] usedNo){
+        List<SpinnerEntity> mEntities = new ArrayList<>();
+        SpinnerEntity tmp ;
+        for( int i = 0 ; i < disPlayStrings.length ; i ++ ){
+            tmp = new SpinnerEntity();
+            tmp.setDisplayString(disPlayStrings[i]);
+            tmp.setUsedNo(usedNo[i]);
+            mEntities.add(tmp);
+        }
+        return mEntities;
+
+    }
+
+
+    /**
+     * 得到查询的参数
+     */
     private void initEntity(){
         mEntity.setUid(mUserId);
-        mEntity.setDistance(distanceSpinner.getSelectedItem().toString());
-        mEntity.setPoolLength(poolLengthSpinner.getSelectedItem().toString());
-        mEntity.setStroke(strokeSpinner.getSelectedItemPosition());
-        a = (Athlete)mAthleteNames.getSelectedItem();
-        mEntity.setAthleteId(a.getAid());
+        SpinnerEntity athleteEntity,strokeEntity,poolLengthEntity,distanceEntity;
+        athleteEntity = (SpinnerEntity)mAthleteNames.getSelectedItem();
+        strokeEntity = (SpinnerEntity) strokeSpinner.getSelectedItem();
+        poolLengthEntity = (SpinnerEntity) poolLengthSpinner.getSelectedItem();
+        distanceEntity = (SpinnerEntity) distanceSpinner.getSelectedItem();
+        mEntity.setDistance(distanceEntity.getUsedNo());
+        mEntity.setPoolLength(poolLengthEntity.getUsedNo());
+        mEntity.setStroke(strokeEntity.getUsedNo());
+        mEntity.setAthleteId(athleteEntity.getUsedNo());
     }
 
     @Override
@@ -196,18 +239,18 @@ public class QueryFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private boolean beforeSubmit(){
-        boolean b = true;
-        if(mEntity.getStartTime() == null){
-            CommonUtils.showToast(getActivity(),mToast,getString(R.string.start_time_not_null));
-            b = false;
-        }
-        if (mEntity.getEndTime() == null){
-            CommonUtils.showToast(getActivity(),mToast,getString(R.string.end_time_not_null));
-            b = false;
-        }
-        return b;
-    }
+//    private boolean beforeSubmit(){
+//        boolean b = true;
+//        if(mEntity.getStartTime() == null){
+//            CommonUtils.showToast(getActivity(),mToast,getString(R.string.start_time_not_null));
+//            b = false;
+//        }
+//        if (mEntity.getEndTime() == null){
+//            CommonUtils.showToast(getActivity(),mToast,getString(R.string.end_time_not_null));
+//            b = false;
+//        }
+//        return b;
+//    }
 
     private void setIsReset(){
         rbReset.setChecked(!isReset);

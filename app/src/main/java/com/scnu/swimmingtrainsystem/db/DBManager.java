@@ -3,14 +3,14 @@ package com.scnu.swimmingtrainsystem.db;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.scnu.swimmingtrainsystem.entity.ScoreSum;
 import com.scnu.swimmingtrainsystem.model2db.Athlete;
 import com.scnu.swimmingtrainsystem.model2db.OtherScore;
 import com.scnu.swimmingtrainsystem.model2db.Plan;
 import com.scnu.swimmingtrainsystem.model2db.Score;
-import com.scnu.swimmingtrainsystem.entity.ScoreSum;
 import com.scnu.swimmingtrainsystem.model2db.User;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
 import com.scnu.swimmingtrainsystem.util.ScoreComparable;
+import com.scnu.swimmingtrainsystem.util.Statistics;
 
 import org.litepal.crud.DataSupport;
 
@@ -441,7 +441,7 @@ public class DBManager {
 				/**
 				 * 对成绩进行累加,得到总成绩
 				 */
-				p.setScore(CommonUtils.scoreSum(sum));
+				p.setScore(Statistics.scoreSum(sum));
 			}
 			/**
 			 * 本次成绩不是间歇的，直接获取最后一个成绩就是总成绩，不需要累加

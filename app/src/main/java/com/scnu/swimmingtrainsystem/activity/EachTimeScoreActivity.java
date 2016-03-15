@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request.Method;
 import com.scnu.swimmingtrainsystem.R;
-import com.scnu.swimmingtrainsystem.adapter.ViewPargerAdpt;
+import com.scnu.swimmingtrainsystem.adapter.ViewPargerAdpter;
 import com.scnu.swimmingtrainsystem.db.DBManager;
 import com.scnu.swimmingtrainsystem.fragment.EachTimeScoreFragment;
 import com.scnu.swimmingtrainsystem.http.JsonTools;
@@ -180,7 +180,7 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 			linearLayout.addView(tv);
 			layout.addView(linearLayout);
 		}
-		viewPager.setAdapter(new ViewPargerAdpt(getSupportFragmentManager(),
+		viewPager.setAdapter(new ViewPargerAdpter(getSupportFragmentManager(),
 				fragmentsList));
 		viewPager.setCurrentItem(0);
 		layout.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.light_blue));
