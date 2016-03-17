@@ -26,8 +26,8 @@ import com.scnu.swimmingtrainsystem.adapter.DragAdapter;
 import com.scnu.swimmingtrainsystem.adapter.ScoreListAdapter;
 import com.scnu.swimmingtrainsystem.db.DBManager;
 import com.scnu.swimmingtrainsystem.model2db.Athlete;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.Constants;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;

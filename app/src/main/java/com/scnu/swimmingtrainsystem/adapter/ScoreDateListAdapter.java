@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.entity.ScoreDateEntity;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
 
 import java.util.Date;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.scnu.swimmingtrainsystem.util;
+package com.scnu.swimmingtrainsystem.utils;
 
 /**
  * 保存系统所需常量类

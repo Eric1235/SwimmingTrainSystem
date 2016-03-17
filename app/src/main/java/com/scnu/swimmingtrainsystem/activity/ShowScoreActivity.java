@@ -17,8 +17,8 @@ import com.scnu.swimmingtrainsystem.db.DBManager;
 import com.scnu.swimmingtrainsystem.entity.ScoreSum;
 import com.scnu.swimmingtrainsystem.model2db.Plan;
 import com.scnu.swimmingtrainsystem.model2db.Score;
-import com.scnu.swimmingtrainsystem.util.Constants;
-import com.scnu.swimmingtrainsystem.util.Statistics;
+import com.scnu.swimmingtrainsystem.utils.Constants;
+import com.scnu.swimmingtrainsystem.utils.Statistics;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
 
 import org.litepal.crud.DataSupport;

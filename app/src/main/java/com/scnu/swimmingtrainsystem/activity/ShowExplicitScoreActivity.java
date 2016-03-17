@@ -23,12 +23,12 @@ import com.scnu.swimmingtrainsystem.entity.ExplicitScore;
 import com.scnu.swimmingtrainsystem.model2db.Plan;
 import com.scnu.swimmingtrainsystem.model2db.Score;
 import com.scnu.swimmingtrainsystem.entity.ScoreSum;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.Constants;
-import com.scnu.swimmingtrainsystem.util.NetworkUtil;
-import com.scnu.swimmingtrainsystem.util.SpUtil;
-import com.scnu.swimmingtrainsystem.util.Statistics;
-import com.scnu.swimmingtrainsystem.util.VolleyUtil;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.Constants;
+import com.scnu.swimmingtrainsystem.utils.NetworkUtil;
+import com.scnu.swimmingtrainsystem.utils.SpUtil;
+import com.scnu.swimmingtrainsystem.utils.Statistics;
+import com.scnu.swimmingtrainsystem.utils.VolleyUtil;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
 
 import org.json.JSONException;

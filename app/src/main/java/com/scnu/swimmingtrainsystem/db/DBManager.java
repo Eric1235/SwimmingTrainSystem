@@ -9,8 +9,8 @@ import com.scnu.swimmingtrainsystem.model2db.OtherScore;
 import com.scnu.swimmingtrainsystem.model2db.Plan;
 import com.scnu.swimmingtrainsystem.model2db.Score;
 import com.scnu.swimmingtrainsystem.model2db.User;
-import com.scnu.swimmingtrainsystem.util.ScoreSumComparator;
-import com.scnu.swimmingtrainsystem.util.Statistics;
+import com.scnu.swimmingtrainsystem.utils.ScoreSumComparator;
+import com.scnu.swimmingtrainsystem.utils.Statistics;
 
 import org.litepal.crud.DataSupport;
 

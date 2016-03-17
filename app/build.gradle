@@ -11,8 +11,20 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    //在这里进行签名
+    signingConfigs {
+        myConfig {
+            storeFile file("swimsystem.jks")
+            storePassword "Eric1235"
+            keyAlias "SwimSystem"
+            keyPassword "Eric1235"//将这里的“**”替换成自己的信息
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig  signingConfigs.myConfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

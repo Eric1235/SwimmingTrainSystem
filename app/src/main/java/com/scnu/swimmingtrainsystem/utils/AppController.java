@@ -1,4 +1,4 @@
-package com.scnu.swimmingtrainsystem.util;
+package com.scnu.swimmingtrainsystem.utils;
 
 import android.content.Context;
 import android.content.Intent;

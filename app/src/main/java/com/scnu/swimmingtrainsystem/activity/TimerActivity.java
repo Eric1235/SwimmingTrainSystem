@@ -27,9 +27,9 @@ import android.widget.Toast;
 
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.adapter.TimeLineListAdapter;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.Constants;
-import com.scnu.swimmingtrainsystem.util.Statistics;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.Constants;
+import com.scnu.swimmingtrainsystem.utils.Statistics;
 
 import java.util.ArrayList;
 import java.util.HashMap;

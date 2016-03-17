@@ -20,9 +20,9 @@ import com.scnu.swimmingtrainsystem.db.DBManager;
 import com.scnu.swimmingtrainsystem.entity.QueryScoreEntity;
 import com.scnu.swimmingtrainsystem.entity.SpinnerEntity;
 import com.scnu.swimmingtrainsystem.model2db.Athlete;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.NetworkUtil;
-import com.scnu.swimmingtrainsystem.util.SpUtil;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.NetworkUtil;
+import com.scnu.swimmingtrainsystem.utils.SpUtil;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -26,21 +26,21 @@ import com.android.volley.Request.Method;
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.adapter.ViewPargerAdpter;
 import com.scnu.swimmingtrainsystem.db.DBManager;
+import com.scnu.swimmingtrainsystem.entity.SmallPlan;
+import com.scnu.swimmingtrainsystem.entity.SmallScore;
 import com.scnu.swimmingtrainsystem.fragment.EachTimeScoreFragment;
 import com.scnu.swimmingtrainsystem.http.JsonTools;
 import com.scnu.swimmingtrainsystem.model2db.Athlete;
 import com.scnu.swimmingtrainsystem.model2db.Plan;
 import com.scnu.swimmingtrainsystem.model2db.Score;
-import com.scnu.swimmingtrainsystem.entity.SmallPlan;
-import com.scnu.swimmingtrainsystem.entity.SmallScore;
 import com.scnu.swimmingtrainsystem.model2db.User;
-import com.scnu.swimmingtrainsystem.util.AppController;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.Constants;
-import com.scnu.swimmingtrainsystem.util.NetworkUtil;
-import com.scnu.swimmingtrainsystem.util.ScreenUtils;
-import com.scnu.swimmingtrainsystem.util.SpUtil;
-import com.scnu.swimmingtrainsystem.util.VolleyUtil;
+import com.scnu.swimmingtrainsystem.utils.AppController;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.Constants;
+import com.scnu.swimmingtrainsystem.utils.NetworkUtil;
+import com.scnu.swimmingtrainsystem.utils.ScreenUtils;
+import com.scnu.swimmingtrainsystem.utils.SpUtil;
+import com.scnu.swimmingtrainsystem.utils.VolleyUtil;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
 
 import org.json.JSONException;
@@ -66,6 +66,7 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 	private Plan plan;
 	private int userID;
 	private boolean isReset;
+	private boolean isSavedScore;
 
 	private HorizontalScrollView scrollView;
 	private LinearLayout layout;
@@ -77,7 +78,6 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 	 */
 	private List<Athlete> athletes;
 
-//	private RequestQueue mQueue;
 	private LoadingDialog loadingDialog;
 
 	@Override
@@ -88,6 +88,7 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 		setContentView(R.layout.activity_modify_each_score);
 		Intent i = getIntent();
 		isReset = i.getBooleanExtra("isReset",false);
+		isSavedScore = false;
 		init();
 		InitViewPager();
 
@@ -103,7 +104,6 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 		Long planId = (Long) myApplication.getMap().get(Constants.PLAN_ID);
 		plan = DataSupport.find(Plan.class, planId);
 
-
 		scrollView = (HorizontalScrollView) findViewById(R.id.horizontalScrollView_home);
 		layout = (LinearLayout) findViewById(R.id.ll_shouyebiaoqian);
 		viewPager = (ViewPager) findViewById(R.id.viewparger_home);
@@ -112,7 +112,7 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 		btnBack = (ImageButton) findViewById(R.id.modify_back);
 		btnBack.setOnClickListener(this);
 
-		list = new ArrayList<String>();
+		list = new ArrayList<>();
 		int swimTimes = (Integer) myApplication.getMap().get(
 				Constants.CURRENT_SWIM_TIME);
 		for (int i = 1; i <= swimTimes; i++) {
@@ -256,14 +256,27 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 
 	}
 
+	/**
+	 * 匹配完成以后，进行点击，上传成绩
+	 * @param v
+	 * @throws JSONException
+	 */
 	public void finishModify(View v) throws JSONException {
+		if(isSavedScore == false){
+			saveScore();
+		}
+		isSavedScore = true;
+		upLoadScore();
+
+	}
+
+	private void saveScore(){
 		int length = fragmentsList.size();
-		int i = 0;
 		List<Integer> aidList = new ArrayList<Integer>();
-		for (i = 0; i < length; i++) {
-			/**
-			 * 获取fragment处理后的数据
-			 */
+		/**
+		 * 循环读取fragment的成绩
+		 */
+		for (int i = 0; i < length; i++) {
 			Map<String, Object> result = ((EachTimeScoreFragment) fragmentsList
 					.get(i)).check();
 			int number = (Integer) myApplication.getMap().get(
@@ -285,27 +298,32 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 				saveScore(i, result,aidsubList);
 				viewPager.setCurrentItem(position + 1);
 			} else if (resCode == 0 && number == length) {
-				saveScore(i, result,aidsubList);
+				saveScore(i, result, aidsubList);
 				viewPager.setCurrentItem(length - 1);
 				CommonUtils.showToast(this, mToast, getString(R.string.match_done));
 
-				boolean isConnect = NetworkUtil.isConnected(this);
-				if (isConnect) {
-					// 如果可以联通服务器则发送添加成绩请求
-					if (loadingDialog == null) {
-						loadingDialog = LoadingDialog.createDialog(this);
-						loadingDialog.setMessage(getString(R.string.synchronizing));
-						loadingDialog.setCanceledOnTouchOutside(false);
-					}
-					loadingDialog.show();
-					addScoreRequest();
-				} else {
-					CommonUtils.showToast(this,mToast,getString(R.string.network_error));
-				}
 				break;
 			}
 		}
+	}
 
+	/**
+	 * 这个函数是
+	 */
+	private void upLoadScore(){
+		boolean isConnect = NetworkUtil.isConnected(this);
+		if (isConnect) {
+			// 如果可以联通服务器则发送添加成绩请求
+			if (loadingDialog == null) {
+				loadingDialog = LoadingDialog.createDialog(this);
+				loadingDialog.setMessage(getString(R.string.synchronizing));
+				loadingDialog.setCanceledOnTouchOutside(false);
+			}
+			loadingDialog.show();
+			addScoreRequest();
+		} else {
+			CommonUtils.showToast(this,mToast,getString(R.string.network_error));
+		}
 	}
 
 	/**
@@ -337,9 +355,10 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 			Athlete athlete = mDbManager.getAthleteByAid(athleteids.get(l));
 			int strokeNumber = CommonUtils.getAthleteStroke(athleteStrokeMap, String.valueOf(athlete.getAid()));
 			score.setStroke(strokeNumber);
-//			score.setAthlete(athlete);
-//			score.setUser(user);
 			score.setAthlete_id(athlete.getAid());
+			/**
+			 * 保存成绩到数据库
+			 */
 			score.save();
 		}
 	}
@@ -425,13 +444,11 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 			smallScores.add(smScore);
 		}
 
-
 		User user = mDbManager.getUserByUid(userID);
 		Map<String, Object> scoreMap = new HashMap<String, Object>();
 		scoreMap.put("score", smallScores);
 		scoreMap.put("plan", sp);
 		scoreMap.put("uid", user.getUid());
-//		scoreMap.put("athlete_id", aidList);
 		scoreMap.put("type", 1);
 		final String jsonString = JsonTools.creatJsonString(scoreMap);
 

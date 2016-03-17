@@ -5,24 +5,16 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@color/common_bg" >
-    <RelativeLayout
-        android:id="@+id/more_headbar"
+
+
+    <TextView
+        style="@style/custom_textview"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
         android:background="@color/title_bar_bg"
-        android:gravity="center_vertical" >
-
-        <TextView
-            style="@style/custom_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/login_hint"
-            />
-
-    </RelativeLayout>
-
+        android:text="@string/login_hint"
+        />
 
     <com.scnu.swimmingtrainsystem.view.ClearEdittext
         android:id="@+id/tv_user"

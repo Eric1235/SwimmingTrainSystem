@@ -27,12 +27,12 @@ import com.scnu.swimmingtrainsystem.effect.NiftyDialogBuilder;
 import com.scnu.swimmingtrainsystem.http.JsonTools;
 import com.scnu.swimmingtrainsystem.model2db.Athlete;
 import com.scnu.swimmingtrainsystem.model2db.User;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.Constants;
-import com.scnu.swimmingtrainsystem.util.NetworkUtil;
-import com.scnu.swimmingtrainsystem.util.ScreenUtils;
-import com.scnu.swimmingtrainsystem.util.SpUtil;
-import com.scnu.swimmingtrainsystem.util.VolleyUtil;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.Constants;
+import com.scnu.swimmingtrainsystem.utils.NetworkUtil;
+import com.scnu.swimmingtrainsystem.utils.ScreenUtils;
+import com.scnu.swimmingtrainsystem.utils.SpUtil;
+import com.scnu.swimmingtrainsystem.utils.VolleyUtil;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
 import com.scnu.swimmingtrainsystem.view.Switch;
 

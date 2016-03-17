@@ -17,8 +17,8 @@ import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.fragment.IndexFragment;
 import com.scnu.swimmingtrainsystem.fragment.MineFragment;
 import com.scnu.swimmingtrainsystem.fragment.TimerFragment;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.Constants;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.Constants;
 import com.scnu.swimmingtrainsystem.view.ChangeColorIconWithText;
 import com.scnu.swimmingtrainsystem.view.NoScrollViewPager;
 

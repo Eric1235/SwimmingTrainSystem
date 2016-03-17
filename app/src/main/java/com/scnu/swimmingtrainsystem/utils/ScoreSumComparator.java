@@ -1,4 +1,4 @@
-package com.scnu.swimmingtrainsystem.util;/**
+package com.scnu.swimmingtrainsystem.utils;/**
  * ${PROJET_NAME}
  * Created by lixinkun on 16/3/13 20:25.
  * Email EricLi1235@gmail.com.

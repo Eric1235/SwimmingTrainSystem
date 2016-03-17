@@ -18,7 +18,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.scnu.swimmingtrainsystem.R;
-import com.scnu.swimmingtrainsystem.util.Constants;
+import com.scnu.swimmingtrainsystem.utils.Constants;
 
 
 /**

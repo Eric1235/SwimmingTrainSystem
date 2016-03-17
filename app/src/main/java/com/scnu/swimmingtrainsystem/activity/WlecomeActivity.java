@@ -7,8 +7,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import com.scnu.swimmingtrainsystem.R;
-import com.scnu.swimmingtrainsystem.util.AppController;
-import com.scnu.swimmingtrainsystem.util.SpUtil;
+import com.scnu.swimmingtrainsystem.utils.AppController;
+import com.scnu.swimmingtrainsystem.utils.SpUtil;
 
 
 /**

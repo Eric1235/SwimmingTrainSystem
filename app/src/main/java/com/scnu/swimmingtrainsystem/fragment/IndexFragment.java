@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.scnu.swimmingtrainsystem.R;
-import com.scnu.swimmingtrainsystem.util.AppController;
+import com.scnu.swimmingtrainsystem.utils.AppController;
 
 
 /**

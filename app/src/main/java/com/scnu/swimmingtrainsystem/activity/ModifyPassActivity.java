@@ -14,12 +14,12 @@ import com.android.volley.Request.Method;
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.db.DBManager;
 import com.scnu.swimmingtrainsystem.model2db.User;
-import com.scnu.swimmingtrainsystem.util.AppController;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.Constants;
-import com.scnu.swimmingtrainsystem.util.NetworkUtil;
-import com.scnu.swimmingtrainsystem.util.SpUtil;
-import com.scnu.swimmingtrainsystem.util.VolleyUtil;
+import com.scnu.swimmingtrainsystem.utils.AppController;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.Constants;
+import com.scnu.swimmingtrainsystem.utils.NetworkUtil;
+import com.scnu.swimmingtrainsystem.utils.SpUtil;
+import com.scnu.swimmingtrainsystem.utils.VolleyUtil;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
 
 import org.json.JSONException;

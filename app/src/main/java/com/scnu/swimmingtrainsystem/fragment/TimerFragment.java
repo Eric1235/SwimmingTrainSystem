@@ -29,10 +29,10 @@ import com.scnu.swimmingtrainsystem.entity.AdapterHolder;
 import com.scnu.swimmingtrainsystem.model2db.Athlete;
 import com.scnu.swimmingtrainsystem.model2db.Plan;
 import com.scnu.swimmingtrainsystem.model2db.User;
-import com.scnu.swimmingtrainsystem.util.AppController;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.Constants;
-import com.scnu.swimmingtrainsystem.util.SpUtil;
+import com.scnu.swimmingtrainsystem.utils.AppController;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.Constants;
+import com.scnu.swimmingtrainsystem.utils.SpUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;

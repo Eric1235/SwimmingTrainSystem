@@ -19,11 +19,11 @@ import com.scnu.swimmingtrainsystem.entity.QueryScoreEntity;
 import com.scnu.swimmingtrainsystem.entity.ScoreDateEntity;
 import com.scnu.swimmingtrainsystem.fragment.QueryFragment;
 import com.scnu.swimmingtrainsystem.http.JsonTools;
-import com.scnu.swimmingtrainsystem.util.AppController;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.Constants;
-import com.scnu.swimmingtrainsystem.util.NetworkUtil;
-import com.scnu.swimmingtrainsystem.util.VolleyUtil;
+import com.scnu.swimmingtrainsystem.utils.AppController;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.Constants;
+import com.scnu.swimmingtrainsystem.utils.NetworkUtil;
+import com.scnu.swimmingtrainsystem.utils.VolleyUtil;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
 
 import org.json.JSONArray;
@@ -37,6 +37,7 @@ import java.util.Map;
 
 /**
  * 执行参数请求,展示请求数据列表
+ * 目前程序并没有做下拉选择。
  * Created by lixinkun on 16/2/22.
  */
 public class ExcuteQueryActivity extends Activity implements View.OnClickListener{
@@ -210,9 +211,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
         if(aid != 0){
             datamap.put("athlete_id",aid);
         }
-//        if(stroke != 0){
             datamap.put("stroke",stroke);
-//        }
         if(distance != 0){
             datamap.put("distance",distance);
         }

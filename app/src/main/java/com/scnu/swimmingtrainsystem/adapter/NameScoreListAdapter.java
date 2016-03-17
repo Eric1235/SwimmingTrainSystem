@@ -150,6 +150,9 @@ public class NameScoreListAdapter extends BaseExpandableListAdapter {
             groupHolder.curDistance.setText("当前距离 "
                     + mLists.get(groupPosition).get(0).getDistance() + "米");
         } else if (groupPosition == (getGroupCount() - 2)) {
+            /**
+             * 想一下如何隐藏或者正确显示米数
+             */
             groupHolder.timeTextView.setText("本轮总计");
         } else {
             groupHolder.timeTextView.setText("平均成绩");

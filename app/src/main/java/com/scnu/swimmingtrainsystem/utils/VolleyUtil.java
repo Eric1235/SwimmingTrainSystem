@@ -1,4 +1,4 @@
-package com.scnu.swimmingtrainsystem.util;
+package com.scnu.swimmingtrainsystem.utils;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;

@@ -23,8 +23,8 @@ import android.widget.TextView;
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.activity.MatchSprintScoreActivity;
 import com.scnu.swimmingtrainsystem.adapter.TimeLineListAdapter;
-import com.scnu.swimmingtrainsystem.util.CommonUtils;
-import com.scnu.swimmingtrainsystem.util.Statistics;
+import com.scnu.swimmingtrainsystem.utils.CommonUtils;
+import com.scnu.swimmingtrainsystem.utils.Statistics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
