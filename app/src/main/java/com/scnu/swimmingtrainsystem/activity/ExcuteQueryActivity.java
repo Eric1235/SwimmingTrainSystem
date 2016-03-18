@@ -54,6 +54,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
     private MyApplication app;
 
     private ListView mScoreDateListView;
+    private View emptyView;
     private ImageButton btnBack;
     private TextView tvStroke,tvSwimLength,tvIsReset;
 
@@ -65,6 +66,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_excute_query);
+        emptyView = View.inflate(this,R.layout.item_score_emptyview,null);
         app = (MyApplication) getApplication();
 
         app.addActivity(this);
@@ -90,6 +92,8 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
 
     private void initView(){
         mScoreDateListView = (ListView) findViewById(R.id.score_list_view);
+        TextView tvEmpty = (TextView)emptyView.findViewById(R.id.tv_empty_tip);
+        mScoreDateListView.setEmptyView(tvEmpty);
         btnBack = (ImageButton)findViewById(R.id.btn_back);
         btnBack.setOnClickListener(this);
         tvIsReset = (TextView) findViewById(R.id.tv_is_reset);
@@ -97,7 +101,12 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
         tvSwimLength = (TextView) findViewById(R.id.tv_swim_length);
 
         tvStroke.setText(getStrokeString(mEntity.getStroke()));
-        tvSwimLength.setText(mEntity.getDistance()+"");
+        if(mEntity.getDistance() == 0){
+            tvSwimLength.setText(getString(R.string.all));
+        }else{
+            tvSwimLength.setText(mEntity.getDistance()+"");
+        }
+
         tvIsReset.setText(getResetString(mEntity.isReset()));
 
     }
@@ -146,7 +155,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
                     int resCode = (Integer)obj.get("resCode");
                     if(resCode == 1){
                         JSONArray dateArray = obj.getJSONArray("dataList");
-                        dateList = new ArrayList<ScoreDateEntity>();
+                        dateList = new ArrayList<>();
                         for(int i = 0 ; i < dateArray.length();i++){
                             ScoreDateEntity item = new ScoreDateEntity();
                             item.setDistance(dateArray.getJSONObject(i).getInt("distance"));
@@ -178,8 +187,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
 
                     }else if(resCode == 0){
 
-                        String msg = obj.getString("resMsg");
-                        CommonUtils.showToast(ExcuteQueryActivity.this,mToast,msg);
+                        CommonUtils.showToast(ExcuteQueryActivity.this,mToast,getString(R.string.score_empty));
                     }else{
                         CommonUtils.showToast(ExcuteQueryActivity.this,mToast,getString(R.string.unkonwn_error));
                     }

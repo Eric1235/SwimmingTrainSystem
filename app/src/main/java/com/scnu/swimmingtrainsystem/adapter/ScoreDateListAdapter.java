@@ -50,6 +50,7 @@ public class ScoreDateListAdapter extends BaseAdapter {
             holer = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.xlist_item, null);
             holer.tvDate = (TextView)convertView.findViewById(R.id.tv_date);
+            holer.tvNO = (TextView) convertView.findViewById(R.id.tv_record_num);
             convertView.setTag(holer);
 
         }else{
@@ -60,6 +61,7 @@ public class ScoreDateListAdapter extends BaseAdapter {
         Date date = new Date(dateString);
         dateString = CommonUtils.formatDate(date);
         holer.tvDate.setText(dateString);
+        holer.tvNO.setText((position+1)+".");
         if(!item.isChecked()){
             holer.tvDate.setTextColor(mContext.getResources().getColor(R.color.black));
         }else{
@@ -70,5 +72,6 @@ public class ScoreDateListAdapter extends BaseAdapter {
 
     class ViewHolder{
         TextView tvDate;
+        TextView tvNO;
     }
 }

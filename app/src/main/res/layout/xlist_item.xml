@@ -3,20 +3,22 @@
     android:background="@drawable/bg_setting_selector"
     android:layout_width="match_parent"
     android:layout_height="70dp">
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+    <TextView
+        android:id="@+id/tv_record_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_menu_search"/>
-
+        android:textSize="16sp" />
     <TextView
         style="@style/custom_normal_textview"
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_centerVertical="true"
         android:textSize="16sp" />
     <ImageView

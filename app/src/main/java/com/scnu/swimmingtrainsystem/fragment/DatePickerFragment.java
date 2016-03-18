@@ -64,10 +64,17 @@ public class DatePickerFragment extends DialogFragment {
 		});
 		
 		return new AlertDialog.Builder(getActivity())
+
 		.setView(v)
-		.setTitle(R.string.date_picker_title)
+		.setTitle(R.string.date_picker_title).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+					}
+				})
 		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub

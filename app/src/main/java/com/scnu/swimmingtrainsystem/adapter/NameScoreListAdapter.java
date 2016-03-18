@@ -23,7 +23,7 @@ import java.util.List;
  * User: lixinkun
  * Date: 2016-03-14
  * Time: 15:14
- * FIXME
+ * 可以考虑不要用viewholder，数据少，直接显示就好了，这样就在最后不显示距离了
  */
 public class NameScoreListAdapter extends BaseExpandableListAdapter {
     private DBManager dbManager;
@@ -58,43 +58,36 @@ public class NameScoreListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
-        ChildHolder childHolder = null;
-        if (convertView == null) {
-            childHolder = new ChildHolder();
             convertView = View.inflate(mContext,
                     R.layout.show_score_list_item_sub, null);
-            childHolder.rank = (TextView) convertView
+            TextView rank = (TextView) convertView
                     .findViewById(R.id.show_rank);
-            childHolder.score = (TextView) convertView
+            TextView score = (TextView) convertView
                     .findViewById(R.id.show_score);
-            childHolder.name = (TextView) convertView
+            TextView name = (TextView) convertView
                     .findViewById(R.id.show_name);
-            convertView.setTag(childHolder);
-        } else {
-            childHolder = (ChildHolder) convertView.getTag();
-        }
 
         if (groupPosition < mSwimTime - 2) {
-            childHolder.rank.setText("第" + (childPosition + 1) + "名");
-            childHolder.score.setText(mLists.get(groupPosition)
+            rank.setText("第" + (childPosition + 1) + "名");
+            score.setText(mLists.get(groupPosition)
                     .get(childPosition).getScore());
             /**
              * 要转换为名字啦
              */
             int athlete_id = mLists.get(groupPosition).get(childPosition).getAthlete_id();
-            childHolder.name.setText(dbManager.getAthleteByAid(athlete_id).getName());
+            name.setText(dbManager.getAthleteByAid(athlete_id).getName());
         } else if (groupPosition == (mSwimTime - 2)) {
-            childHolder.rank.setText("第" + (childPosition + 1) + "名");
-            childHolder.score.setText(mTemps.get(childPosition).getScore());
+            rank.setText("第" + (childPosition + 1) + "名");
+            score.setText(mTemps.get(childPosition).getScore());
             int aid = mTemps.get(childPosition).getAthlete_id();
-            childHolder.name.setText(dbManager.getAthleteByAid(aid).getName());
+            name.setText(dbManager.getAthleteByAid(aid).getName());
         } else {
-            childHolder.rank.setText("第" + (childPosition + 1) + "名");
-            childHolder.score.setText(mAvgScores.get(childPosition)
+            rank.setText("第" + (childPosition + 1) + "名");
+            score.setText(mAvgScores.get(childPosition)
                     .getScore());
             int aid = mAvgScores.get(childPosition)
                     .getAthlete_id();
-            childHolder.name.setText(dbManager.getAthleteByAid(aid).getName());
+            name.setText(dbManager.getAthleteByAid(aid).getName());
         }
 
         return convertView;
@@ -130,32 +123,26 @@ public class NameScoreListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        GroupHolder groupHolder = null;
-        if (convertView == null) {
-            groupHolder = new GroupHolder();
             convertView = View.inflate(mContext,
                     R.layout.query_score_list_item_head, null);
-            groupHolder.timeTextView = (TextView) convertView
+            TextView timeTextView = (TextView) convertView
                     .findViewById(R.id.test_date);
-            groupHolder.curDistance = (TextView) convertView
+            TextView curDistance = (TextView) convertView
                     .findViewById(R.id.test_plan);
-            convertView.setTag(groupHolder);
-        } else {
-            groupHolder = (GroupHolder) convertView.getTag();
-        }
-
         if (groupPosition < getGroupCount() - 2) {
-            groupHolder.timeTextView.setText("第" + (groupPosition + 1)
+            timeTextView.setText("第" + (groupPosition + 1)
                     + "趟");
-            groupHolder.curDistance.setText("当前距离 "
+            curDistance.setText("当前距离 "
                     + mLists.get(groupPosition).get(0).getDistance() + "米");
         } else if (groupPosition == (getGroupCount() - 2)) {
             /**
              * 想一下如何隐藏或者正确显示米数
              */
-            groupHolder.timeTextView.setText("本轮总计");
+            timeTextView.setText("本轮总计");
+            curDistance.setVisibility(View.GONE);
         } else {
-            groupHolder.timeTextView.setText("平均成绩");
+            timeTextView.setText("平均成绩");
+            curDistance.setVisibility(View.GONE);
         }
         return convertView;
     }
@@ -172,16 +159,6 @@ public class NameScoreListAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
-    final class GroupHolder {
-        private TextView timeTextView;
-        private TextView curDistance;
-    }
-
-    final class ChildHolder {
-        private TextView rank;
-        private TextView score;
-        private TextView name;
-    }
 
 }
 

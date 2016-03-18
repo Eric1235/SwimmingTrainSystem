@@ -18,21 +18,21 @@ import com.android.volley.Request;
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.adapter.NameScoreListAdapter;
 import com.scnu.swimmingtrainsystem.db.DBManager;
-import com.scnu.swimmingtrainsystem.http.JsonTools;
 import com.scnu.swimmingtrainsystem.entity.ExplicitScore;
+import com.scnu.swimmingtrainsystem.entity.ScoreSum;
+import com.scnu.swimmingtrainsystem.http.JsonTools;
 import com.scnu.swimmingtrainsystem.model2db.Plan;
 import com.scnu.swimmingtrainsystem.model2db.Score;
-import com.scnu.swimmingtrainsystem.entity.ScoreSum;
 import com.scnu.swimmingtrainsystem.utils.CommonUtils;
 import com.scnu.swimmingtrainsystem.utils.Constants;
 import com.scnu.swimmingtrainsystem.utils.NetworkUtil;
-import com.scnu.swimmingtrainsystem.utils.SpUtil;
 import com.scnu.swimmingtrainsystem.utils.Statistics;
 import com.scnu.swimmingtrainsystem.utils.VolleyUtil;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,9 +50,7 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
     private int plan_id;
     private List<Integer> athlete_id;
     private int stroke;
-    private int poolLength;
     private int distance;
-    private int userid;
     private Plan plan;
 
     private Map<String,Object> getQueryDataMap;
@@ -76,7 +74,6 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
         setContentView(R.layout.activity_show_explicit_score);
         initView();
         initData();
-
         isConnect = NetworkUtil.isConnected(this);
         if(isConnect){
             if(mLoadingDialog == null){
@@ -107,19 +104,20 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
         app = (MyApplication) getApplication();
         app.addActivity(this);
         dbManager = DBManager.getInstance();
-        userid = SpUtil.getUID(this);
-
         Intent i = getIntent();
         getQueryDataMap = (Map)i.getSerializableExtra("dataMap");
         athlete_id = (List<Integer>)getQueryDataMap.get("athlete_id");
         plan_id = (Integer)getQueryDataMap.get("plan_id");
         stroke = (Integer)getQueryDataMap.get("stroke");
         isReset = (Boolean) getQueryDataMap.get("isReset");
-
     }
 
 
-    private void setDetailTextView(int maxTime, final Plan plan){
+    private void setDetailTextView(int maxTime, int plan_id){
+        /**
+         * 先从本地查询
+         */
+        plan = DataSupport.find(Plan.class, plan_id);
         tvDetails.setVisibility(View.VISIBLE);
         tvDetails.setText(plan.getPool() + "  共" + maxTime + "趟  " + "  目标总距离："
                 + plan.getDistance() + "米");
@@ -166,43 +164,13 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
                         /**
                          * 获得上传时间
                          */
-//                        String resDate = tmpScores[0].getUp_time();
-                        //获得aid列表
-//                        List<Integer> athIds = dbManager
-//                                .getAthleteIdInScoreByDate(resDate);
-                        //获得每个运动员的总成绩，包括运动员姓名和运动员总成绩
-//                        List<ScoreSum> sumList = dbManager
-//                                .getAthleteIdInScoreByDate(resDate,
-//                                        athIds,isReset);
 
                         List<ScoreSum> sumList = Statistics.getAllScoreSum(mScores, isReset);
                         List<List<Score>> listss = Statistics.getScoresListByTimes(mScores,maxTime);
-//                        // 根据时间查询成绩
-//                        for (int t = 1; t <= maxTime; t++) {
-//                            List<Score> sco = dbManager
-//                                    .getScoreByDateAndTimes(resDate, t);
-//                            listss.add(sco);
-//                        }
 
-
-                        tvDetails.setVisibility(View.VISIBLE);
-                        tvDetails.setText(  "  目标总距离:"
-                                + distance + "米");
-
+//                        setDetailTextView(maxTime,plan);
                         //获得平均成绩，通过统计的总成绩获得
                         List<ScoreSum> avgScores = Statistics.getAvgScore(maxTime,sumList);
-//                        for (ScoreSum ss : sumList) {
-//                            ScoreSum scoreSum = new ScoreSum();
-//                            //统计得到平均成绩
-//                            int msec = CommonUtils
-//                                    .timeString2TimeInt(ss.getScore());
-//                            int avgsec = msec / maxTime;
-//                            String avgScore = CommonUtils
-//                                    .timeInt2TimeString(avgsec);
-//                            scoreSum.setScore(avgScore);
-//                            scoreSum.setAthleteName(ss.getAthleteName());
-//                            avgScores.add(scoreSum);
-//                        }
 
                         /**
                          * maxTime加上2就是为了显示
@@ -212,13 +180,9 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
                                 sumList, avgScores, maxTime + 2,dbManager);
                         scoreListView
                                 .setAdapter(scoreListAdapter);
-//                        dbManager.deleteScores(resDate);
-                        //最后的两行就是总成绩和平均成绩
                         for (int i = 0; i < (maxTime + 2); i++) {
                             scoreListView.expandGroup(i);
                         }
-
-
                     }else {
 
                         CommonUtils.showToast(ShowExplicitScoreActivity.this,mToast,getString(R.string.empty_score));
@@ -240,7 +204,7 @@ public class ShowExplicitScoreActivity extends Activity implements View.OnClickL
     }
 
     private Map<String,String> getDataMap(int plan_id,List<Integer> athlete_id,int stroke){
-        Map<String,Object> map = new HashMap<String, Object>();
+        Map<String,Object> map = new HashMap<>();
         if(athlete_id.get(0) != 0){
             map.put("athlete_id",athlete_id);
         }
