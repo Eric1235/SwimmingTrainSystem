@@ -7,7 +7,8 @@
         android:id="@+id/img_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/ic_empty"/>
     <TextView
         android:id="@+id/tv_empty_tip"
@@ -15,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/img_empty"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:textSize="18sp"
         android:textColor="@color/light_blue"
         android:text="@string/score_empty"/>

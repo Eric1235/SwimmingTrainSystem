@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_centerVertical="true"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
     <TextView
         style="@style/custom_normal_textview"
         android:id="@+id/tv_date"
@@ -17,10 +17,10 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_marginLeft="80dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_centerVertical="true"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
     <ImageView
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"

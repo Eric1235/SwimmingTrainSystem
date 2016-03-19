@@ -35,7 +35,7 @@
     <!--抬头标记-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@color/light_blue">
         <TextView
             style="@style/custom_normal_textview"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:text="泳姿:"/>
+            android:text="@string/stroke_title"/>
         <TextView
             style="@style/custom_normal_textview"
             android:id="@+id/tv_swim_stroke"
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="总距离:"/>
+                android:text="@string/total_distance"/>
             <TextView
                 style="@style/custom_normal_textview"
                 android:id="@+id/tv_swim_length"
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="间歇:"/>
+            android:text="@string/interval_title"/>
 
         <TextView
             style="@style/custom_normal_textview"

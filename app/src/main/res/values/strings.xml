@@ -216,7 +216,10 @@
     <!-- queryscoreactivity -->
     <string name="first_round">第一趟</string>
     <string name="all">所有</string>
-    <string name="score_empty">没有相关成绩，请重新查询！</string>
+    <string name="score_empty">当前没有相关成绩，请重新查询！</string>
+    <string name="stroke_title">泳姿:</string>
+    <string name="total_distance">总距离:</string>
+    <string name="interval_title">间歇:</string>
     
     <!-- showscoreactivity -->
     <string name="show_score">成绩展示</string>

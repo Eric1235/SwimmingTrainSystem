@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -66,7 +67,6 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_excute_query);
-        emptyView = View.inflate(this,R.layout.item_score_emptyview,null);
         app = (MyApplication) getApplication();
 
         app.addActivity(this);
@@ -92,8 +92,8 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
 
     private void initView(){
         mScoreDateListView = (ListView) findViewById(R.id.score_list_view);
-        TextView tvEmpty = (TextView)emptyView.findViewById(R.id.tv_empty_tip);
-        mScoreDateListView.setEmptyView(tvEmpty);
+        emptyView = View.inflate(this,R.layout.item_score_emptyview,null);
+        ((ViewGroup)mScoreDateListView.getParent()).addView(emptyView);
         btnBack = (ImageButton)findViewById(R.id.btn_back);
         btnBack.setOnClickListener(this);
         tvIsReset = (TextView) findViewById(R.id.tv_is_reset);
@@ -186,9 +186,12 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
                         });
 
                     }else if(resCode == 0){
-
-                        CommonUtils.showToast(ExcuteQueryActivity.this,mToast,getString(R.string.score_empty));
+                        /**
+                         * 在查询返回为空的时候，给界面显示emptyView，提示没有成绩
+                         */
+                        mScoreDateListView.setEmptyView(emptyView);
                     }else{
+                        mScoreDateListView.setEmptyView(emptyView);
                         CommonUtils.showToast(ExcuteQueryActivity.this,mToast,getString(R.string.unkonwn_error));
                     }
                 }catch (JSONException e){

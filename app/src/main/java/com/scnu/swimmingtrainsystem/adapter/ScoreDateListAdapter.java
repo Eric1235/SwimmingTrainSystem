@@ -64,8 +64,10 @@ public class ScoreDateListAdapter extends BaseAdapter {
         holer.tvNO.setText((position+1)+".");
         if(!item.isChecked()){
             holer.tvDate.setTextColor(mContext.getResources().getColor(R.color.black));
+            holer.tvNO.setTextColor(mContext.getResources().getColor(R.color.black));
         }else{
             holer.tvDate.setTextColor(mContext.getResources().getColor(R.color.light_gray));
+            holer.tvNO.setTextColor(mContext.getResources().getColor(R.color.light_gray));
         }
         return convertView;
     }

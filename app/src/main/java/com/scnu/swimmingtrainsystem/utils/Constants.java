@@ -56,6 +56,11 @@ public class Constants {
 	 */
 	public static String GET_SCORE = HOSTURL + "getScores";
 
+	/**
+	 * 获取plan
+	 */
+	public static String GET_PLAN = HOSTURL + "getPlanMsg";
+
 
 	/**
 	 * 修改密码
@@ -71,8 +76,6 @@ public class Constants {
 	 * 获取全部成绩的日期
 	 */
 	public static String GET_SCORE_DATE_LIST = HOSTURL + "getScoreDateList";
-
-
 
 
 	/**
