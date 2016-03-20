@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <LinearLayout
             android:id="@+id/add_ll2"
             android:layout_width="match_parent"
@@ -93,16 +92,26 @@
                 android:paddingLeft="5dp"
                 android:text="性别"
                  />
-
-          <com.scnu.swimmingtrainsystem.view.Switch
-                android:id="@+id/toggle_gender"
+            <RadioGroup
+                android:id="@+id/rg_gender"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                app:isChecked="true"
-                app:textLeft="@string/on"
-                app:textRight="@string/off" />
+                android:orientation="horizontal">
+                <RadioButton
+                    style="@style/stop_watch_radio_btn"
+                    android:id="@+id/rb_male"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="@string/male"/>
+                <RadioButton
+                    style="@style/stop_watch_radio_btn"
+                    android:id="@+id/rb_female"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="@string/female"/>
+            </RadioGroup>
         </LinearLayout>
         
          <LinearLayout
@@ -131,8 +140,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/bg_edittext_selector"
-                android:inputType="number"
-                android:maxLength="20"
+                android:maxLength="8"
                 android:paddingLeft="5dp"
                 android:singleLine="true" >
             </com.scnu.swimmingtrainsystem.view.ClearEdittext>
@@ -165,7 +173,7 @@
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/bg_edittext_selector"
                 android:inputType="number"
-                android:maxLength="20"
+                android:maxLength="13"
                 android:paddingLeft="5dp"
                 android:singleLine="true" >
             </com.scnu.swimmingtrainsystem.view.ClearEdittext>
@@ -178,6 +186,7 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/add_ll5"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
@@ -197,6 +206,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
+                android:maxLength="50"
                 android:background="@drawable/bg_edittext_selector"
                 android:paddingLeft="5dp" >
             </com.scnu.swimmingtrainsystem.view.ClearEdittext>

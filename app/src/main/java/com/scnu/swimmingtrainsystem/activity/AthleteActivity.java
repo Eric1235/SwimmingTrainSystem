@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -34,7 +36,6 @@ import com.scnu.swimmingtrainsystem.utils.ScreenUtils;
 import com.scnu.swimmingtrainsystem.utils.SpUtil;
 import com.scnu.swimmingtrainsystem.utils.VolleyUtil;
 import com.scnu.swimmingtrainsystem.view.LoadingDialog;
-import com.scnu.swimmingtrainsystem.view.Switch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,27 +51,30 @@ import java.util.Map;
  * @author LittleByte
  * 
  */
-public class AthleteActivity extends Activity implements View.OnClickListener{
+public class AthleteActivity extends Activity implements View.OnClickListener ,RadioGroup.OnCheckedChangeListener{
 	private static final String UNKNOW_ERROR = "服务器错误";
 	private static final String ADD_ATHLETE_TITLE_STRING = "添加运动员";
 	private static final String NAME_CANNOT_BE_EMPTY_STRING = "运动员名字不能为空";
 	private static final String NAME_CANNOT_BE_REPEATE_STRING = "存在运动员名字重复，请更改";
 
-	// 该对象保存全局变量
-	private MyApplication mApplication;
-
-	// 运动员信息数据集
-	private List<Athlete> mAthletes;
 	// 数据库管理类
 	private DBManager mDbManager;
 	// 当前用户对象
 	private User mUser;
 	// 当前用户对象id
 	private int mUserId;
+	//运动员性别
+	private String ath_gender = "男";
 	// 是否能连接服务器
-	private Boolean isConnect;
+	private boolean isConnect;
 
 	private boolean editable;
+
+	// 该对象保存全局变量
+	private MyApplication mApplication;
+
+	// 运动员信息数据集
+	private List<Athlete> mAthletes;
 
 	// 展示所有运动员信息的列表控件
 	private SwipeMenuListView mListView;
@@ -91,8 +95,9 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 	private EditText mOthers;
 	//运动员编号编辑框
 	private EditText mAthleteNumber;
-	// 运动员性别切换按钮
-	private Switch mGenderSwitch;
+	// 运动员性别按钮布局
+	private RadioGroup rgGender;
+	private RadioButton rbMale,rbFemale;
 	//悬浮添加运动员
 	private ImageButton btnAddAthlete;
 	private ImageButton btnSyncAthlete;
@@ -235,17 +240,21 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 		mAthleteAge = (EditText) window.findViewById(R.id.add_et_age);
 		mAthleteContact = (EditText) window.findViewById(R.id.add_et_contact);
 		mOthers = (EditText) window.findViewById(R.id.add_et_extra);
-		mGenderSwitch = (Switch) window.findViewById(R.id.toggle_gender);
+		rgGender = (RadioGroup) window.findViewById(R.id.rg_gender);
+		rbMale = (RadioButton) window.findViewById(R.id.rb_male);
+		rbFemale = (RadioButton) window.findViewById(R.id.rb_female);
 
 		mAthleteName.setText(mAthletes.get(position).getName());
 		mAthleteAge.setText(mAthletes.get(position).getAge() + "");
 
 		String gender = mAthletes.get(position).getGender();
-		if (gender.equals(getString(R.string.male))) {
-			mGenderSwitch.setChecked(true);
-		} else {
-			mGenderSwitch.setChecked(false);
-		}
+//		if (gender.equals(getString(R.string.male))) {
+//			mGenderSwitch.setChecked(true);
+//		} else {
+//			mGenderSwitch.setChecked(false);
+//		}
+		setRadioButtonChecked(gender);
+		rgGender.setOnCheckedChangeListener(this);
 		mAthleteContact.setText(mAthletes.get(position).getPhone());
 		mOthers.setText(mAthletes.get(position).getExtras());
 		// 禁用编辑框
@@ -253,9 +262,21 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 		mAthleteAge.setEnabled(false);
 		mAthleteContact.setEnabled(false);
 		mOthers.setEnabled(false);
-		mGenderSwitch.setFocusable(false);
+		rgGender.setFocusable(false);
 
 	}
+
+	private void setRadioButtonChecked(String gender){
+		if(gender.equals(getString(R.string.male))){
+			rbMale.setChecked(true);
+			rbFemale.setChecked(false);
+		}
+		if(gender.equals(getString(R.string.female))){
+			rbMale.setChecked(true);
+			rbFemale.setChecked(false);
+		}
+	}
+
 
 	/**
 	 * 使得运动员信息可以修改
@@ -270,7 +291,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 		mAthleteAge.setEnabled(true);
 		mAthleteContact.setEnabled(true);
 		mOthers.setEnabled(true);
-		mGenderSwitch.setFocusable(true);
+		rgGender.setFocusable(true);
 	}
 
 	/**
@@ -287,11 +308,11 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 			String ath_age = mAthleteAge.getText().toString().trim();
 			String ath_phone = mAthleteContact.getText().toString().trim();
 			String ath_extras = mOthers.getText().toString().trim();
-			String ath_gender = "男";
-			if (!mGenderSwitch.isChecked()) {
-				ath_gender = "女";
-			}
-
+//			String ath_gender = "男";
+//			if (!mGenderSwitch.isChecked()) {
+//				ath_gender = "女";
+//			}
+			setRadioButtonChecked(ath_gender);
 			// 如果处在联网状态，则发送至服务器
 			boolean isConnect = NetworkUtil.isConnected(this);
 			if (isConnect) {
@@ -500,7 +521,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 
 	/**
 	 * 弹出对话框并添加一个运动员信息
-	 * 
+	 * 看清楚了哦，是弹出对话框
 	 * @param
 	 */
 	public void addAthlete() {
@@ -536,12 +557,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 
 						String number = mAthleteNumber.getText().toString().trim();
 
-						boolean isCheck = mGenderSwitch.isChecked();
-
-						String gender = getString(R.string.male);
-						if (!isCheck) {
-							gender = getString(R.string.female);
-						}
+						setRadioButtonChecked(ath_gender);
 						boolean isExit = mDbManager.isAthleteNameExsit(mUserId,
 								name);
 						if (TextUtils.isEmpty(name)) {
@@ -555,8 +571,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 							if (!TextUtils.isEmpty(ageString)) {
 								age = Integer.parseInt(ageString);
 							}
-
-							addAthlete(name, age, gender, phone, other, number);
+							addAthlete(name, age, ath_gender, phone, other, number);
 							addDialog.dismiss();
 						}
 					}
@@ -566,7 +581,10 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 		mAthleteAge = (EditText) window.findViewById(R.id.add_et_age);
 		mAthleteContact = (EditText) window.findViewById(R.id.add_et_contact);
 		mOthers = (EditText) window.findViewById(R.id.add_et_extra);
-		mGenderSwitch = (Switch) window.findViewById(R.id.toggle_gender);
+		rbMale = (RadioButton) window.findViewById(R.id.rb_male);
+		rbFemale = (RadioButton) window.findViewById(R.id.rb_female);
+		rgGender = (RadioGroup) window.findViewById(R.id.rg_gender);
+		rgGender.setOnCheckedChangeListener(this);
 		mAthleteNumber = (EditText) window.findViewById(R.id.add_et_number);
 
 	}
@@ -643,6 +661,8 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 						mAthletes = mDbManager.getAthletes(mUserId);
 						mAthleteListAdapter.setDatas(mAthletes);
 						mAthleteListAdapter.notifyDataSetChanged();
+					}else{
+						CommonUtils.showToast(AthleteActivity.this,mToast,getString(R.string.unkonwn_error));
 					}
 
 				} catch (JSONException e) {
@@ -739,7 +759,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 						mToast, UNKNOW_ERROR);
 			}
 		};
-		VolleyUtil.httpJson(Constants.GET_ATHLETE_LIST,Method.POST,map,listener,mApplication);
+		VolleyUtil.httpJson(Constants.GET_ATHLETE_LIST, Method.POST, map, listener, mApplication);
 
 	}
 
@@ -752,6 +772,21 @@ public class AthleteActivity extends Activity implements View.OnClickListener{
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("getAthleteFirst", String.valueOf(mUser.getUid()));
 		return map;
+	}
+
+	/**
+	 * 性别选择的监听器
+	 * @param radioGroup
+	 * @param checkedId
+	 */
+	@Override
+	public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+		if(checkedId == rbFemale.getId()){
+			ath_gender = getString(R.string.female);
+		}
+		if(checkedId == rbMale.getId()){
+			ath_gender = getString(R.string.male);
+		}
 	}
 
 

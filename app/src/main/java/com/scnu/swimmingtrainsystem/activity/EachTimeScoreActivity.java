@@ -229,7 +229,7 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 	public void onClick(View v) {
 		switch (v.getId()){
 			case R.id.modify_back:
-				finish();
+				createDialog();
 				break;
 			default:
 				break;
@@ -250,6 +250,7 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 				myApplication.getMap().put(Constants.COMPLETE_NUMBER, 0);
+				myApplication.getMap().put(Constants.CURRENT_SWIM_TIME,0);
 				finish();
 			}
 		}).show();
@@ -414,8 +415,6 @@ public class EachTimeScoreActivity extends FragmentActivity implements View.OnCl
 		};
 
 		VolleyUtil.httpJson(Constants.ADD_SCORE,Method.POST,map,listener,myApplication);
-
-
 	}
 
 	private HashMap<String,Object> getDeliveryMap(boolean isReset){

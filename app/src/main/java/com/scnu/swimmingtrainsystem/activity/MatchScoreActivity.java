@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
@@ -33,12 +34,12 @@ import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.adapter.DragAdapter;
 import com.scnu.swimmingtrainsystem.adapter.ScoreListAdapter;
 import com.scnu.swimmingtrainsystem.db.DBManager;
+import com.scnu.swimmingtrainsystem.entity.SmallPlan;
+import com.scnu.swimmingtrainsystem.entity.SmallScore;
 import com.scnu.swimmingtrainsystem.http.JsonTools;
 import com.scnu.swimmingtrainsystem.model2db.Athlete;
 import com.scnu.swimmingtrainsystem.model2db.Plan;
 import com.scnu.swimmingtrainsystem.model2db.Score;
-import com.scnu.swimmingtrainsystem.entity.SmallPlan;
-import com.scnu.swimmingtrainsystem.entity.SmallScore;
 import com.scnu.swimmingtrainsystem.model2db.User;
 import com.scnu.swimmingtrainsystem.utils.AppController;
 import com.scnu.swimmingtrainsystem.utils.CommonUtils;
@@ -58,43 +59,41 @@ import java.util.List;
 import java.util.Map;
 
 public class MatchScoreActivity extends Activity implements
-		OnItemLongClickListener {
+		OnItemLongClickListener ,OnClickListener{
 
 	private MyApplication app;
-
-	private ArrayList<String> scores = new ArrayList<String>();
+	private int userId;
+	private Plan plan;
+	private ArrayList<String> originScores = new ArrayList<>();
+	private ArrayList<Athlete> originNames = new ArrayList<>();
+	private ArrayList<String> scores = new ArrayList<>();
+	private List<String> dragDatas1;
+	private List<Athlete> dragDatas;
+	private boolean isReset;
+	//计时趟数够了的标志
+	private boolean isMatchDone;
+	private boolean isConnected;
+	private Map<String,String> athleteStrokeMap;
+	private List<Integer> dragAthleteIDs;
 
 	/**
 	 * 拖拽运动员的适配器
 	 */
 	private DragAdapter dragAdapter;
+	private ScoreListAdapter adapter;
 	private List<ListView> viewList;
-	private List<String> dragDatas1;
-	private List<Athlete> dragDatas;
-	private boolean isConnected;
-	private int userId;
-	private Plan plan;
-	private ArrayList<String> originScores = new ArrayList<String>();
-	private ArrayList<Athlete> originNames = new ArrayList<Athlete>();
-	private boolean isReset;
-	private Map<String,String> athleteStrokeMap;
-
-	private List<Integer> dragAthleteIDs;
-
 	private AutoCompleteTextView acTextView;
 	private DBManager mDbManager;
 
 	private Button btNextTiming, btStatistics;
+	private ImageButton btnReload,btnBack;
 	private DragSortListView scoreListView;
 	private DragSortListView nameListView;
-
-	private ScoreListAdapter adapter;
 
 	private LoadingDialog loadingDialog;
 	private Toast mToast;
 	private LinearLayout mLayout;
 	private RelativeLayout mLayout2;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -117,18 +116,25 @@ public class MatchScoreActivity extends Activity implements
 		mLayout2 = (RelativeLayout) findViewById(R.id.match_score_headbar);
 		btNextTiming = (Button) findViewById(R.id.match_done);
 		btStatistics = (Button) findViewById(R.id.match_statistic);
+		btnReload = (ImageButton) findViewById(R.id.btn_match_reload);
+		btnBack = (ImageButton) findViewById(R.id.btn_match_back);
 		scoreListView = (DragSortListView) findViewById(R.id.matchscore_list);
 		nameListView = (DragSortListView) findViewById(R.id.matchName_list);
 		acTextView = (AutoCompleteTextView) findViewById(R.id.match_act_current_distance);
-
 		nameListView.setDropListener(onDrop);
+
+		btNextTiming.setOnClickListener(this);
+		btnReload.setOnClickListener(this);
+		btNextTiming.setOnClickListener(this);
+		btStatistics.setOnClickListener(this);
+		btnBack.setOnClickListener(this);
+
 		/**
 		 * 设置运动员名字不能删除
 		 */
 		nameListView.setDragScrollProfile(ssProfile);
 
 		scoreListView.setRemoveListener(onRemove2);
-
 		// 设置数据源
 		String[] autoStrings = getResources().getStringArray(R.array.swim_length);
 
@@ -151,6 +157,7 @@ public class MatchScoreActivity extends Activity implements
 		if (totalDistance <= intervalDistance * numberth) {
 			btNextTiming.setVisibility(View.GONE);
 			btStatistics.setText(getString(R.string.adjust_finish_goto_statistics));
+			isMatchDone = true;
 		}
 
 //		dragDatas = (List<String>) app.getMap().get(Constants.DRAG_NAME_LIST);
@@ -162,7 +169,7 @@ public class MatchScoreActivity extends Activity implements
 		 * 备份数据
 		 */
 		originNames.addAll(dragDatas);
-		viewList = new ArrayList<ListView>();
+		viewList = new ArrayList<>();
 		viewList.add(scoreListView);
 		viewList.add(nameListView);
 		MyScrollListener mListener = new MyScrollListener();
@@ -199,6 +206,7 @@ public class MatchScoreActivity extends Activity implements
 		userId = SpUtil.getUID(MatchScoreActivity.this);
 		Long planId = (Long) app.getMap().get(Constants.PLAN_ID);
 		plan = DataSupport.find(Plan.class, planId);
+		isMatchDone = false;
 
 		/**
 		 * 获取选择的运动员id
@@ -268,9 +276,9 @@ public class MatchScoreActivity extends Activity implements
 	/**
 	 * 匹配完毕，可以进入下一趟计时或者进入本轮总计
 	 * 进一步设计，应该要把排序好的运动员存储到全局
-	 * @param v
+	 * @param
 	 */
-	public void matchDone(View v) {
+	public void matchDone() {
 		int nowCurrent = (Integer) app.getMap()
 				.get(Constants.CURRENT_SWIM_TIME);
 		String actv = acTextView.getText().toString().trim();
@@ -301,7 +309,6 @@ public class MatchScoreActivity extends Activity implements
 	 * @param distance
 	 */
 	private void matchSuccess(String date, int nowCurrent, int distance) {
-//		List<Athlete> athletes = mDbManager.getAthleteByNames(dragDatas);
 		List<Athlete> athletes = dragDatas;
 		for (int i = 0; i < scores.size(); i++) {
 			Athlete a = athletes.get(i);
@@ -338,12 +345,11 @@ public class MatchScoreActivity extends Activity implements
 
 
 	/**
-	 * 結束本轮计时并显示总的计时情况
-	 * 
-	 * @param v
+	 * 結束本轮计时，进入本轮计时详情情况
+	 * 需要清空之前的数据，或者要做一下操作，防止误触
+	 * @param
 	 */
-	public void finishTiming(View v) {
-
+	public void finishTiming() {
 		String date = (String) app.getMap().get(Constants.TEST_DATE);
 		String actv = acTextView.getText().toString().trim();
 		int crrentDistance = 0;
@@ -381,7 +387,6 @@ public class MatchScoreActivity extends Activity implements
 			if(isReset == false){
 				sendFinishTimerMsg();
 			}
-
 			finish();
 
 		}
@@ -400,16 +405,14 @@ public class MatchScoreActivity extends Activity implements
 
 	/**
 	 * 退出当前窗体事件
-	 * 
-	 * @param v
 	 */
-	public void matchBack(View v) {
+	private void matchBack() {
 		app.getMap().put(Constants.CURRENT_SWIM_TIME, 0);
 		finish();
 		overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_top_out);
 	}
 
-	public void reLoad(View v) {
+	private void reLoad() {
 		scores.clear();
 		scores.addAll(originScores);
 		adapter.notifyDataSetChanged();
@@ -457,6 +460,25 @@ public class MatchScoreActivity extends Activity implements
 			}
 		}).show();
 
+	}
+
+	private void createAlertDialog(){
+		AlertDialog.Builder build = new AlertDialog.Builder(this);
+		build.setTitle(getString(R.string.system_hint)).setMessage(
+				getString(R.string.goto_adjust_score));
+		build.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		build.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				finishTiming();
+				dialog.dismiss();
+			}
+		}).show();
 	}
 
 	private class MyScrollListener implements OnScrollListener {
@@ -578,7 +600,6 @@ public class MatchScoreActivity extends Activity implements
 		scoreMap.put("score", smallScores);
 		scoreMap.put("plan", sp);
 		scoreMap.put("uid", user.getUid());
-//		scoreMap.put("athlete_id", aidList);
 		scoreMap.put("type", 1);
 		scoreMap.put("isreset",isReset);
 		final String jsonString = JsonTools.creatJsonString(scoreMap);
@@ -628,6 +649,33 @@ public class MatchScoreActivity extends Activity implements
 			}
 		});
 
+	}
+
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()){
+			case R.id.match_done:
+				matchDone();
+				break;
+			case R.id.match_statistic:
+				/**
+				 * 如果趟数没有完成，就要给出提示，完成了，就直接进入统计界面
+				 */
+				if(isMatchDone){
+					finishTiming();
+				}else{
+					createAlertDialog();
+				}
+				break;
+			case R.id.btn_match_reload:
+				reLoad();
+				break;
+			case R.id.btn_match_back:
+				matchBack();
+				break;
+			default:
+				break;
+		}
 	}
 
 	@Override

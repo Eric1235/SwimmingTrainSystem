@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:paddingLeft="10dp"
     android:paddingRight="10dp" >
-
     <LinearLayout
         android:id="@+id/parentPanel"
         android:layout_width="match_parent"
@@ -13,13 +12,13 @@
         android:layout_centerInParent="true"
         android:background="@color/color_dialog_bg"
         android:clickable="false"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:visibility="visible" >
         <LinearLayout
             android:id="@+id/topPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#22330086"
+            android:background="#22330088"
             android:orientation="vertical" >
 
             <RelativeLayout
@@ -100,8 +99,8 @@
                 style="@style/custom_btn"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
                 android:text="OK" />
 
             <Button
@@ -109,10 +108,9 @@
                 style="@style/custom_btn"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="16dp"
                 android:text="Cancle" />
         </LinearLayout>
     </LinearLayout>
-
 </RelativeLayout>

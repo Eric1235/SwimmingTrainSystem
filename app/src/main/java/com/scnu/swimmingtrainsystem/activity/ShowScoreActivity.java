@@ -70,7 +70,7 @@ public class ShowScoreActivity extends Activity {
 
 		Long planid = (Long) mApplication.getMap().get(Constants.PLAN_ID);
 		Plan plan = DataSupport.find(Plan.class, planid);
-		mPlanName.setText(plan.getPool() + "  总距离：" + plan.getDistance()
+		mPlanName.setText("泳池长度:"+plan.getPool() + "米" + "  距离：" + plan.getDistance()
 				+ "米    共" + (times - 2) + "趟");
 
 		/**
