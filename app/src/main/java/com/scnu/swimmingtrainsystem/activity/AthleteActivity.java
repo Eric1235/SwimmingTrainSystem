@@ -238,6 +238,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 		Window window = viewDialog.getWindow();
 		mAthleteName = (EditText) window.findViewById(R.id.add_et_user);
 		mAthleteAge = (EditText) window.findViewById(R.id.add_et_age);
+		mAthleteNumber = (EditText)  window.findViewById(R.id.add_et_number);
 		mAthleteContact = (EditText) window.findViewById(R.id.add_et_contact);
 		mOthers = (EditText) window.findViewById(R.id.add_et_extra);
 		rgGender = (RadioGroup) window.findViewById(R.id.rg_gender);
@@ -246,6 +247,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 
 		mAthleteName.setText(mAthletes.get(position).getName());
 		mAthleteAge.setText(mAthletes.get(position).getAge() + "");
+		mAthleteNumber.setText(mAthletes.get(position).getNumber());
 
 		String gender = mAthletes.get(position).getGender();
 //		if (gender.equals(getString(R.string.male))) {
@@ -630,6 +632,14 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 	public void addAthleteRequest(String name, int age, String gender, String contact,
 								  String others,String number) {
 		final Athlete a = new Athlete();
+		final TempAthlete a1 = new TempAthlete();
+		a1.setName(name);
+		a1.setAge(age);
+		a1.setGender(gender);
+		a1.setPhone(contact);
+		a1.setExtras(others);
+		a1.setNumber(number);
+
 		a.setName(name);
 		a.setAge(age);
 		a.setUid(mUserId);
@@ -639,7 +649,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 		a.setNumber(number);
 
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		jsonMap.put("athlete", a);
+		jsonMap.put("athlete", a1);
 		jsonMap.put("uid", mUser.getUid());
 		final String athleteJson = JsonTools.creatJsonString(jsonMap);
 

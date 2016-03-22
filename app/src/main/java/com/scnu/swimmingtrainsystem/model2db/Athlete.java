@@ -129,7 +129,6 @@ public class Athlete extends DataSupport {
 		return "Athlete{" +
 				"id=" + id +
 				", aid=" + aid +
-				", uid=" + uid +
 				", name='" + name + '\'' +
 				", age=" + age +
 				", gender='" + gender + '\'' +
