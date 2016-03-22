@@ -280,7 +280,6 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 		}
 	}
 
-
 	/**
 	 * 使得运动员信息可以修改
 	 */
