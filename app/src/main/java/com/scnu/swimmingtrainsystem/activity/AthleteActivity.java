@@ -262,6 +262,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 		// 禁用编辑框
 		mAthleteName.setEnabled(false);
 		mAthleteAge.setEnabled(false);
+		mAthleteNumber.setEnabled(false);
 		mAthleteContact.setEnabled(false);
 		mOthers.setEnabled(false);
 		rgGender.setFocusable(false);
@@ -289,6 +290,8 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 		mAthleteAge.setBackgroundResource(R.drawable.bg_edittext_selector);
 		mAthleteContact.setBackgroundResource(R.drawable.bg_edittext_selector);
 		mOthers.setBackgroundResource(R.drawable.bg_edittext_selector);
+		mAthleteNumber.setBackgroundResource(R.drawable.bg_edittext_selector);
+		mAthleteNumber.setEnabled(true);
 		mAthleteName.setEnabled(true);
 		mAthleteAge.setEnabled(true);
 		mAthleteContact.setEnabled(true);
