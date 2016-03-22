@@ -212,6 +212,7 @@
     <!-- match_dash_score_activity -->
     <string name="reload_data">重新载入数据</string>
     <string name="save">保存</string>
+    <string name="upload">上传</string>
     <string name="athlete_score_match">运动员成绩匹配</string>
     
     <!-- queryscoreactivity -->

@@ -154,6 +154,7 @@
             android:layout_width="0dp"
             android:layout_marginRight="8dp"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="@string/local_query" />
         <Button
             style="@style/custom_btn"

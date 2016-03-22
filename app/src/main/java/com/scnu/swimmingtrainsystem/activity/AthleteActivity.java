@@ -632,6 +632,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 		final Athlete a = new Athlete();
 		a.setName(name);
 		a.setAge(age);
+		a.setUid(mUserId);
 		a.setGender(gender);
 		a.setPhone(contact);
 		a.setExtras(others);
@@ -656,7 +657,6 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 						int aid = (Integer) obj.get("athlete_id");
 						a.setAid(aid);
 //						a.setUser(mUser);
-						a.setUid(mUserId);
 						a.save();
 						mAthletes = mDbManager.getAthletes(mUserId);
 						mAthleteListAdapter.setDatas(mAthletes);

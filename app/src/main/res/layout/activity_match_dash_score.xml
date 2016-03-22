@@ -30,14 +30,13 @@
             android:src="@drawable/btn_back" />
 
         <ImageButton
-            android:id="@+id/add_match_athlete"
+            android:id="@+id/btn_choose_athlete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:background="@drawable/add"
-            android:onClick="chooseAthlete" />
+            android:background="@drawable/add" />
     </RelativeLayout>
 
     <LinearLayout
@@ -81,24 +80,23 @@
 
         <Button
             style="@style/custom_btn"
-            android:id="@+id/bt_dash_reload"
+            android:id="@+id/btn_dash_reload"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:onClick="reLoad"
             android:text="@string/reload_data"
              />
 
         <Button
             style="@style/custom_btn"
-            android:id="@+id/bt_match_dash_save"
+            android:id="@+id/btn_match_dash_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_weight="1.0"
             android:onClick="saveScores"
-            android:text="@string/save" />
+            android:text="@string/upload" />
     </LinearLayout>
 
 </RelativeLayout>

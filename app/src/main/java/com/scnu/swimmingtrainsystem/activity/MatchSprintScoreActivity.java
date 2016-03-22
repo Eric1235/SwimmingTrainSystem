@@ -15,6 +15,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
@@ -32,11 +33,11 @@ import com.scnu.swimmingtrainsystem.adapter.ScoreListAdapter;
 import com.scnu.swimmingtrainsystem.db.DBManager;
 import com.scnu.swimmingtrainsystem.effect.Effectstype;
 import com.scnu.swimmingtrainsystem.effect.NiftyDialogBuilder;
-import com.scnu.swimmingtrainsystem.http.JsonTools;
 import com.scnu.swimmingtrainsystem.entity.AdapterHolder;
+import com.scnu.swimmingtrainsystem.entity.SmallOtherScore;
+import com.scnu.swimmingtrainsystem.http.JsonTools;
 import com.scnu.swimmingtrainsystem.model2db.Athlete;
 import com.scnu.swimmingtrainsystem.model2db.OtherScore;
-import com.scnu.swimmingtrainsystem.entity.SmallOtherScore;
 import com.scnu.swimmingtrainsystem.model2db.User;
 import com.scnu.swimmingtrainsystem.utils.CommonUtils;
 import com.scnu.swimmingtrainsystem.utils.Constants;
@@ -56,7 +57,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressLint("SimpleDateFormat")
-public class MatchSprintScoreActivity extends Activity {
+public class MatchSprintScoreActivity extends Activity implements OnClickListener {
 
 	private MyApplication app;
 	private DBManager mDbManager;
@@ -66,25 +67,13 @@ public class MatchSprintScoreActivity extends Activity {
 	private ArrayList<String> scores = new ArrayList<String>();
 	private List<Athlete> athletes = new ArrayList<Athlete>();
 	private List<Athlete> dragDatas = new ArrayList<Athlete>();
-	private SparseBooleanArray map = new SparseBooleanArray();
+	//备份数据
 	private ArrayList<String> originScores = new ArrayList<String>();
-	private List<ListView> viewList;
-
-	private Toast mToast;
-	private View mLayout, mLayout2;
-	private LoadingDialog loadingDialog;
-	private DragSortListView scoreListView;
-	private DragSortListView nameListView;
-	private ImageButton chooseButton;
-	private Spinner distanceSpinner;
-	/**
-	 * 展示全部运动员的ListView
-	 */
-	private ListView athleteListView;
+	private ArrayList<Athlete> originNames = new ArrayList<>();
+	private SparseBooleanArray map = new SparseBooleanArray();
 
 
 	private ScoreListAdapter adapter;
-
 	/**
 	 * 成绩拖动适配器
 	 */
@@ -93,6 +82,20 @@ public class MatchSprintScoreActivity extends Activity {
 	 * 运动员拖动适配器
 	 */
 	private ChooseAthleteAdapter allAthleteAdapter;
+	private List<ListView> viewList;
+
+	private Toast mToast;
+	private View mLayout, mLayout2;
+	private LoadingDialog loadingDialog;
+	private DragSortListView scoreListView;
+	private DragSortListView nameListView;
+	private ImageButton btnChoose;
+	private Button btnReset,btnUpload;
+	private Spinner distanceSpinner;
+	/**
+	 * 展示全部运动员的ListView
+	 */
+	private ListView athleteListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +103,91 @@ public class MatchSprintScoreActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_match_dash_score);
-		init();
+		initData();
+		initView();
+
 	}
+
+
+	private void initView() {
+		// TODO Auto-generated method stub
+
+		btnChoose = (ImageButton) findViewById(R.id.btn_choose_athlete);
+		btnReset = (Button) findViewById(R.id.btn_dash_reload);
+		btnUpload = (Button) findViewById(R.id.btn_match_dash_save);
+
+		btnChoose.setOnClickListener(this);
+		btnReset.setOnClickListener(this);
+		btnUpload.setOnClickListener(this);
+
+		distanceSpinner = (Spinner) findViewById(R.id.spinner_match_dash);
+		mLayout = findViewById(R.id.match_dash_headbar);
+		mLayout2 = findViewById(R.id.ll_match_dash2);
+		scoreListView = (DragSortListView) findViewById(R.id.matchscore_list);
+		nameListView = (DragSortListView) findViewById(R.id.matchName_list);
+		nameListView.setDropListener(onDrop);
+		nameListView.setRemoveListener(onRemove);
+		nameListView.setDragScrollProfile(ssProfile);
+		scoreListView.setRemoveListener(onRemove2);
+		viewList = new ArrayList<ListView>();
+		viewList.add(scoreListView);
+		viewList.add(nameListView);
+
+
+
+
+		String[] dashLength = getResources().getStringArray(R.array.dash_length);
+		List<String> dashDistanceList = new ArrayList<String>();
+		Collections.addAll(dashDistanceList, dashLength);
+		ArrayAdapter<String> spinerAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_dropdown_item, dashDistanceList);
+		distanceSpinner.setAdapter(spinerAdapter);
+		distanceSpinner.setSelection(2);
+
+		for (int i = 0; i < athletes.size(); i++) {
+			map.put(i, false);
+		}
+
+		MyScrollListener mListener = new MyScrollListener();
+		scoreListView.setOnScrollListener(mListener);
+		nameListView.setOnScrollListener(mListener);
+		adapter = new ScoreListAdapter(scoreListView, this, scores);
+
+
+		dragAdapter = new DragAdapter(this, R.layout.drag_list_item, dragDatas);
+		scoreListView.setAdapter(adapter);
+		nameListView.setAdapter(dragAdapter);
+		scoreListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+										   int position, long id) {
+				// TODO Auto-generated method stub
+				showPopWindow(position);
+				return true;
+			}
+		});
+
+	}
+
+	private void initData(){
+		scores = getIntent().getStringArrayListExtra("SCORES");
+		userId = SpUtil.getUID(MatchSprintScoreActivity.this);
+		originScores.addAll(scores);
+		app = (MyApplication) getApplication();
+		app.addActivity(this);
+		mDbManager = DBManager.getInstance();
+		chooseAthlete();
+	}
+
+	/**
+	 * 更新运动员列表
+	 */
+	private void upDateAthleteList(){
+		athletes = mDbManager.getAthletes(userId);
+	}
+
+
 
 	private DragSortListView.RemoveListener onRemove = new DragSortListView.RemoveListener() {
 		@Override
@@ -152,74 +238,10 @@ public class MatchSprintScoreActivity extends Activity {
 		}
 	};
 
-	private void init() {
-		// TODO Auto-generated method stub
-		app = (MyApplication) getApplication();
-		app.addActivity(this);
-		mDbManager = DBManager.getInstance();
-		chooseButton = (ImageButton) findViewById(R.id.add_match_athlete);
-		distanceSpinner = (Spinner) findViewById(R.id.spinner_match_dash);
-		String[] dashLength = getResources().getStringArray(R.array.dash_length);
-		List<String> dashDistanceList = new ArrayList<String>();
-		Collections.addAll(dashDistanceList, dashLength);
-		ArrayAdapter<String> spinerAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_dropdown_item, dashDistanceList);
-		distanceSpinner.setAdapter(spinerAdapter);
-		distanceSpinner.setSelection(2);
-
-		scores = getIntent().getStringArrayListExtra("SCORES");
-		userId = SpUtil.getUID(MatchSprintScoreActivity.this);
-		originScores.addAll(scores);
-
-		upDateAthleteList();
-
-		for (int i = 0; i < athletes.size(); i++) {
-			map.put(i, false);
-		}
-
-		mLayout = findViewById(R.id.match_dash_headbar);
-		mLayout2 = findViewById(R.id.ll_match_dash2);
-		scoreListView = (DragSortListView) findViewById(R.id.matchscore_list);
-		nameListView = (DragSortListView) findViewById(R.id.matchName_list);
-		nameListView.setDropListener(onDrop);
-		nameListView.setRemoveListener(onRemove);
-		nameListView.setDragScrollProfile(ssProfile);
-		scoreListView.setRemoveListener(onRemove2);
-		viewList = new ArrayList<ListView>();
-		viewList.add(scoreListView);
-		viewList.add(nameListView);
-		MyScrollListener mListener = new MyScrollListener();
-		scoreListView.setOnScrollListener(mListener);
-		nameListView.setOnScrollListener(mListener);
-		adapter = new ScoreListAdapter(scoreListView, this, scores);
-
-
-		dragAdapter = new DragAdapter(this, R.layout.drag_list_item, dragDatas);
-		scoreListView.setAdapter(adapter);
-		nameListView.setAdapter(dragAdapter);
-		scoreListView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				showPopWindow(position);
-				return true;
-			}
-		});
-
-		chooseAthlete(chooseButton);
-
-	}
-
 	/**
-	 * 更新运动员列表
+	 * 弹出选择运动员对话框
 	 */
-	private void upDateAthleteList(){
-		athletes = mDbManager.getAthletes(userId);
-	}
-
-	public void chooseAthlete(View v) {
+	public void chooseAthlete() {
 		upDateAthleteList();
 		final NiftyDialogBuilder selectDialog = NiftyDialogBuilder
 				.getInstance(MatchSprintScoreActivity.this);
@@ -270,6 +292,8 @@ public class MatchSprintScoreActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dragAdapter = new DragAdapter(MatchSprintScoreActivity.this, R.layout.drag_list_item, dragDatas);
+				//尝试备份运动员数据咯
+				originNames.addAll(dragDatas);
 				nameListView.setAdapter(dragAdapter);
 				selectDialog.dismiss();
 			}
@@ -277,7 +301,10 @@ public class MatchSprintScoreActivity extends Activity {
 		}).show();
 	}
 
-	public void saveScores(View v) {
+	/**
+	 * 上传成绩啦
+	 */
+	public void saveScores() {
 		if (!isSave) {
 			isSave = true;
 			int scoreNumber = scores.size();
@@ -288,20 +315,10 @@ public class MatchSprintScoreActivity extends Activity {
 				String distance = distanceSpinner.getSelectedItem().toString()
 						.replace("米", "");
 				List<Integer> athIds = new ArrayList<Integer>();
-				User user = mDbManager.getUserByUid(userId);
 				String date = CommonUtils.formatDate(new Date());
 				for (int i = 0; i < scoreNumber; i++) {
 					Athlete athlete = dragDatas.get(i);
 					athIds.add(athlete.getAid());
-//					Score s = new Score();
-//					s.setScore(scores.get(i));
-//					s.setDate(date);
-//					s.setDistance(Integer.parseInt(distance));
-//					s.setTimes(1);
-//					s.setType(Constants.SPRINTSCORE);
-//					s.setAthlete(athlete);
-//					s.setUser(user);
-//					s.save();
 
 					OtherScore oScore = new OtherScore();
 					oScore.setAthlete_id(athlete.getAid());
@@ -312,8 +329,6 @@ public class MatchSprintScoreActivity extends Activity {
 					oScore.setUid(userId);
 					oScore.setPdate(date);
 					oScore.save();
-
-
 				}
 				isConnected = NetworkUtil.isConnected(this);
 				if (isConnected) {
@@ -404,19 +419,16 @@ public class MatchSprintScoreActivity extends Activity {
 	 * @return
 	 */
 	private Map<String,String> getDataMap(String date, List<Integer> athIds,String distance){
-//		List<Score> scoresResult = new ArrayList<Score>();
 		List<OtherScore> scoresResult = new ArrayList<OtherScore>();
 		List<Integer> athList = new ArrayList<Integer>();
 		scoresResult.addAll(mDbManager.getOtherScoreByDate(date));
 		athList.addAll(athIds);
-		List<SmallOtherScore> scores = new ArrayList<SmallOtherScore>();
+		List<SmallOtherScore> scores;
 		scores = getScore(scoresResult);
 		User user = mDbManager.getUserByUid(userId);
 		Map<String, Object> scoreMap = new HashMap<String, Object>();
 		scoreMap.put("scoredata", scores);
-//		scoreMap.put("plan", null);
 		scoreMap.put("uid", user.getUid());
-//		scoreMap.put("athlete_id", athList);
 		scoreMap.put("type", 1);
 		scoreMap.put("distance",distance);
 		final String jsonString = JsonTools.creatJsonString(scoreMap);
@@ -452,10 +464,17 @@ public class MatchSprintScoreActivity extends Activity {
 
 	}
 
-	public void reLoad(View v) {
+	/**
+	 * 这个就是要重设数据啦,要加上运动员的
+	 * @param
+	 */
+	public void reLoad() {
 		scores.clear();
 		scores.addAll(originScores);
 		adapter.notifyDataSetChanged();
+		dragDatas.clear();
+		dragDatas.addAll(originNames);
+		dragAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -473,6 +492,24 @@ public class MatchSprintScoreActivity extends Activity {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()){
+			case R.id.btn_match_dash_save:
+				saveScores();
+				break;
+			case R.id.btn_dash_reload:
+				reLoad();
+				break;
+			case R.id.btn_choose_athlete:
+				chooseAthlete();
+				break;
+			default:
+				break;
+		}
+
 	}
 
 	private class MyScrollListener implements OnScrollListener {

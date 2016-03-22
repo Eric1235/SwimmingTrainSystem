@@ -34,7 +34,7 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/bg_edittext_selector"
-                android:maxLength="20"
+                android:maxLength="10"
                 android:paddingLeft="5dp"
                 android:singleLine="true" >
             </com.scnu.swimmingtrainsystem.view.ClearEdittext>
@@ -68,7 +68,7 @@
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/bg_edittext_selector"
                 android:inputType="number"
-                android:maxLength="3"
+                android:maxLength="2"
                 android:paddingLeft="5dp" >
             </com.scnu.swimmingtrainsystem.view.ClearEdittext>
         </LinearLayout>

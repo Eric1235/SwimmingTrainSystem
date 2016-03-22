@@ -290,6 +290,9 @@ public class FrequenceFragment extends Fragment implements OnClickListener {
 		}
 	}
 
+	/**
+	 * 对数据进行重设
+	 */
 	private void resetTimer() {
 		tvResult.setText(getString(R.string.default_time_per_min));
 		clickCount = 0;
@@ -297,6 +300,7 @@ public class FrequenceFragment extends Fragment implements OnClickListener {
 		secondpredegree = 0;
 		hourpredegree = 0;
 		mlCount = 0;
+		tvAthleteName.setText("");
 		timerStop();
 		resetData();
 		setAnimation();
@@ -313,7 +317,7 @@ public class FrequenceFragment extends Fragment implements OnClickListener {
 			loadingDialog.show();
 			addFrequenceScoreRequest(score, aid, uid, athleteName, pdate);
 		}else{
-			CommonUtils.showToast(getActivity(),mToast,getString(R.string.network_error));
+			CommonUtils.showToast(getActivity(), mToast, getString(R.string.network_error));
 		}
 	}
 
