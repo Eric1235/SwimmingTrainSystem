@@ -59,13 +59,13 @@
                     <AutoCompleteTextView
                         android:id="@+id/act_interval"
                         android:layout_width="100dp"
-                        android:layout_height="30dp"
+                        android:layout_height="35dp"
                         android:ems="5"
                         android:hint="@string/time_interval"
                         android:inputType="number"
                         android:singleLine="true"
                         android:textColor="@color/color_text"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -108,14 +108,14 @@
                     <AutoCompleteTextView
                         android:id="@+id/tv_distance"
                         android:layout_width="100dp"
-                        android:layout_height="30dp"
+                        android:layout_height="35dp"
                         android:layout_marginLeft="10dp"
                         android:ems="5"
                         android:hint="@string/swim_total_length"
                         android:inputType="number"
                         android:singleLine="true"
                         android:textColor="@color/color_text"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -297,8 +297,17 @@ public class MatchScoreActivity extends Activity implements
 		List<Integer> athleteIds = CommonUtils.getAthleteIdsByAthletes(athletes);
 		app.getMap().put(Constants.DRAG_NAME_LIST_IDS,athleteIds);
 		String athleteidJson = JsonTools.creatJsonString(athleteIds);
-		createDialog(this, nowCurrent, crrentDistance, scoresString,
-				athleteJson,athleteidJson);
+		/**
+		 * 先做判断，看看运动员数目和成绩数目是否对应，给出提示防止成绩输入不正确
+		 */
+
+		if(athleteIds.size() == scores.size()){
+			createDialog(this, nowCurrent, crrentDistance, scoresString,
+					athleteJson,athleteidJson);
+		}else{
+			CommonUtils.showToast(MatchScoreActivity.this,mToast,getString(R.string.score_num_not_equalwith_athlete_num));
+		}
+
 	}
 
 	/**

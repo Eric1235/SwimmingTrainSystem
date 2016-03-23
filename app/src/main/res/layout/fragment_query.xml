@@ -137,7 +137,7 @@
             android:layout_centerInParent="true"
             android:layout_width="120dp"
             android:layout_height="match_parent"
-            android:text="@string/stop_watch"/>
+            android:text="@string/interval"/>
     </RelativeLayout>
 
     <LinearLayout 
