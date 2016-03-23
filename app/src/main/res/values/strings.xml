@@ -85,7 +85,7 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="score_is_zero">该趟成绩当前距离为0!</string>
-    <string name="score_num_not_match_athlete_num">成绩数与运动员人数不对应!</string>
+    <string name="score_num_not_match_athlete_num">成绩数与运动员人数不对应!若误删数据，请恢复数据</string>
     <string name="match_done">匹配完成!</string>
     
     <!-- registactivity -->
@@ -135,7 +135,7 @@
     <string name="leave_at_least_one_score">至少保留一个成绩</string>
     <string name="adjust_finish_goto_statistics">调整完毕，进入统计页面</string>
     <string name="fill_in_scores_distance">请填写记录当前成绩的距离！</string>
-    <string name="score_num_not_equalwith_athlete_num">成绩数目与运动员数目不相等,请删除部分数据!若误删数据，可以按右上角按钮进行恢复</string>
+    <string name="score_num_not_equalwith_athlete_num">成绩数目与运动员数目不相等,请删除部分数据!若误删数据，可以按行恢复</string>
     <string name="copy_add">复制添加该项</string>
     <string name="goto_next_timer_or_adjust_score">"是否开始下一趟计时\n选择【否】则返回调整成绩或者运动员数目,或者结束本轮计时\n选择【是】则直接开始下一趟计时</string>
     <string name="goto_adjust_score">当前计时趟数没有完成，是否真的要跳转到成绩统计界面，上传成绩？</string>
@@ -257,7 +257,7 @@
 
     <!-- minefragment -->
     <string name="mine">我</string>
-    <string name="question_help">问题帮助</string>
+    <string name="question_help">使用帮助</string>
     <string name="about_us">关于我们</string>
     <string name="logout">退出登录</string>
 

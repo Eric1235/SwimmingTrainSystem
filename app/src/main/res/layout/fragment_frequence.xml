@@ -38,6 +38,7 @@
         android:layout_below="@id/frequence_area"
         android:layout_marginTop="30dp"
         android:layout_marginRight="10dp"
+        android:maxLength="6"
         android:ems="5"
         android:hint="@string/input_athlete"
         android:singleLine="true"

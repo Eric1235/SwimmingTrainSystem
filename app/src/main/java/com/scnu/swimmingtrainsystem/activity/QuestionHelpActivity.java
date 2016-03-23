@@ -17,15 +17,18 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.utils.Constants;
+import com.scnu.swimmingtrainsystem.utils.ScreenUtils;
 
 
 /**
  * 使用说明Activity
  * 
  * @author LittleByte
- * 
+ * 修改:李新坤
+ * 实在太丑了，我受不了了，要改界面
  */
 public class QuestionHelpActivity extends Activity {
 	private MyApplication application;
@@ -63,8 +66,8 @@ public class QuestionHelpActivity extends Activity {
 				TextView textView = new TextView(QuestionHelpActivity.this);
 				textView.setLayoutParams(lp);
 				textView.setGravity(Gravity.CENTER_VERTICAL);
-				textView.setPadding(15, 0, 0, 0);
-				textView.setTextSize(24);
+				textView.setPadding(16, 0, 0, 0);
+				textView.setTextSize(ScreenUtils.dip2px(QuestionHelpActivity.this,8));
 				textView.setTextColor(Color.BLACK);
 				return textView;
 			}
@@ -116,6 +119,7 @@ public class QuestionHelpActivity extends Activity {
 					View convertView, ViewGroup parent) {
 				LinearLayout ll = new LinearLayout(QuestionHelpActivity.this);
 				ll.setOrientation(LinearLayout.HORIZONTAL);
+                ll.setBackgroundColor(getResources().getColor(R.color.light_blue));
 				TextView textView = getTextView();
 				textView.setTextColor(Color.BLACK);
 				textView.setText(getGroup(groupPosition).toString());

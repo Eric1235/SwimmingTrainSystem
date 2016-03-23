@@ -8,8 +8,8 @@ android {
         applicationId "com.scnu.swimmingtrainsystem"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
     }
 
     //在这里进行签名

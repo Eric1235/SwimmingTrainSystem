@@ -134,7 +134,7 @@ public class FrequenceFragment extends Fragment implements OnClickListener {
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		init();
+		initView();
 		resetData();
 	}
 
@@ -146,7 +146,7 @@ public class FrequenceFragment extends Fragment implements OnClickListener {
 		app = (MyApplication) getActivity().getApplication();
 	}
 
-	private void init() {
+	private void initView() {
 		activity = getActivity();
 		btReset = (Button) activity.findViewById(R.id.bt_frequen_reset);
 		btnSubmit = (Button) activity.findViewById(R.id.bt_submit);

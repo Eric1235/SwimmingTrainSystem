@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.scnu.swimmingtrainsystem"
-    android:versionCode="2"
-    android:versionName="2.0.1">
+    package="com.scnu.swimmingtrainsystem">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -38,6 +36,7 @@
         </activity>
         <activity
             android:name=".activity.LoginActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
@@ -51,8 +50,8 @@
         </activity>
         <activity
             android:name=".activity.AthleteActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.TimerActivity"
@@ -60,10 +59,12 @@
         </activity>
         <activity
             android:name=".activity.QueryScoreActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.QueryActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -76,6 +77,7 @@
         </activity>
         <activity
             android:name=".activity.ModifyPassActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -93,6 +95,7 @@
         </activity>
         <activity
             android:name=".activity.RetrievePasswordActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait" >
         </activity>
         <activity

@@ -56,6 +56,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 匹配冲刺成绩的activity
+ */
 @SuppressLint("SimpleDateFormat")
 public class MatchSprintScoreActivity extends Activity implements OnClickListener {
 
@@ -186,57 +189,6 @@ public class MatchSprintScoreActivity extends Activity implements OnClickListene
 	private void upDateAthleteList(){
 		athletes = mDbManager.getAthletes(userId);
 	}
-
-
-
-	private DragSortListView.RemoveListener onRemove = new DragSortListView.RemoveListener() {
-		@Override
-		public void remove(int which) {
-			if (dragDatas.size() > 1) {
-				dragAdapter.remove(dragAdapter.getItem(which));
-			} else {
-				CommonUtils.showToast(MatchSprintScoreActivity.this, mToast,
-						getString(R.string.leave_at_least_one_athlete));
-			}
-			dragAdapter.notifyDataSetChanged();
-		}
-	};
-
-	private DragSortListView.DragScrollProfile ssProfile = new DragSortListView.DragScrollProfile() {
-		@Override
-		public float getSpeed(float w, long t) {
-			if (w > 0.8f) {
-				// Traverse all views in a millisecond
-				return ((float) dragAdapter.getCount()) / 0.001f;
-			} else {
-				return 10.0f * w;
-			}
-		}
-	};
-
-	private DragSortListView.RemoveListener onRemove2 = new DragSortListView.RemoveListener() {
-		@Override
-		public void remove(int which) {
-			if (scores.size() > 1) {
-				scores.remove(which);
-			} else {
-				CommonUtils.showToast(MatchSprintScoreActivity.this, mToast,
-						getString(R.string.leave_at_least_one_score));
-			}
-			adapter.notifyDataSetChanged();
-		}
-	};
-
-	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
-		@Override
-		public void drop(int from, int to) {
-			Athlete item = dragAdapter.getItem(from);
-
-			dragAdapter.notifyDataSetChanged();
-			dragAdapter.remove(item);
-			dragAdapter.insert(item, to);
-		}
-	};
 
 	/**
 	 * 弹出选择运动员对话框
@@ -477,6 +429,57 @@ public class MatchSprintScoreActivity extends Activity implements OnClickListene
 		dragAdapter.notifyDataSetChanged();
 	}
 
+
+	private DragSortListView.RemoveListener onRemove = new DragSortListView.RemoveListener() {
+		@Override
+		public void remove(int which) {
+			if (dragDatas.size() > 1) {
+				dragAdapter.remove(dragAdapter.getItem(which));
+			} else {
+				CommonUtils.showToast(MatchSprintScoreActivity.this, mToast,
+						getString(R.string.leave_at_least_one_athlete));
+			}
+			dragAdapter.notifyDataSetChanged();
+		}
+	};
+
+	private DragSortListView.DragScrollProfile ssProfile = new DragSortListView.DragScrollProfile() {
+		@Override
+		public float getSpeed(float w, long t) {
+			if (w > 0.8f) {
+				// Traverse all views in a millisecond
+				return ((float) dragAdapter.getCount()) / 0.001f;
+			} else {
+				return 10.0f * w;
+			}
+		}
+	};
+
+	private DragSortListView.RemoveListener onRemove2 = new DragSortListView.RemoveListener() {
+		@Override
+		public void remove(int which) {
+			if (scores.size() > 1) {
+				scores.remove(which);
+			} else {
+				CommonUtils.showToast(MatchSprintScoreActivity.this, mToast,
+						getString(R.string.leave_at_least_one_score));
+			}
+			adapter.notifyDataSetChanged();
+		}
+	};
+
+	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
+		@Override
+		public void drop(int from, int to) {
+			Athlete item = dragAdapter.getItem(from);
+
+			dragAdapter.notifyDataSetChanged();
+			dragAdapter.remove(item);
+			dragAdapter.insert(item, to);
+		}
+	};
+
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
@@ -498,7 +501,12 @@ public class MatchSprintScoreActivity extends Activity implements OnClickListene
 	public void onClick(View view) {
 		switch (view.getId()){
 			case R.id.btn_match_dash_save:
-				saveScores();
+				if(dragDatas.size() == scores.size() ){
+					saveScores();
+				}else{
+					CommonUtils.showToast(MatchSprintScoreActivity.this,mToast,getString(R.string.score_num_not_match_athlete_num));
+				}
+
 				break;
 			case R.id.btn_dash_reload:
 				reLoad();
