@@ -67,8 +67,8 @@ public class QuestionHelpActivity extends Activity {
 				textView.setLayoutParams(lp);
 				textView.setGravity(Gravity.CENTER_VERTICAL);
 				textView.setPadding(16, 0, 0, 0);
-				textView.setTextSize(ScreenUtils.dip2px(QuestionHelpActivity.this,8));
-				textView.setTextColor(Color.BLACK);
+				textView.setTextSize(ScreenUtils.dip2px(QuestionHelpActivity.this,5));
+				textView.setTextColor(Color.WHITE);
 				return textView;
 			}
 
@@ -119,9 +119,11 @@ public class QuestionHelpActivity extends Activity {
 					View convertView, ViewGroup parent) {
 				LinearLayout ll = new LinearLayout(QuestionHelpActivity.this);
 				ll.setOrientation(LinearLayout.HORIZONTAL);
+				ll.setMinimumHeight(ScreenUtils.dip2px(QuestionHelpActivity.this,16));
                 ll.setBackgroundColor(getResources().getColor(R.color.light_blue));
 				TextView textView = getTextView();
-				textView.setTextColor(Color.BLACK);
+				textView.setTextColor(Color.WHITE);
+				textView.setTextSize(18);
 				textView.setText(getGroup(groupPosition).toString());
 				ll.addView(textView);
 				return ll;

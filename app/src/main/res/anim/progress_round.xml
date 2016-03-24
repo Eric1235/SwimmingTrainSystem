@@ -3,28 +3,40 @@
     android:oneshot="false" >
 
     <item
-        android:drawable="@drawable/progress_1"
+        android:drawable="@drawable/progress1"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/progress_2"
+        android:drawable="@drawable/progress2"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/progress_3"
+        android:drawable="@drawable/progress3"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/progress_4"
+        android:drawable="@drawable/progress4"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/progress_5"
+        android:drawable="@drawable/progress5"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/progress_6"
+        android:drawable="@drawable/progress6"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/progress_7"
+        android:drawable="@drawable/progress7"
         android:duration="200"/>
     <item
-        android:drawable="@drawable/progress_8"
+        android:drawable="@drawable/progress8"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/progress9"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/progress10"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/progress11"
+        android:duration="200"/>
+    <item
+        android:drawable="@drawable/progress12"
         android:duration="200"/>
 
 </animation-list>

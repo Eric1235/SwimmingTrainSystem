@@ -52,14 +52,16 @@
             style="@style/custom_normal_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="本次成绩在" />
+            android:text="@string/this_time" />
 
         <AutoCompleteTextView
             android:id="@+id/match_act_current_distance"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
+            android:paddingLeft="5dp"
             android:inputType="number"
+            android:enabled="false"
             android:background="@drawable/bg_edittext_selector"
             android:nextFocusLeft="@+id/match_done"
             android:nextFocusUp="@+id/match_back" />
@@ -69,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="米处记录" />
+            android:text="@string/this_time_score" />
     </LinearLayout>
 
     <include

@@ -38,20 +38,22 @@
         android:layout_height="40dp"
         android:background="@color/light_blue">
         <TextView
-            style="@style/custom_normal_textview"
             android:id="@+id/tv_swim_stroke_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:textColor="@color/white"
             android:layout_marginLeft="16dp"
+            android:textSize="16sp"
             android:text="@string/stroke_title"/>
         <TextView
-            style="@style/custom_normal_textview"
             android:id="@+id/tv_swim_stroke"
             android:layout_toRightOf="@id/tv_swim_stroke_title"
             android:layout_marginLeft="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:layout_centerVertical="true" />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -60,37 +62,41 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true">
             <TextView
-                style="@style/custom_normal_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:textColor="@color/white"
                 android:text="@string/total_distance"/>
             <TextView
-                style="@style/custom_normal_textview"
                 android:id="@+id/tv_swim_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 android:layout_centerVertical="true" />
         </LinearLayout>
 
 
         <TextView
-            style="@style/custom_normal_textview"
             android:id="@+id/tv_is_reset_title"
             android:layout_toLeftOf="@+id/tv_is_reset"
             android:layout_marginRight="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:layout_centerVertical="true"
+            android:textSize="16sp"
             android:text="@string/interval_title"/>
 
         <TextView
-            style="@style/custom_normal_textview"
             android:id="@+id/tv_is_reset"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/white"
             android:layout_centerVertical="true" />
     </RelativeLayout>
 

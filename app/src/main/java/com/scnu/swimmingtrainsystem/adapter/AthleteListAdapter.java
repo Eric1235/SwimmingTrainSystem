@@ -64,7 +64,7 @@ public class AthleteListAdapter extends ArrayAdapter<Athlete> {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.id.setText(String.format("%1$03d", a.getId()));
+		holder.id.setText(String.format("%1$03d", position + 1));
 		holder.name.setText(a.getName());
 		holder.phone.setText(a.getPhone());
 		return convertView;

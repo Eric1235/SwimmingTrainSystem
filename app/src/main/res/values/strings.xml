@@ -140,6 +140,9 @@
     <string name="goto_next_timer_or_adjust_score">"是否开始下一趟计时\n选择【否】则返回调整成绩或者运动员数目,或者结束本轮计时\n选择【是】则直接开始下一趟计时</string>
     <string name="goto_adjust_score">当前计时趟数没有完成，是否真的要跳转到成绩统计界面，上传成绩？</string>
     <string name="match_succeed">成绩匹配完成</string>
+    <string name="match_score">运动员成绩匹配</string>
+    <string name="this_time">本次成绩在</string>
+    <string name="this_time_score">米处记录</string>
     <string name="five_meter">5米</string>
     <string name="ten_meter">10米</string>
     <string name="fif_meter">15米</string>

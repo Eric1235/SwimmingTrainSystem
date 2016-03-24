@@ -66,9 +66,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="点击上方表盘开始计时!再次点击即可记录成绩"
+            android:text="点击上方表盘开始计时!\n再次点击即可记录成绩"
             android:textColor="#777777"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         
@@ -97,7 +97,8 @@
             android:layout_height="50dp"
             android:layout_weight="1.0"
             android:layout_marginLeft="10dp"
-            android:text="运动员成绩匹配" />
+            android:layout_marginBottom="8dp"
+            android:text="@string/match_score" />
     </LinearLayout>
 
 </RelativeLayout>

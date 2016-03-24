@@ -252,7 +252,7 @@ public class TimerActivity extends Activity implements OnClickListener {
 			/**
 			 * 当计时数量超出上限的时候，就停止计时器计时
 			 */
-			stopTimer();
+//			stopTimer();
 			CommonUtils.showToast(TimerActivity.this, toast,
 					getString(R.string.dont_save_more_score));
 		}

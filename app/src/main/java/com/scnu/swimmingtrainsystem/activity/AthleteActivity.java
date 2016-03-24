@@ -347,7 +347,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 	private void deleteAthlete(final Athlete a){
 		AlertDialog.Builder build = new AlertDialog.Builder(this);
 		build.setTitle(getString(R.string.system_hint)).setMessage(
-				"确定要删除[ " + a.getName() + " ]的信息吗？");
+				"确定要删除运动员[ " + a.getName() + " ]的信息吗？运动员被删除后不能找回");
 		build.setPositiveButton(Constants.OK_STRING,
 				new DialogInterface.OnClickListener() {
 					@Override

@@ -20,6 +20,7 @@
     <color name="promotion_bg">#ffd5e6f8</color>
     <color name="dimgray">#696969</color>
     <color name="aliceblue">#696969</color>
+    <color name="silver">#bdc2c2</color>
     
     <!-- 别名引用 -->
     <color name="common_bg">@color/white</color>
