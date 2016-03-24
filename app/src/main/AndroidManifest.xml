@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.scnu.swimmingtrainsystem">
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -20,6 +16,7 @@
             android:name=".activity.WlecomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,12 +28,12 @@
         <activity
             android:name=".activity.HomeActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.LoginActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
@@ -46,11 +43,12 @@
         </activity>
         <activity
             android:name=".activity.OtherFunctionActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.AthleteActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -59,12 +57,12 @@
         </activity>
         <activity
             android:name=".activity.QueryScoreActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.QueryActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -77,7 +75,7 @@
         </activity>
         <activity
             android:name=".activity.ModifyPassActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -87,19 +85,21 @@
         <activity
             android:name=".activity.EachTimeScoreActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name=".activity.SearchboxActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.RetrievePasswordActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.MatchSprintScoreActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".activity.AboutUsActivity"
