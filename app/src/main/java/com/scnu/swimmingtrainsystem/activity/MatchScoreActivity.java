@@ -58,6 +58,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 匹配成绩
+ */
 public class MatchScoreActivity extends Activity implements
 		OnItemLongClickListener ,OnClickListener{
 
@@ -303,7 +306,7 @@ public class MatchScoreActivity extends Activity implements
 
 		if(athleteIds.size() == scores.size()){
 			createDialog(this, nowCurrent, crrentDistance, scoresString,
-					athleteJson,athleteidJson);
+					athleteJson, athleteidJson);
 		}else{
 			CommonUtils.showToast(MatchScoreActivity.this,mToast,getString(R.string.score_num_not_equalwith_athlete_num));
 		}
@@ -347,7 +350,7 @@ public class MatchScoreActivity extends Activity implements
 			loadingDialog.show();
 			addScoreRequest(date);
 		} else {
-			CommonUtils.showToast(this,mToast,getString(R.string.network_error));
+			CommonUtils.showToast(this, mToast, getString(R.string.network_error));
 		}
 
 	}
@@ -397,6 +400,8 @@ public class MatchScoreActivity extends Activity implements
 				sendFinishTimerMsg();
 			}
 			finish();
+			overridePendingTransition(R.anim.slide_bottom_in,
+					R.anim.slide_top_out);
 
 		}
 
@@ -412,14 +417,32 @@ public class MatchScoreActivity extends Activity implements
 		sendBroadcast(i);
 	}
 
+
 	/**
-	 * 退出当前窗体事件
+	 * 退出activity会导致计时失败
 	 */
-	private void matchBack() {
-		app.getMap().put(Constants.CURRENT_SWIM_TIME, 0);
-		finish();
-		overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_top_out);
+	private void createExitDialog(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(MatchScoreActivity.this);
+		builder.setTitle(getString(R.string.system_hint));
+		builder.setMessage(getString(R.string.quit_timing));
+		builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				app.getMap().put(Constants.CURRENT_SWIM_TIME, 0);
+				finish();
+				overridePendingTransition(R.anim.slide_bottom_in, R.anim.slide_top_out);
+			}
+		});
+		builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+				dialog.dismiss();
+			}
+		});
+		builder.show();
 	}
+
 
 	private void reLoad() {
 		scores.clear();
@@ -529,10 +552,7 @@ public class MatchScoreActivity extends Activity implements
 		// TODO Auto-generated method stub
 		// 进入计时界面却不进行成绩匹配而直接返回,要将当前第几次计时置0
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			app.getMap().put(Constants.CURRENT_SWIM_TIME, 0);
-			finish();
-			overridePendingTransition(R.anim.slide_bottom_in,
-					R.anim.slide_top_out);
+			createExitDialog();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -680,7 +700,7 @@ public class MatchScoreActivity extends Activity implements
 				reLoad();
 				break;
 			case R.id.btn_match_back:
-				matchBack();
+				createExitDialog();
 				break;
 			default:
 				break;

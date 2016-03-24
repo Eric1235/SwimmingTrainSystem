@@ -106,9 +106,6 @@ public class TimerFragment extends BaseFragment implements View.OnClickListener{
      */
     private ListView athleteListView;
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -117,8 +114,6 @@ public class TimerFragment extends BaseFragment implements View.OnClickListener{
         dbManager = DBManager.getInstance();
 
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -282,10 +277,10 @@ public class TimerFragment extends BaseFragment implements View.OnClickListener{
         String totalDistance = acTextView.getText().toString().trim();
         String intervalDistance = actInterval.getText().toString().trim();
 
-        if (TextUtils.isEmpty(totalDistance)) {
-            CommonUtils.showToast(getActivity(), toast, getString(R.string.set_total_length));
-        } else if (TextUtils.isEmpty(intervalDistance)) {
+        if (TextUtils.isEmpty(intervalDistance)) {
             CommonUtils.showToast(getActivity(), toast, getString(R.string.set_timer_interval_length));
+        } else if (TextUtils.isEmpty(totalDistance)) {
+            CommonUtils.showToast(getActivity(), toast, getString(R.string.set_total_length));
         } else if (Integer.parseInt(totalDistance) < Integer
                 .parseInt(intervalDistance.replace("米", ""))) {
             CommonUtils.showToast(getActivity(), toast, getString(R.string.interval_length_cannot_loger_than_total_length));

@@ -177,7 +177,7 @@
     <string name="start_timer">开始计时</string>
     
     <string name="set_total_length">请设置本轮计时的总距离</string>
-    <string name="set_timer_interval_length">请设置本轮计时了时间间隔距离</string>
+    <string name="set_timer_interval_length">请设置本轮计时的时间间隔距离</string>
     <string name="interval_length_cannot_loger_than_total_length">计时间隔距离不能大于总距离</string>
     <string name="add_athlete_before_timer">请添加运动员后再开始计时</string>
     
@@ -188,7 +188,7 @@
     <string name="score_record_done">全部成绩记录完成</string>
     <string name="dont_save_more_score">不要保存太多不必要的成绩</string>
     <string name="time_reset">00:00:00</string>
-    <string name="quit_timing">退出计时的话，当前计时就作废，是否要退出？</string>
+    <string name="quit_timing">本次游泳计时还未完成，如果强行退出，当前计时就作废，是否要退出？</string>
     
     <!-- homeactivity -->
     <string name="fragment_index">首页</string>

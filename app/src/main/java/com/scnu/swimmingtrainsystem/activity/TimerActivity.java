@@ -348,6 +348,8 @@ public class TimerActivity extends Activity implements OnClickListener {
 				app.getMap().put(Constants.CURRENT_SWIM_TIME, 0);
 				dialog.dismiss();
 				finish();
+				overridePendingTransition(R.anim.slide_bottom_in,
+						R.anim.slide_top_out);
 			}
 		});
 		builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
