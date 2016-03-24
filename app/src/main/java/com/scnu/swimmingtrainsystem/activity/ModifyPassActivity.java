@@ -48,13 +48,6 @@ public class ModifyPassActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modify);
 		init();
-//		try {
-//			init();
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.printStackTrace();
-//			startActivity(new Intent(this, LoginActivity.class));
-//		}
 	}
 
 	private void init() {

@@ -165,8 +165,8 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 				switch (index) {
 					case 0:
 						//modify
-						Athlete a = mAthleteListAdapter.getItem(position);
-						createDialog(position);
+//						Athlete a = mAthleteListAdapter.getItem(position);
+						createModifyDialog(position);
 						break;
 					case 1:
 						//delete
@@ -202,7 +202,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 	/**
 	 * 弹出修改对话框
 	 */
-	private void createDialog(final int position) {
+	private void createModifyDialog(final int position) {
 		final NiftyDialogBuilder viewDialog = NiftyDialogBuilder
 				.getInstance(this);
 		Effectstype effect = Effectstype.RotateLeft;
@@ -265,7 +265,9 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 		mAthleteNumber.setEnabled(false);
 		mAthleteContact.setEnabled(false);
 		mOthers.setEnabled(false);
-		rgGender.setFocusable(false);
+		rgGender.setEnabled(false);
+		rbFemale.setEnabled(false);
+		rbMale.setEnabled(false);
 
 	}
 
@@ -295,7 +297,9 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 		mAthleteAge.setEnabled(true);
 		mAthleteContact.setEnabled(true);
 		mOthers.setEnabled(true);
-		rgGender.setFocusable(true);
+		rbFemale.setEnabled(true);
+		rbMale.setEnabled(true);
+		rgGender.setEnabled(true);
 	}
 
 	/**
@@ -347,7 +351,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 	private void deleteAthlete(final Athlete a){
 		AlertDialog.Builder build = new AlertDialog.Builder(this);
 		build.setTitle(getString(R.string.system_hint)).setMessage(
-				"确定要删除运动员[ " + a.getName() + " ]的信息吗？运动员被删除后不能找回");
+				"确定删除运动员[ " + a.getName() + " ]？\n运动员被删除后不能找回 ! ! ! !" );
 		build.setPositiveButton(Constants.OK_STRING,
 				new DialogInterface.OnClickListener() {
 					@Override

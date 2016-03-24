@@ -189,9 +189,9 @@ public class TimerFragment extends BaseFragment implements View.OnClickListener{
         Collections.addAll(poolLength, poolLengths);
         Collections.addAll(stroke, strokes);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, stroke);
+                R.layout.item_spinner, stroke);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, poolLength);
+                R.layout.item_spinner, poolLength);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         poolSpinner.setAdapter(adapter1);

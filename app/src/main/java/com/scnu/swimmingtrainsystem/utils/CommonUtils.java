@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.scnu.swimmingtrainsystem.R;
@@ -158,14 +159,19 @@ public class CommonUtils {
 	 * @param text
 	 */
 	public static void showToast(Context context, Toast mToast, String text) {
+		TextView v;
 		if (mToast == null) {
 			mToast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
 			mToast.setGravity(Gravity.CENTER, 0, 0);
-			View view = mToast.getView();
+			View view = View.inflate(context,R.layout.item_toast_info,null);
+			v = (TextView) view;
+			v.setText(text);
 			view.setBackgroundResource(R.drawable.bg_toast);
 			mToast.setView(view);
 		} else {
-			mToast.setText(text);
+			View view = View.inflate(context,R.layout.item_toast_info,null);
+			v = (TextView) view;
+			v.setText(text);
 			mToast.setDuration(Toast.LENGTH_SHORT);
 		}
 		mToast.show();

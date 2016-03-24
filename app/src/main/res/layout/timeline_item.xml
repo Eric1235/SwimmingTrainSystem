@@ -49,7 +49,7 @@
         android:layout_marginLeft="2dp"
         android:layout_toRightOf="@id/view_1"
         android:text="00分00秒000"
-        android:textColor="@color/light_gray"
+        android:textColor="@color/gray"
         android:textSize="14sp"
          />
 
