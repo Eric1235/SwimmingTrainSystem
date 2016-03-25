@@ -399,13 +399,24 @@ public class TimerActivity extends Activity implements OnClickListener {
 
 			resetData();
 
-			predegree = 0;
-			secondpredegree = 0;
-			hourpredegree = 0;
-			mlCount = 0;
 			tvTip.setVisibility(View.VISIBLE);
 
-			stopTimer();
+			if(isReset){
+				stopTimer();
+				/**
+				 * 线程已经关闭将计时次数置0
+				 */
+				clickCount = 0;
+				predegree = 0;
+				secondpredegree = 0;
+				hourpredegree = 0;
+				mlCount = 0;
+			}else{
+				clickCount = 1;
+			}
+
+
+
 			setupData();
 			setAnimation();
 		}
@@ -490,7 +501,7 @@ public class TimerActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * 在这里初始化数据
+	 * 在这里初始化数据，不过锁屏以后，这个生命周期会被唤醒
 	 */
 	@Override
 	protected void onResume() {

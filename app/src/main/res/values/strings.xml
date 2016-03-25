@@ -186,6 +186,7 @@
     <string name="No_1">1</string>
     <string name="No_n">%d</string>
     <string name="score_record_done">全部成绩记录完成</string>
+    <string name="reset_not_for_notreset">不间歇计时无法重设时间</string>
     <string name="dont_save_more_score">不要保存太多不必要的成绩</string>
     <string name="time_reset">00:00:00</string>
     <string name="quit_timing">本次游泳计时还未完成，如果强行退出，当前计时就作废，是否要退出？</string>
