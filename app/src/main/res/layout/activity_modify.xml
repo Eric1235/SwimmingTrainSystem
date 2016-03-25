@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_edittext_selector"
             android:inputType="textPassword"
+            android:maxLength="12"
             android:padding="8dp" />
     </LinearLayout>
 
@@ -81,6 +82,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_edittext_selector"
             android:inputType="textPassword"
+            android:maxLength="12"
             android:padding="8dp" />
     </LinearLayout>
 
@@ -107,6 +109,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_edittext_selector"
             android:inputType="textPassword"
+            android:maxLength="12"
             android:padding="8dp" />
     </LinearLayout>
 

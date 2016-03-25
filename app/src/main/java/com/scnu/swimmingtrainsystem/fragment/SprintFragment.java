@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.scnu.swimmingtrainsystem.R;
 import com.scnu.swimmingtrainsystem.activity.MatchSprintScoreActivity;
@@ -40,34 +41,10 @@ import java.util.TimerTask;
 @SuppressLint("HandlerLeak")
 public class SprintFragment extends Fragment implements OnClickListener {
 
-	private Activity activity;
-
-	private ListView listView;
-	private Button reset, modify;
 	// 点击表盘次数
 	private int clickCount = 0;
 	// 经过毫秒数
 	private long mlCount = 0;
-	// 秒表显示时间
-	private TextView tvTime;
-
-	private ImageView min_progress_hand, second_progress_hand,
-			hour_progress_hand;
-	// 分针、秒针、时针动画
-	private Animation rotateAnimation, secondrotateAnimation,
-			hourrotateAnimation;
-	// 转动角度
-	float predegree = 0;
-	float secondpredegree = 0;
-	float hourpredegree = 0;
-	private Handler handler;
-	private Message msg;
-	// 表盘
-	private RelativeLayout clockView;
-	// 毫秒计数定时器
-	private Timer timer;
-	// 毫秒计数定时任务
-	private TimerTask task = null;
 
 	private String strTime_count = "";
 	private long time_cur;
@@ -76,6 +53,36 @@ public class SprintFragment extends Fragment implements OnClickListener {
 	private ArrayList<String> time = new ArrayList<String>();
 	// 保存两次成绩差的list
 	private ArrayList<String> timesub = new ArrayList<String>();
+
+	// 转动角度
+	float predegree = 0;
+	float secondpredegree = 0;
+	float hourpredegree = 0;
+	private Handler handler;
+	private Message msg;
+	private Toast mToast;
+
+	private Activity activity;
+
+	private ListView listView;
+	private Button reset, modify;
+
+	// 秒表显示时间
+	private TextView tvTime;
+
+	private ImageView min_progress_hand, second_progress_hand,
+			hour_progress_hand;
+	// 分针、秒针、时针动画
+	private Animation rotateAnimation, secondrotateAnimation,
+			hourrotateAnimation;
+
+	// 表盘
+	private RelativeLayout clockView;
+	// 毫秒计数定时器
+	private Timer timer;
+	// 毫秒计数定时任务
+	private TimerTask task = null;
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -117,6 +124,9 @@ public class SprintFragment extends Fragment implements OnClickListener {
 
 			@Override
 			public void onClick(View v) {
+				/**
+				 * 计时次数+1
+				 */
 				clickCount++;
 				// 开始计时
 				if (clickCount == 1) {
@@ -135,7 +145,13 @@ public class SprintFragment extends Fragment implements OnClickListener {
 					time_beg = System.currentTimeMillis();
 					timer.schedule(task, 1, 10);
 				} else {
-					setlistview();
+					//设置一次计时最多纪录10个运动员成绩
+					if(clickCount < 12){
+						setlistview();
+					}else{
+						CommonUtils.showToast(getActivity(),mToast,getString(R.string.dont_save_more_score));
+					}
+
 				}
 
 			}

@@ -21,7 +21,7 @@
      	   	android:layout_weight="1"
      	   	android:layout_width="0dp"
      	   	android:padding="5dp"
-     	   	app:icon="@drawable/ic_home"
+     	   	app:icon="@drawable/ic_home1"
             app:text="@string/fragment_index"
             app:text_size="12sp"
             app:color="@color/home_tag_color"/>
@@ -32,7 +32,7 @@
      	   	android:layout_weight="1"
      	   	android:layout_width="0dp"
      	   	android:padding="5dp"
-     	   	app:icon="@drawable/ic_timer"
+     	   	app:icon="@drawable/ic_timer1"
             app:text="@string/fragment_timer"
             app:text_size="12sp"
             app:color="@color/home_tag_color"/>
@@ -43,7 +43,7 @@
      	   	android:layout_weight="1"
      	   	android:layout_width="0dp"
      	   	android:padding="5dp"
-     	   	app:icon="@drawable/ic_mine"
+     	   	app:icon="@drawable/ic_mine1"
             app:text="@string/fragment_more"
             app:text_size="12sp"
             app:color="@color/home_tag_color"/>
