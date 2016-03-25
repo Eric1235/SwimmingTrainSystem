@@ -157,8 +157,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 					JSONObject obj = new JSONObject(string);
 					int resCode = (Integer) obj.get("resCode");
 					if (resCode == 1) {
-						CommonUtils.showToast(LoginActivity.this,
-								toast, getString(R.string.login_success));
+//						CommonUtils.showToast(LoginActivity.this,
+//								toast, getString(R.string.login_success));
 						String userJson = obj.get("user").toString();
 						User user = JsonTools.getObject(userJson,
 								User.class);

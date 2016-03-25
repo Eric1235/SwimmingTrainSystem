@@ -84,10 +84,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_layout"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_alignRight="@+id/tv_password"
         android:text="@string/forget_pwd"
-        android:textColor="@color/light_gray" />
+        android:textSize="16sp"
+        android:textColor="@color/gray" />
 
     <TextView
         android:id="@+id/setting_host"

@@ -59,7 +59,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(v == null){
-            v = inflater.inflate(R.layout.fragment_more,null);
+            v = inflater.inflate(R.layout.fragment_mine,null);
 
             tvAthleteNum = (TextView) v.findViewById(R.id.tv_athlete_num);
             tvPlanNum = (TextView) v.findViewById(R.id.tv_user_plans);

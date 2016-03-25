@@ -193,7 +193,7 @@
     <!-- homeactivity -->
     <string name="fragment_index">首页</string>
     <string name="fragment_timer">计时</string>
-    <string name="fragment_more">我</string>
+    <string name="fragment_more">我的</string>
     
     <!-- settingactivity -->
     <string name="system_settint">系统设置</string>
@@ -259,7 +259,7 @@
     <string name="time">"%1$01d:%2$02d'%3$02d''%4$02d"</string>logout
 
     <!-- minefragment -->
-    <string name="mine">我</string>
+    <string name="mine">我的</string>
     <string name="question_help">使用帮助</string>
     <string name="about_us">关于我们</string>
     <string name="logout">退出登录</string>

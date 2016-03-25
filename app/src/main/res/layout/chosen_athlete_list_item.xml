@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/stroke"
+            android:layout_toLeftOf="@+id/stroke"
             android:text="@string/choose_stroke"
             android:layout_marginLeft="20dp"
             android:textColor="@color/aliceblue" />
