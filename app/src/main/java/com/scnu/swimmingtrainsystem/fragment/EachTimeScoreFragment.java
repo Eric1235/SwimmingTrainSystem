@@ -37,6 +37,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 在入口的时候成绩个数和运动员个数对上了
+ * 所有数据都是不给删了，只给上下调整
+ */
 @SuppressLint("ValidFragment")
 public class EachTimeScoreFragment extends Fragment {
 	private MyApplication mApplication;
@@ -89,7 +93,8 @@ public class EachTimeScoreFragment extends Fragment {
 			headView=view.findViewById(R.id.ll_fragment_disatance);
 			scListView = (DragSortListView) view
 					.findViewById(R.id.matchscore_list);
-			scListView.setRemoveListener(onRemove2);
+			//数据不给删除
+//			scListView.setRemoveListener(onRemove2);
 			dsListView = (DragSortListView) view
 					.findViewById(R.id.matchName_list);
 			dsListView.setDropListener(onDrop);

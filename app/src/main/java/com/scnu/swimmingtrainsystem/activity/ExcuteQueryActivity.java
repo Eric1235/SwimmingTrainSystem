@@ -39,6 +39,7 @@ import java.util.Map;
 /**
  * 执行参数请求,展示请求数据列表
  * 目前程序并没有做下拉选择。
+ * 提新需求了啊，要加上下拉刷新
  * Created by lixinkun on 16/2/22.
  */
 public class ExcuteQueryActivity extends Activity implements View.OnClickListener{

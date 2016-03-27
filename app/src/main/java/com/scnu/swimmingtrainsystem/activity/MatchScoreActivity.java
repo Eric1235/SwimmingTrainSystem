@@ -307,6 +307,9 @@ public class MatchScoreActivity extends Activity implements
 		if(athleteIds.size() == scores.size()){
 			createDialog(this, nowCurrent, crrentDistance, scoresString,
 					athleteJson, athleteidJson);
+			if(!isReset){
+				sendCountPlusMsg();
+			}
 		}else{
 			CommonUtils.showToast(MatchScoreActivity.this,mToast,getString(R.string.score_num_not_equalwith_athlete_num));
 		}
@@ -414,6 +417,15 @@ public class MatchScoreActivity extends Activity implements
 	private void sendFinishTimerMsg(){
 		Intent i = new Intent();
 		i.setAction(TimerActivity.FINISHTIMER);
+		sendBroadcast(i);
+	}
+
+	/**
+	 * 发送计时次数+1的广播
+	 */
+	private void sendCountPlusMsg(){
+		Intent i = new Intent();
+		i.setAction(TimerActivity.COUNTPLUS);
 		sendBroadcast(i);
 	}
 

@@ -49,6 +49,8 @@ public class TimerActivity extends Activity implements OnClickListener {
 
 	public static final String FINISHTIMER = "FINISHTIMER";
 
+	public static final String COUNTPLUS = ".activity.TimerActivity.countplus";
+
 	private MyApplication app;
 
 	private int athleteNumber = 0;
@@ -100,9 +102,11 @@ public class TimerActivity extends Activity implements OnClickListener {
 			hourrotateAnimation;
 
 	/**
-	 * 广播接收器
+	 * 停止activity广播接收器
 	 */
 	private BroadcastReceiver receiver;
+
+	private BroadcastReceiver plusReceiver;
 
 	private Toast toast;
 	private Handler handler;
@@ -126,11 +130,13 @@ public class TimerActivity extends Activity implements OnClickListener {
 		isReset = i.getBooleanExtra(Constants.WATCHISRESET,true);
 		setupView();
 		setupData();
+		setTitle();
 		/**
 		 * 当不停表的时候，就要注册广播，在计时结束的时候接收广播来结束activity
 		 */
 		if(!isReset){
-			RegistBrocast();
+			RegistFinishBrocast();
+			RegistPlusCurrentTimeBrocast();
 		}
 
 
@@ -140,14 +146,14 @@ public class TimerActivity extends Activity implements OnClickListener {
 	 * 接收广播，结束计时
 	 * 在不间歇的时候去注册
 	 */
-	private void RegistBrocast(){
+	private void RegistFinishBrocast(){
 		receiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
 				/**
 				 * 接收到广播的时候，结束Activity
 				 */
-				finish();
+				exitActivity();
 			}
 		};
 
@@ -157,6 +163,25 @@ public class TimerActivity extends Activity implements OnClickListener {
 		 * 动态注册广播
 		 */
 		registerReceiver(receiver,filter);
+	}
+
+	/**
+	 * 如果是间歇的时候，就要注册计时次数加1的广播
+	 */
+	private void RegistPlusCurrentTimeBrocast(){
+		plusReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				setTitle();
+			}
+		};
+
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(COUNTPLUS);
+		/**
+		 * 动态注册广播
+		 */
+		registerReceiver(plusReceiver,filter);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -347,9 +372,7 @@ public class TimerActivity extends Activity implements OnClickListener {
 			public void onClick(DialogInterface dialog, int which) {
 				app.getMap().put(Constants.CURRENT_SWIM_TIME, 0);
 				dialog.dismiss();
-				finish();
-				overridePendingTransition(R.anim.slide_bottom_in,
-						R.anim.slide_top_out);
+				exitActivity();
 			}
 		});
 		builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -507,7 +530,10 @@ public class TimerActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 
-		setTitle();
+		/**
+		 * 在这里更新数据
+		 */
+//		setTitle();
 		resetData();
 	}
 
@@ -541,12 +567,19 @@ public class TimerActivity extends Activity implements OnClickListener {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	private void exitActivity(){
+		finish();
+		overridePendingTransition(R.anim.slide_bottom_in,
+				R.anim.slide_top_out);
+	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		reset();
 		if(!isReset){
 			unregisterReceiver(receiver);
+			unregisterReceiver(plusReceiver);
 		}
 
 		app.removeActivity(this);
