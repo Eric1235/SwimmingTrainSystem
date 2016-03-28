@@ -100,14 +100,19 @@
             android:layout_centerVertical="true" />
     </RelativeLayout>
 
-
-    <ListView
-        android:id="@+id/score_list_view"
+    <com.scnu.swimmingtrainsystem.refresh.SwipeRefreshLoadLayout
+        android:id="@+id/swipe_score_date"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@drawable/base_list_divider_drawable"
-        android:groupIndicator="@null" >
-    </ListView>
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/score_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@drawable/base_list_divider_drawable"
+            android:groupIndicator="@null" >
+        </ListView>
+    </com.scnu.swimmingtrainsystem.refresh.SwipeRefreshLoadLayout>
+
 
 
 </LinearLayout>

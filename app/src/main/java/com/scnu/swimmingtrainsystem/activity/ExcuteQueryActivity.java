@@ -20,6 +20,7 @@ import com.scnu.swimmingtrainsystem.entity.QueryScoreEntity;
 import com.scnu.swimmingtrainsystem.entity.ScoreDateEntity;
 import com.scnu.swimmingtrainsystem.fragment.QueryFragment;
 import com.scnu.swimmingtrainsystem.http.JsonTools;
+import com.scnu.swimmingtrainsystem.refresh.SwipeRefreshLoadLayout;
 import com.scnu.swimmingtrainsystem.utils.AppController;
 import com.scnu.swimmingtrainsystem.utils.CommonUtils;
 import com.scnu.swimmingtrainsystem.utils.Constants;
@@ -54,6 +55,11 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
     private Toast mToast;
 
     private MyApplication app;
+
+    /**
+     * 下拉刷新的layout
+     */
+    private SwipeRefreshLoadLayout swipeRefreshLoadLayout;
 
     private ListView mScoreDateListView;
     private View emptyView;
@@ -93,6 +99,7 @@ public class ExcuteQueryActivity extends Activity implements View.OnClickListene
 
     private void initView(){
         mScoreDateListView = (ListView) findViewById(R.id.score_list_view);
+        swipeRefreshLoadLayout = (SwipeRefreshLoadLayout) findViewById(R.id.swipe_score_date);
         emptyView = View.inflate(this,R.layout.item_score_emptyview,null);
         ((ViewGroup)mScoreDateListView.getParent()).addView(emptyView);
         btnBack = (ImageButton)findViewById(R.id.btn_back);

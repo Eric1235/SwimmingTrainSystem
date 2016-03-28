@@ -403,8 +403,6 @@ public class MatchScoreActivity extends Activity implements
 				sendFinishTimerMsg();
 			}
 			finish();
-			overridePendingTransition(R.anim.slide_bottom_in,
-					R.anim.slide_top_out);
 
 		}
 

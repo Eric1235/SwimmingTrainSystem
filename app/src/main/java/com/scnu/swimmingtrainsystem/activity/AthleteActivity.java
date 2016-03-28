@@ -109,7 +109,7 @@ public class AthleteActivity extends Activity implements View.OnClickListener ,R
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		this.setTheme(R.style.AppThemeLight);
+//		this.setTheme(R.style.AppThemeLight);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_athlete);
